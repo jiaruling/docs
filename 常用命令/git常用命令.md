@@ -1,3 +1,4 @@
+```shell
 # git 取消跟踪文件  https://www.cnblogs.com/zhuchenglin/p/7128383.html
 ## 对所有文件都取消跟踪
 $ git rm -r --cached . 　　// 不删除本地文件
@@ -11,3 +12,4 @@ $ git rm --f log/*         // 删除log文件夹下所有文件的跟踪，并�
 
 # 删除远程分支
 $ git push origin --delete [branchName]
+```
