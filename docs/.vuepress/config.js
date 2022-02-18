@@ -45,23 +45,18 @@ module.exports = {
             {text: "DataBase", link:"/database/"},
             {text: "Ops", link:"/ops/"},
             {text: "Cmd", link:"/cmd/"},
-          ] 
-        }, {
-          text: "Framework", 
-          children: [
-            {text: "Gin", link:"/golang"},
-            {text: "Django", link:"/python"},
-            {text: "Vue", link:"/JavaScript"},
-          ] 
-        },
-        // 显示下拉列表
-        {
-          text: 'Languages',
-          children: [
-            { text: 'Chinese', link: '/language/chinese' },
-            { text: 'Japanese', link: '/language/japanese' },
-          ]
-        },
+            {text: '面试题',  link:'/interview/'},
+            {
+              text: "Framework", 
+              children: [
+                {text: "Gin", link:"/golang"},
+                {text: "Django", link:"/python"},
+                {text: "Vue", link:"/JavaScript"},
+              ],
+            },
+          ],
+        }, 
+       
          // 下拉列表显示分组
          {
           text: '高级',
@@ -82,13 +77,21 @@ module.exports = {
             },
           ]
         },
-        {
-          text: '面试题',  
-          link: '/interview/' 
+         // 显示下拉列表
+         {
+          text: 'Languages',
+          children: [
+            { text: 'Chinese', link: '/language/chinese' },
+            { text: 'Japanese', link: '/language/japanese' },
+          ]
         },
         { 
           text: 'Github',  // 外部链接
-          link: 'https://github.com/jiaruling' 
+          link: 'https://github.com/jiaruling',
+        },
+        {
+          text: 'VuePress',
+          link: "https://v2.vuepress.vuejs.org/zh/",
         }
       ],
 
