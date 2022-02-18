@@ -82,6 +82,10 @@ module.exports = {
             },
           ]
         },
+        {
+          text: '面试题',  
+          link: '/interview/' 
+        },
         { 
           text: 'Github',  // 外部链接
           link: 'https://github.com/jiaruling' 
@@ -124,11 +128,17 @@ module.exports = {
             text: "Golang",
             collapsible: true,
             children: [
-              '/Golang/README.md',
-              '/Golang/base.md',
+              '/golang/README.md',
+              '/golang/base.md',
             ]
           },
         ],
+        '/interview/': [
+          {
+            text: "面试题",
+            collapsible: true,
+          }
+        ]
       },
     },
   }
