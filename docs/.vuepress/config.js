@@ -32,11 +32,8 @@ module.exports = {
     themeConfig: {
       logo: '/images/logo.png',
       navbar: [ // 导航栏
-        { 
-          text: 'Home', // 根路径
-          link: '/' 
-        }, { 
-          text: 'Guide', 
+       { 
+          text: '导航', 
           children: [
             {text: "Golang", link:"/golang/"},
             {text: "Python", link:"/python/"},
@@ -77,16 +74,9 @@ module.exports = {
             },
           ]
         },
-         // 显示下拉列表
-         {
-          text: 'Languages',
-          children: [
-            { text: 'Chinese', link: '/language/chinese' },
-            { text: 'Japanese', link: '/language/japanese' },
-          ]
-        },
+        // 外部链接
         { 
-          text: 'Github',  // 外部链接
+          text: 'Github',
           link: 'https://github.com/jiaruling',
         },
         {
@@ -94,7 +84,6 @@ module.exports = {
           link: "https://v2.vuepress.vuejs.org/zh/",
         }
       ],
-
       // 侧边栏
       sidebar: {
         '/ops/': [
