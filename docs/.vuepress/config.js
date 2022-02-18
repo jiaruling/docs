@@ -3,44 +3,132 @@ module.exports = {
     lang: 'zh-CN',
     title: 'VuePress',
     description: '这是我的第一个 VuePress 站点',
+    base: '/',
+    actionsText:"快速开始",
+    actionsLink:"/",
   
     // 主题和它的配置
     theme: '@vuepress/theme-default',
     sidebar: 'auto',
+    head: [
+      ['link', { rel: 'icon', href: '/images/hero.png' }]
+    ],
+    plugins: [
+      [
+        '@vuepress/plugin-search',
+        {
+          locales: {
+            '/': {
+              placeholder: 'Search',
+            },
+            '/zh/': {
+              placeholder: '搜索',
+            },
+          },
+          searchMaxSuggestions: 10
+        },
+      ],
+    ],
     themeConfig: {
-      logo: 'https://vuejs.org/images/logo.png',
-      nav: [
-        { text: 'Home', link: '/' },                      // 根路径
-        { text: 'Guide', link: '/guide/' },
-        { text: 'Github', link: 'https://github.com/jiaruling' }, // 外部链接
+      logo: '/images/logo.png',
+      navbar: [ // 导航栏
+        { 
+          text: 'Home', // 根路径
+          link: '/' 
+        }, { 
+          text: 'Guide', 
+          children: [
+            {text: "Golang", link:"/golang/"},
+            {text: "Python", link:"/python/"},
+            {text: "JavaScript", link:"/JavaScript/"},
+            {text: "Shell", link:"/shell/"},
+            {text: "DataBase", link:"/database/"},
+            {text: "Ops", link:"/ops/"},
+            {text: "Cmd", link:"/cmd/"},
+          ] 
+        }, {
+          text: "Framework", 
+          children: [
+            {text: "Gin", link:"/golang"},
+            {text: "Django", link:"/python"},
+            {text: "Vue", link:"/JavaScript"},
+          ] 
+        },
         // 显示下拉列表
         {
           text: 'Languages',
-          items: [
+          children: [
             { text: 'Chinese', link: '/language/chinese' },
-            { text: 'Japanese', link: '/language/japanese' }
+            { text: 'Japanese', link: '/language/japanese' },
           ]
         },
-        // 下拉列表显示分组
-        {
+         // 下拉列表显示分组
+         {
           text: '高级',
-          items: [
+          children: [
             { 
               text: '算法', 
-              items: [
+              children: [
                 { text: '冒泡', link: '/language/chinese' },
-                { text: '快速', link: '/language/japanese' }
+                { text: '快速', link: '/language/japanese' },
               ] 
             },
             { 
               text: '设计模式', 
-              items: [
+              children: [
                 { text: '工厂', link: '/language/chinese' },
                 { text: '单例', link: '/language/chinese'},
               ] 
             },
           ]
+        },
+        { 
+          text: 'Github',  // 外部链接
+          link: 'https://github.com/jiaruling' 
         }
-      ]
-    }
+      ],
+
+      // 侧边栏
+      sidebar: {
+        '/ops/': [
+          {
+            text: '实战项目',
+            collapsible: true,
+            children: [
+              "/ops/README.md",
+              '/ops/nginx常用部署.md',
+            ],
+          },
+        ],
+        '/cmd/': [
+          {
+            text: '常用命令',
+            collapsible: true,
+            children: [
+              '/cmd/README.md',
+              '/cmd/python.md',
+              '/cmd/anaconda.md',
+              '/cmd/golang.md',
+              '/cmd/docker.md',
+              '/cmd/docker-compose.md',
+              '/cmd/git.md',
+              '/cmd/git常用命令.md',
+              '/cmd/JetBrains 快捷键.md',
+              '/cmd/linux.md',
+              '/cmd/linux常用.md',
+            ]
+          },
+        ],
+        '/golang/': [
+          {
+            text: "Golang",
+            collapsible: true,
+            children: [
+              '/Golang/README.md',
+              '/Golang/base.md',
+            ]
+          },
+        ],
+      },
+    },
   }

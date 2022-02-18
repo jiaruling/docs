@@ -1,24 +1,28 @@
-# 一、前端部署 【直接部署】
+---
+title: nginx常用部署方案
+---
 
-## 1. 安装工具
+## 一、前端部署 【直接部署】
+
+### 1. 安装工具
 
 - windows terminal
 - WinSCP
 
-##  2. 登录到服务器
+### 2. 登录到服务器
 
 ```shell
 # 格式: ssh 用户名@地址
 $ ssh root@192.168.18.100  # 22端口可以省略，其他端口不可省略 ssh -p 2222 root@192.168.18.100
 ```
 
-## 3. 上传前端文件到指定目录
+### 3. 上传前端文件到指定目录
 
 ```shell
 # 文件上传至目录: /test/dist
 ```
 
-##  4. 配置nginx文件
+### 4. 配置nginx文件
 
 ```shell
 # 1. 找到nginx配置文件目录
@@ -63,7 +67,7 @@ $ nginx -s reload # 一般在任意路径均可执行
 
 
 
-# 二、前端部署 Docker 版 【开发测试版】
+## 二、前端部署 Docker 版 【开发测试版】
 
 ```shell
 # 拉取镜像
@@ -101,7 +105,9 @@ server {
 - 配置文件设置好之后将其放置在宿主机的 **/var/nginx/conf** 目录下
 - 前端编译好的目标文件将其放置在宿主机的 **/var/nginx/project** 目录下
 
-# 三、前端部署 Docker 版 【生产环境】
+
+
+## 三、前端部署 Docker 版 【生产环境】
 
 > **单节点简易版本**
 
@@ -127,7 +133,7 @@ $ docker images
 $ docker run -d --name nginx-vue -p 8848:80 nginx:vue
 ```
 
-# Ⅰ. 附录一 【linux主机】
+## Ⅰ. 附录一 【linux主机】
 
 ```shell
 # liunx主机
@@ -147,7 +153,7 @@ $ nginx -s reload # 一般在任意路径均可执行
 $ nginx -t
 ```
 
-# Ⅱ. 附录二 【docker】
+## Ⅱ. 附录二 【docker】
 
 ```shell
 # docker

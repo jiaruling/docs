@@ -1,4 +1,8 @@
-# 1. 交叉编译
+---
+title: Golang 常用命令
+---
+
+## 1. 交叉编译
 
 ```shell
 # golang 打包 【Windows 下编译 Mac 和 Linux 64位可执行程序】
