@@ -4,7 +4,9 @@ title: 基于alpine系统的镜像时区配置
 
 > **参考: https://blog.csdn.net/isea533/article/details/87261764**
 
-## 起因		
+---
+
+## 起因
 
 由于 alpine 提供的 linux 环境的镜像特别的小，只有 5M 左右，因此应用非常广泛，在 Docker Hub 有大量基于 alpine 的镜像，但是所有基于 alpine 的镜像使用的都是默认时区，因此在使用时，要对时区进行修改。[**时区地图**](https://www.timeanddate.com/time/map/)
 
