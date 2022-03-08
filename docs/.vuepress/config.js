@@ -86,6 +86,10 @@ module.exports = {
         link: 'https://github.com/jiaruling',
       },
       {
+        text: 'Docker Hub',
+        link: 'https://hub.docker.com/',
+      },
+      {
         text: 'VuePress',
         link: "https://v2.vuepress.vuejs.org/zh/",
       }
