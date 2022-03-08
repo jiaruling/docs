@@ -97,9 +97,10 @@ module.exports = {
           text: '实战项目',
           collapsible: true,
           children: [
-            "/ops/README.md",
+            '/ops/README.md',
             '/ops/nginx常用部署.md',
-            '/ops/alpine镜像设置时区.md'
+            '/ops/alpine镜像设置时区.md',
+            '/ops/cicd.md'
           ],
         },
       ],
