@@ -98,7 +98,7 @@ module.exports = {
     sidebar: {
       '/ops/': [
         {
-          text: '实战项目',
+          text: '运维',
           collapsible: true,
           children: [
             '/ops/README.md',

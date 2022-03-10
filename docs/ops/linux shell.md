@@ -76,12 +76,14 @@ $ echo $SHELL
 
 ### fish 安装
 
-> 参考: 
->
-> - https://www.ruanyifeng.com/blog/2017/05/fish_shell.html
-> - https://zhuanlan.zhihu.com/p/59439573
->
-> 官网: https://fishshell.com/#platform_tabs
+:::tip 安装
+
+- https://www.ruanyifeng.com/blog/2017/05/fish_shell.html
+- https://zhuanlan.zhihu.com/p/59439573
+
+**官网:** https://fishshell.com/#platform_tabs
+
+:::
 
 ```shell
 # 增加仓库
