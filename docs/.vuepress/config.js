@@ -140,7 +140,6 @@ module.exports = {
             text: "ops",
             children: [
               { text: "fish-shell", link: 'https://github.com/fish-shell/fish-shell' },
-              { text: "Glow", link: 'https://github.com/charmbracelet/glow' },
               { text: "Yearning", link: 'http://yearning.io/' },
             ]
           },
