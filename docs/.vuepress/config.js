@@ -121,6 +121,7 @@ module.exports = {
             text: 'Github',
             children: [
               { text: "Qmgo", link: 'https://github.com/qiniu/qmgo' },
+              { text: "Learning Lab", link: 'https://lab.github.com/' },
             ]
           }
         ]
