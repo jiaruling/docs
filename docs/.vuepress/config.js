@@ -6,7 +6,7 @@ module.exports = {
   base: '/',
   actionsText: "快速开始",
   actionsLink: "/",
-  port: 8089,
+  port: 8089, // 端口
 
   // 主题和它的配置
   theme: '@vuepress/theme-default',
@@ -32,7 +32,9 @@ module.exports = {
   ],
   themeConfig: {
     logo: '/images/logo.png',
-    navbar: [ // 导航栏
+
+    // 导航栏
+    navbar: [
       {
         text: '导航',
         children: [
@@ -43,7 +45,7 @@ module.exports = {
           { text: "DataBase", link: "/database/" },
           { text: "Ops", link: "/ops/" },
           { text: "Cmd", link: "/cmd/" },
-          { text: '面试题', link: '/interview/' },
+          { text: 'Interview', link: '/interview/' },
           {
             text: "Framework",
             children: [
@@ -54,46 +56,112 @@ module.exports = {
           },
         ],
       },
-      // 下拉列表显示分组
       {
-        text: '高级',
-        children: [
-          {
-            text: '算法',
-            children: [
-              { text: '冒泡', link: '/language/chinese/' },
-              { text: '快速', link: '/language/japanese/' },
-            ]
-          },
-          {
-            text: '设计模式',
-            children: [
-              { text: '工厂', link: '/language/chinese' },
-              { text: '单例', link: '/language/chinese' },
-            ]
-          },
-        ]
-      },
-      {
-        text: '实战',
+        text: '项目',
         children: [
           { text: "微服务网关", link: "/combat/gateway/" },
         ],
       },
-      // 外部链接
+      // 下拉列表显示分组
       {
-        text: 'Github',
-        link: 'https://github.com/jiaruling',
+        text: '大佬',
+        children: [
+          {
+            text: 'Blogs',
+            children: [
+              { text: 'Draven', link: 'https://draveness.me/' },
+              { text: '大俊', link: 'https://darjun.github.io/' },
+              { text: '刘江', link: 'https://www.liujiangblog.com/' },
+              { text: '写代码的明哥', link: 'https://www.cnblogs.com/wongbingming/' },
+            ]
+          },
+          {
+            text: 'Github',
+            children: [
+              { text: "niuyufu", link: "https://github.com/e421083458" }
+            ]
+          },
+          {
+            text: 'Video',
+            children: [
+              { text: '麦兜搞IT', link: 'https://www.youtube.com/c/%E9%BA%A6%E5%85%9C%E6%90%9EIT/featured' },
+              { text: '零度解说', link: 'https://www.youtube.com/c/%E9%9B%B6%E5%BA%A6%E8%A7%A3%E8%AF%B4/featured' },
+              { text: 'Topbook', link: 'https://topbook.cc/overview' },
+            ]
+          }
+        ]
+      },
+
+      {
+        text: '书籍',
+        children: [
+          { text: "《Go 语言设计与实现》", link: "https://draveness.me/golang/" },
+          { text: "《Docker - 从入门到实践》", link: "https://yeasy.gitbook.io/docker_practice/" },
+          { text: "《Mastering Go》", link: "https://www.kancloud.cn/cloud001/golang/1601804" },
+        ],
       },
       {
-        text: 'Docker Hub',
-        link: 'https://hub.docker.com/',
+        text: '资源',
+        children: [
+          {
+            text: 'Golang',
+            children: [
+              { text: 'Topgoer', link: 'https://www.topgoer.com/' },
+              { text: 'GoCN', link: 'https://gocn.vip/' },
+            ],
+          },
+          {
+            text: 'Redis',
+            children: [
+              { text: "Redisdoc", link: 'http://redisdoc.com/' },
+              { text: "RedisFans", link: 'http://doc.redisfans.com/' },
+            ]
+          },
+          {
+            text: 'Github',
+            children: [
+              { text: "Qmgo", link: 'https://github.com/qiniu/qmgo' },
+            ]
+          }
+        ]
       },
       {
-        text: 'VuePress',
-        link: "https://v2.vuepress.vuejs.org/zh/",
-      }
+        text: '工具',
+        children: [
+          {
+            text: "dev",
+            children: [
+              { text: 'VuePress', link: "https://v2.vuepress.vuejs.org/zh/" },
+              { text: 'GoTests-Sublime', link: "https://github.com/cweill/GoTests-Sublime" },
+              { text: 'Casbin', link: 'https://casbin.org/docs/zh-CN/overview' },
+            ]
+          },
+          {
+            text: "ops",
+            children: [
+              { text: "fish-shell", link: 'https://github.com/fish-shell/fish-shell' },
+              { text: "Glow", link: 'https://github.com/charmbracelet/glow' },
+              { text: "Yearning", link: 'http://yearning.io/' },
+            ]
+          },
+          {
+            text: 'test',
+            children: [
+              { text: 'wrk', link: 'https://github.com/wg/wrk'}
+            ]
+          }
+        ]
+      },
+      {
+        text: '关于',
+        children: [
+          { text: 'Github', link: 'https://github.com/jiaruling' },
+          { text: 'Docker Hub', link: 'https://hub.docker.com/' },
+
+        ]
+      },
     ],
+
     // 侧边栏
     sidebar: {
       '/ops/': [
@@ -135,6 +203,7 @@ module.exports = {
           children: [
             '/golang/README.md',
             '/golang/base.md',
+            'PerformanceTuning.md',
           ]
         },
       ],
