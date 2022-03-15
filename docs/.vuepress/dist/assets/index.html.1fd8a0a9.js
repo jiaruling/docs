@@ -1,0 +1,1 @@
+const t={key:"v-03ddd9e6",path:"/combat/gateway/",title:"Go \u5B9E\u73B0\u5FAE\u670D\u52A1\u7F51\u5173",lang:"zh-CN",frontmatter:{title:"Go \u5B9E\u73B0\u5FAE\u670D\u52A1\u7F51\u5173"},excerpt:"",headers:[],git:{updatedTime:1645688107e3,contributors:[{name:"jiaruling",email:"rulingjia@163.com",commits:1}]},filePathRelative:"combat/gateway/README.md"};export{t as data};
