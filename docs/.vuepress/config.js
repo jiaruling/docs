@@ -1,6 +1,6 @@
 module.exports = {
   // 站点配置
-  base: "/",
+  base: "/docs/",
   lang: 'zh-CN',
   title: 'Jia',
   description: '这是我的第一个 VuePress 站点',
