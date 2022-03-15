@@ -2,6 +2,7 @@ module.exports = {
   // 站点配置
   lang: 'zh-CN',
   title: 'VuePress',
+  base: '/docs/',
   description: '这是我的第一个 VuePress 站点',
   actionsText: "快速开始",
   actionsLink: "/",
