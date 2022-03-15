@@ -1,1 +1,0 @@
-const e={key:"v-71b3ae87",path:"/interview/",title:"\u9762\u8BD5\u9898",lang:"zh-CN",frontmatter:{title:"\u9762\u8BD5\u9898"},excerpt:"",headers:[{level:2,title:"\u9762\u8BD5",slug:"\u9762\u8BD5",children:[]}],git:{updatedTime:1645170078e3,contributors:[{name:"jiaruling",email:"rulingjia@163.com",commits:1}]},filePathRelative:"interview/README.md"};export{e as data};

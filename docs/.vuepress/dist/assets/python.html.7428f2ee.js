@@ -1,1 +1,0 @@
-const t={key:"v-03cbac0f",path:"/cmd/python.html",title:"Python \u5E38\u7528\u547D\u4EE4",lang:"zh-CN",frontmatter:{title:"Python \u5E38\u7528\u547D\u4EE4"},excerpt:"",headers:[],git:{updatedTime:1645168564e3,contributors:[{name:"jiaruling",email:"rulingjia@163.com",commits:1}]},filePathRelative:"cmd/python.md"};export{t as data};
