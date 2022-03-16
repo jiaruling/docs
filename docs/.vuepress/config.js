@@ -1,11 +1,9 @@
 module.exports = {
   // 站点配置
+  base: "/docs/",
   lang: 'zh-CN',
-  title: 'VuePress',
+  title: 'Jia',
   description: '这是我的第一个 VuePress 站点',
-  base: '/docs/',
-  actionsText: "快速开始",
-  actionsLink: "/",
   port: 8089, // 端口
 
   // 主题和它的配置

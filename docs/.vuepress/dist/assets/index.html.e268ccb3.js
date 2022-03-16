@@ -1,1 +1,0 @@
-const t={key:"v-7630e300",path:"/golang/",title:"\u7B80\u4ECB",lang:"zh-CN",frontmatter:{title:"\u7B80\u4ECB"},excerpt:"",headers:[],git:{updatedTime:null,contributors:[]},filePathRelative:"golang/README.md"};export{t as data};
