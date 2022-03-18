@@ -2,7 +2,7 @@ module.exports = {
   // 站点配置
   base: "/docs/",
   lang: 'zh-CN',
-  title: 'Jia',
+  title: 'gopherDevOps',
   description: '这是我的第一个 VuePress 站点',
   port: 8089, // 端口
 
