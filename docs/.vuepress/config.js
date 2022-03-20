@@ -85,6 +85,7 @@ module.exports = {
               { text: '麦兜搞IT', link: 'https://www.youtube.com/c/%E9%BA%A6%E5%85%9C%E6%90%9EIT/featured' },
               { text: '零度解说', link: 'https://www.youtube.com/c/%E9%9B%B6%E5%BA%A6%E8%A7%A3%E8%AF%B4/featured' },
               { text: 'Topbook', link: 'https://topbook.cc/overview' },
+              { text: '极客湾', link: 'https://www.youtube.com/c/geekerwan%E6%9E%81%E5%AE%A2%E6%B9%BE%E6%A5%B5%E5%AE%A2%E7%81%A3/featured' },
             ]
           }
         ]
@@ -218,6 +219,7 @@ module.exports = {
           children: [
             "/combat/gateway/README.md",
             "/combat/gateway/net.md",
+            "/combat/gateway/http_proxy.md",
           ]
         }
       ],
