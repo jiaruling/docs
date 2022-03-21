@@ -484,7 +484,394 @@ func singleJoiningSlash(a, b string) string {
 
 #### 请求头 X-Forward-For 和 X-Real-Ip
 
+- X-Forwarded-For
+    - 记录最后直连实际服务器之前的整个代理过程
+    - 可能会被伪造
+
+![](/images/x-forward-for.png)
+
+- X-Real-IP
+    - 请求实际服务器的IP
+    - 每过一层代理都会被覆盖掉，只需第一代理设置转发
+    - 不会被位置
+
+![](/images/x-real-ip.png)
+
+##### 代码实现
+
+:::details 点击查看代码
+
+- 真实服务
+
+```go
+// real_server/main.go
+
+package main
+
+import (
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+)
+
+func main() {
+	rs1 := &RealServer{Addr: "127.0.0.1:2003"}
+	rs1.Run()
+	rs2 := &RealServer{Addr: "127.0.0.1:2004"}
+	rs2.Run()
+
+	//监听关闭信号
+	quit := make(chan os.Signal)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+}
+
+type RealServer struct {
+	Addr string
+}
+
+func (r *RealServer) Run() {
+	log.Println("Starting httpserver at " + r.Addr)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", r.HelloHandler)
+	mux.HandleFunc("/base/error", r.ErrorHandler)
+	mux.HandleFunc("/test_http_string/test_http_string/aaa", r.TimeoutHandler)
+	server := &http.Server{
+		Addr:         r.Addr,
+		WriteTimeout: time.Second * 3,
+		Handler:      mux,
+	}
+	go func() {
+		log.Fatal(server.ListenAndServe())
+	}()
+}
+
+func (r *RealServer) HelloHandler(w http.ResponseWriter, req *http.Request) {
+	//127.0.0.1:8008/abc?sdsdsa=11
+	//r.Addr=127.0.0.1:8008
+	//req.URL.Path=/abc
+	//fmt.Println(req.Host)
+	upath := fmt.Sprintf("http://%s%s\n", r.Addr, req.URL.Path)
+	realIP := fmt.Sprintf("RemoteAddr=%s,X-Forwarded-For=%v,X-Real-Ip=%v\n", req.RemoteAddr, req.Header.Get("X-Forwarded-For"), req.Header.Get("X-Real-Ip"))
+	header:=fmt.Sprintf("headers =%v\n",req.Header)
+	io.WriteString(w, upath)
+	io.WriteString(w, realIP)
+	io.WriteString(w, header)
+
+}
+
+func (r *RealServer) ErrorHandler(w http.ResponseWriter, req *http.Request) {
+	upath := "error handler"
+	w.WriteHeader(500)
+	io.WriteString(w, upath)
+
+}
+
+func (r *RealServer) TimeoutHandler(w http.ResponseWriter, req *http.Request) {
+	time.Sleep(6*time.Second)
+	upath := "timeout handler"
+	w.WriteHeader(200)
+	io.WriteString(w, upath)
+}
+```
+
+- 第二层代理
+
+```go
+// reverse_proxy/main.go
+
+package main
+
+import (
+	"bytes"
+	"compress/gzip"
+	"io/ioutil"
+	"log"
+	"math/rand"
+	"net"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
+	"regexp"
+	"strconv"
+	"strings"
+	"time"
+)
+
+var addr = "127.0.0.1:2002"
+
+func main() {
+	//rs1 := "http://www.baidu.com"
+	rs1 := "http://127.0.0.1:2003"
+	url1, err1 := url.Parse(rs1)
+	if err1 != nil {
+		log.Println(err1)
+	}
+
+	//rs2 := "http://www.baidu.com"
+	rs2 := "http://127.0.0.1:2004"
+	url2, err2 := url.Parse(rs2)
+	if err2 != nil {
+		log.Println(err2)
+	}
+	urls := []*url.URL{url1, url2}
+	proxy := NewMultipleHostsReverseProxy(urls)
+	log.Println("Starting httpserver at " + addr)
+	log.Fatal(http.ListenAndServe(addr, proxy))
+}
+
+var transport = &http.Transport{
+	DialContext: (&net.Dialer{
+		Timeout:   30 * time.Second, //连接超时
+		KeepAlive: 30 * time.Second, //长连接超时时间
+	}).DialContext,
+	MaxIdleConns:          100,              //最大空闲连接
+	IdleConnTimeout:       90 * time.Second, //空闲超时时间
+	TLSHandshakeTimeout:   10 * time.Second, //tls握手超时时间
+	ExpectContinueTimeout: 1 * time.Second,  //100-continue 超时时间
+}
+
+func NewMultipleHostsReverseProxy(targets []*url.URL) *httputil.ReverseProxy {
+	//请求协调者
+	director := func(req *http.Request) {
+		//url_rewrite
+		//127.0.0.1:2002/dir/abc ==> 127.0.0.1:2003/base/abc ??
+		//127.0.0.1:2002/dir/abc ==> 127.0.0.1:2002/abc
+		//127.0.0.1:2002/abc ==> 127.0.0.1:2003/base/abc
+		re, _ := regexp.Compile("^/dir(.*)");
+		req.URL.Path = re.ReplaceAllString(req.URL.Path, "$1")
+
+		//随机负载均衡
+		targetIndex := rand.Intn(len(targets))
+		target := targets[targetIndex]
+		targetQuery := target.RawQuery
+		req.URL.Scheme = target.Scheme
+		req.URL.Host = target.Host
+
+		//todo 部分章节补充1
+		//todo 当对域名(非内网)反向代理时需要设置此项。当作后端反向代理时不需要
+		req.Host = target.Host
+
+		// url地址重写：重写前：/aa 重写后：/base/aa
+		req.URL.Path = singleJoiningSlash(target.Path, req.URL.Path)
+		if targetQuery == "" || req.URL.RawQuery == "" {
+			req.URL.RawQuery = targetQuery + req.URL.RawQuery
+		} else {
+			req.URL.RawQuery = targetQuery + "&" + req.URL.RawQuery
+		}
+		if _, ok := req.Header["User-Agent"]; !ok {
+			req.Header.Set("User-Agent", "user-agent")
+		}
+		//只在第一代理中设置此header头
+		//req.Header.Set("X-Real-Ip", req.RemoteAddr)
+	}
+	//更改内容
+	modifyFunc := func(resp *http.Response) error {
+		//请求以下命令：curl 'http://127.0.0.1:2002/error'
+		//todo 部分章节功能补充2
+		//todo 兼容websocket
+		if strings.Contains(resp.Header.Get("Connection"), "Upgrade") {
+			return nil
+		}
+		var payload []byte
+		var readErr error
+
+		//todo 部分章节功能补充3
+		//todo 兼容gzip压缩
+		if strings.Contains(resp.Header.Get("Content-Encoding"), "gzip") {
+			gr, err := gzip.NewReader(resp.Body)
+			if err != nil {
+				return err
+			}
+			payload, readErr = ioutil.ReadAll(gr)
+			resp.Header.Del("Content-Encoding")
+		} else {
+			payload, readErr = ioutil.ReadAll(resp.Body)
+		}
+		if readErr != nil {
+			return readErr
+		}
+
+		//异常请求时设置StatusCode
+		if resp.StatusCode != 200 {
+			payload = []byte("StatusCode error:" + string(payload))
+		}
+
+		//todo 部分章节功能补充4
+		//todo 因为预读了数据所以内容重新回写
+		resp.Body = ioutil.NopCloser(bytes.NewBuffer(payload))
+		resp.ContentLength = int64(len(payload))
+		resp.Header.Set("Content-Length", strconv.FormatInt(int64(len(payload)), 10))
+		return nil
+	}
+	//错误回调 ：关闭real_server时测试，错误回调
+	errFunc := func(w http.ResponseWriter, r *http.Request, err error) {
+		http.Error(w, "ErrorHandler error:"+err.Error(), 500)
+	}
+	return &httputil.ReverseProxy{
+		Director:       director,
+		Transport:      transport,
+		ModifyResponse: modifyFunc,
+		ErrorHandler:   errFunc}
+}
+
+func singleJoiningSlash(a, b string) string {
+	aslash := strings.HasSuffix(a, "/")
+	bslash := strings.HasPrefix(b, "/")
+	switch {
+	case aslash && bslash:
+		return a + b[1:]
+	case !aslash && !bslash:
+		return a + "/" + b
+	}
+	return a + b
+}
+```
+
+- 第一层代理
+
+```go{73}
+// reverse_proxy_level1/main.go
+
+package main
+
+import (
+	"bytes"
+	"io/ioutil"
+	"log"
+	"math/rand"
+	"net"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
+	"regexp"
+	"strconv"
+	"strings"
+	"time"
+)
+
+var addr = "127.0.0.1:2001"
+
+func main() {
+	rs1 := "http://127.0.0.1:2002"
+	url1, err1 := url.Parse(rs1)
+	if err1 != nil {
+		log.Println(err1)
+	}
+	urls := []*url.URL{url1}
+	proxy := NewMultipleHostsReverseProxy(urls)
+	log.Println("Starting httpserver at " + addr)
+	log.Fatal(http.ListenAndServe(addr, proxy))
+}
+
+var transport = &http.Transport{
+	DialContext: (&net.Dialer{
+		Timeout:   30 * time.Second, //连接超时
+		KeepAlive: 30 * time.Second, //长连接超时时间
+	}).DialContext,
+	MaxIdleConns:          100,              //最大空闲连接
+	IdleConnTimeout:       90 * time.Second, //空闲超时时间
+	TLSHandshakeTimeout:   10 * time.Second, //tls握手超时时间
+	ExpectContinueTimeout: 1 * time.Second,  //100-continue 超时时间
+}
+
+func NewMultipleHostsReverseProxy(targets []*url.URL) *httputil.ReverseProxy {
+	//请求协调者
+	director := func(req *http.Request) {
+		//url_rewrite
+		//127.0.0.1:2002/dir/abc ==> 127.0.0.1:2003/base/abc ??
+		//127.0.0.1:2002/dir/abc ==> 127.0.0.1:2002/abc
+		//127.0.0.1:2002/abc ==> 127.0.0.1:2003/base/abc
+		re, _ := regexp.Compile("^/dir(.*)");
+		req.URL.Path = re.ReplaceAllString(req.URL.Path, "$1")
+
+		//随机负载均衡
+		targetIndex := rand.Intn(len(targets))
+		target := targets[targetIndex]
+		targetQuery := target.RawQuery
+		req.URL.Scheme = target.Scheme
+		req.URL.Host = target.Host
+
+		// url地址重写：重写前：/aa 重写后：/base/aa
+		req.URL.Path = singleJoiningSlash(target.Path, req.URL.Path)
+		if targetQuery == "" || req.URL.RawQuery == "" {
+			req.URL.RawQuery = targetQuery + req.URL.RawQuery
+		} else {
+			req.URL.RawQuery = targetQuery + "&" + req.URL.RawQuery
+		}
+		if _, ok := req.Header["User-Agent"]; !ok {
+			req.Header.Set("User-Agent", "user-agent")
+		}
+		//只在第一代理中设置此header头
+		req.Header.Set("X-Real-Ip", req.RemoteAddr)
+	}
+	//更改内容
+	modifyFunc := func(resp *http.Response) error {
+		//请求以下命令：curl 'http://127.0.0.1:2002/error'
+		if resp.StatusCode != 200 {
+			//获取内容
+			oldPayload, err := ioutil.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			//追加内容
+			newPayload := []byte("StatusCode error:" + string(oldPayload))
+			resp.Body = ioutil.NopCloser(bytes.NewBuffer(newPayload))
+			resp.ContentLength = int64(len(newPayload))
+			resp.Header.Set("Content-Length", strconv.FormatInt(int64(len(newPayload)), 10))
+		}
+		return nil
+	}
+	//错误回调 ：关闭real_server时测试，错误回调
+	errFunc := func(w http.ResponseWriter, r *http.Request, err error) {
+		http.Error(w, "ErrorHandler error:"+err.Error(), 500)
+	}
+	return &httputil.ReverseProxy{
+		Director:       director,
+		Transport:      transport,
+		ModifyResponse: modifyFunc,
+		ErrorHandler:   errFunc}
+}
+
+func singleJoiningSlash(a, b string) string {
+	aslash := strings.HasSuffix(a, "/")
+	bslash := strings.HasPrefix(b, "/")
+	switch {
+	case aslash && bslash:
+		return a + b[1:]
+	case !aslash && !bslash:
+		return a + "/" + b
+	}
+	return a + b
+}
+```
+
+- 运行结果
+
+```shell{3,7}
+$ curl 'http://127.0.0.1:2001/base'
+http://127.0.0.1:2004/base
+RemoteAddr=127.0.0.1:55561,X-Forwarded-For=127.0.0.1, 127.0.0.1,X-Real-Ip=127.0.0.1:55557
+headers =map[Accept:[text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9] Accept-Encoding:[gzip, deflate, br] Accept-Language:[zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6] Sec-Ch-Ua:[" Not A;Brand";v="99", "Chromium";v="99", "Microsoft Edge";v="99"] Sec-Ch-Ua-Mobile:[?0] Sec-Ch-Ua-Platform:["Windows"] Sec-Fetch-Dest:[document] Sec-Fetch-Mode:[navigate] Sec-Fetch-Site:[none] Sec-Fetch-User:[?1] Upgrade-Insecure-Requests:[1] User-Agent:[Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36 Edg/99.0.1150.46] X-Forwarded-For:[127.0.0.1, 127.0.0.1] X-Real-Ip:[127.0.0.1:55557]]
+$ curl -H 'X-Forwarded-For: 2.2.2.2' 'http://127.0.0.1:2001/base'
+http://127.0.0.1:2004/base
+RemoteAddr=127.0.0.1:55886,X-Forwarded-For=2.2.2.2, 127.0.0.1, 127.0.0.1,X-Real-Ip=127.0.0.1:55596
+headers =map[Accept:[*/*] Accept-Encoding:[gzip, deflate, br] Content-Length:[72] Content-Type:[application/json] Postman-Token:[3043f404-069c-4c62-97a8-c18da86e2a84] User-Agent:[PostmanRuntime/7.28.4] X-Forwarded-For:[2.2.2.2, 127.0.0.1, 127.0.0.1] X-Real-Ip:[127.0.0.1:55596]]
+```
+
+:::
+
 ### 四种负载均衡策略
+
+- **随机负载:** 随机挑选目标服务器IP
+- **轮询负载:** ABC三台服务器，ABCABC依次轮询
+- **加权负载:** 给目标设置访问权重，按照权重轮询
+- **一致性hash负载:** 请求固定URL访问指定IP
 
  #### 随机策略
 
@@ -646,6 +1033,24 @@ ok      github.com/e421083458/gateway_demo/proxy/load_balance   0.039s
 
 #### 加权轮询策略
 
+::: tip 实现原理
+
+**ServerA=4 | ServerB=3 | ServerC=2**
+
+:::
+
+| 请求次数 | 请求前currentWeight                | 选中的节点 | 请求后currentWeight                |
+| -------- | ---------------------------------- | ---------- | ---------------------------------- |
+| 1        | [ServerA=4, ServerB=3, ServerC=2]  | ServerA    | [ServerA=-1, ServerB=6, ServerC=4] |
+| 2        | [ServerA=-1, ServerB=6, ServerC=4] | ServerB    | [ServerA=3, ServerB=0, ServerC=6]  |
+| 3        | [ServerA=3, ServerB=0, ServerC=6]  | ServerC    | [ServerA=7, ServerB=3, ServerC=-1] |
+| 4        | [ServerA=7, ServerB=3, ServerC=-1] | ServerA    | [ServerA=2, ServerB=6, ServerC=1]  |
+| 5        | [ServerA=2, ServerB=6, ServerC=1]  | ServerB    | [ServerA=6, ServerB=0, ServerC=3]  |
+| 6        | [ServerA=6, ServerB=0, ServerC=3]  | ServerA    | [ServerA=1, ServerB=3, ServerC=5]  |
+| 7        | [ServerA=1, ServerB=3, ServerC=5]  | ServerC    | [ServerA=5, ServerB=6, ServerC=-2] |
+| 8        | [ServerA=5, ServerB=6, ServerC=-2] | ServerB    | [ServerA=9, ServerB=0, ServerC=0]  |
+| 9        | [ServerA=9, ServerB=0, ServerC=0]  | ServerA    | [ServerA=4, ServerB=3, ServerC=2]  |
+
 :::details 点击查看代码
 
 ```go
@@ -760,6 +1165,12 @@ ok      github.com/e421083458/gateway_demo/proxy/load_balance   0.039s
 :::
 
 #### 一致性哈希策略
+
+::: tip 一致性哈希指标
+
+单调性 、 平衡性、分散性
+
+:::
 
 :::details 点击查看代码
 
@@ -897,7 +1308,9 @@ ok      github.com/e421083458/gateway_demo/proxy/load_balance   0.039s
 
 :::
 
-## https代理
+### 中间件
+
+### 限流熔断降级
 
 ## websocket代理
 
