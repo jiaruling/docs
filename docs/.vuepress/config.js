@@ -44,6 +44,7 @@ module.exports = {
           { text: "Ops", link: "/ops/" },
           { text: "Cmd", link: "/cmd/" },
           { text: 'Interview', link: '/interview/' },
+          { text: 'Design pattern', link: '/DesignPattern/' },
           {
             text: "Framework",
             children: [
@@ -71,6 +72,8 @@ module.exports = {
               { text: '大俊', link: 'https://darjun.github.io/' },
               { text: '刘江', link: 'https://www.liujiangblog.com/' },
               { text: '写代码的明哥', link: 'https://www.cnblogs.com/wongbingming/' },
+              { text: '来临', link: 'https://lailin.xyz/' },
+
             ]
           },
           {
@@ -221,6 +224,20 @@ module.exports = {
             "/combat/gateway/README.md",
             "/combat/gateway/net.md",
             "/combat/gateway/http_proxy.md",
+          ]
+        }
+      ],
+      '/DesignPattern/': [
+        {
+          text: '设计模式',
+          collapsible: true,
+          children: [
+            "/DesignPattern/README.md",
+            "/DesignPattern/createPattern.md",
+            "/DesignPattern/structPattern.md",
+            "/DesignPattern/actionPattern.md",
+            "/DesignPattern/J2EEPattern.md",
+            "/DesignPattern/summary.md",
           ]
         }
       ],
