@@ -47,9 +47,9 @@ module.exports = {
           {
             text: "Framework",
             children: [
-              { text: "Gin", link: "/golang/" },
-              { text: "Django", link: "/python/" },
-              { text: "Vue", link: "/JavaScript/" },
+              { text: "Gin", link: "/gin/" },
+              { text: "Django", link: "/django/" },
+              { text: "Vue", link: "/vue/" },
             ],
           },
         ],
@@ -200,6 +200,7 @@ module.exports = {
           collapsible: true,
           children: [
             '/golang/README.md',
+            '/golang/history.md',
             '/golang/base.md',
             'PerformanceTuning.md',
           ]
