@@ -1312,7 +1312,359 @@ ok      github.com/e421083458/gateway_demo/proxy/load_balance   0.039s
 
 ### 中间件
 
+#### 中间件的意义
+
+- 避免成为if狂魔
+- 提高复用，隔离业务
+- 调用清晰，组合随意
+
+![](/images/middleware.png)
+
+#### 实现原理
+
+- 洋葱结构
+
+![](/images/yangchong.png)
+
+#### 代码实现
+
+- 中间件一般都封装在路由上（路由是URL请求分发的管理器）
+- 中间件选型
+    - 基于链表构建中间件【责任链模式的实现】
+        - 缺点：实现复杂，调用方式不灵活
+    - 基于数组构建中间件
+        - 控制灵活方便，推荐使用
+
+:::details 点击查看代码
+
+```go
+// middleware/middleware.go
+
+package middleware
+
+import (
+	"context"
+	"math"
+	"net/http"
+	"strings"
+)
+
+//目标定位是 tcp、http通用的中间件
+//知其然也知其所以然
+
+const abortIndex int8 = math.MaxInt8 / 2 //最多 63 个中间件
+
+type HandlerFunc func(*SliceRouterContext)
+
+// router 结构体
+type SliceRouter struct {
+	groups []*SliceGroup
+}
+
+// group 结构体
+type SliceGroup struct {
+	*SliceRouter
+	path     string
+	handlers []HandlerFunc
+}
+
+// router上下文
+type SliceRouterContext struct {
+	Rw  http.ResponseWriter
+	Req *http.Request
+	Ctx context.Context
+	*SliceGroup
+	index int8
+}
+
+func newSliceRouterContext(rw http.ResponseWriter, req *http.Request, r *SliceRouter) *SliceRouterContext {
+	newSliceGroup := &SliceGroup{}
+
+	//最长url前缀匹配
+	matchUrlLen := 0
+	for _, group := range r.groups {
+		//fmt.Println("req.RequestURI")
+		//fmt.Println(req.RequestURI)
+		if strings.HasPrefix(req.RequestURI, group.path) {
+			pathLen := len(group.path)
+			if pathLen > matchUrlLen {
+				matchUrlLen = pathLen
+				*newSliceGroup = *group //浅拷贝数组指针
+			}
+		}
+	}
+
+	c := &SliceRouterContext{Rw: rw, Req: req, SliceGroup: newSliceGroup, Ctx: req.Context()}
+	c.Reset()
+	return c
+}
+
+func (c *SliceRouterContext) Get(key interface{}) interface{} {
+	return c.Ctx.Value(key)
+}
+
+func (c *SliceRouterContext) Set(key, val interface{}) {
+	c.Ctx = context.WithValue(c.Ctx, key, val)
+}
+
+type SliceRouterHandler struct {
+	coreFunc func(*SliceRouterContext) http.Handler
+	router   *SliceRouter
+}
+
+func (w *SliceRouterHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+	c := newSliceRouterContext(rw, req, w.router)
+	if w.coreFunc != nil {
+		c.handlers = append(c.handlers, func(c *SliceRouterContext) {
+			w.coreFunc(c).ServeHTTP(rw, req)
+		})
+	}
+	c.Reset()
+	c.Next()
+}
+
+func NewSliceRouterHandler(coreFunc func(*SliceRouterContext) http.Handler, router *SliceRouter) *SliceRouterHandler {
+	return &SliceRouterHandler{
+		coreFunc: coreFunc,
+		router:   router,
+	}
+}
+
+// 构造 router
+func NewSliceRouter() *SliceRouter {
+	return &SliceRouter{}
+}
+
+// 创建 Group
+func (g *SliceRouter) Group(path string) *SliceGroup {
+	return &SliceGroup{
+		SliceRouter: g,
+		path:        path,
+	}
+}
+
+// 构造回调方法
+func (g *SliceGroup) Use(middlewares ...HandlerFunc) *SliceGroup {
+	g.handlers = append(g.handlers, middlewares...)
+	existsFlag := false
+	for _, oldGroup := range g.SliceRouter.groups {
+		if oldGroup == g {
+			existsFlag = true
+		}
+	}
+	if !existsFlag {
+		g.SliceRouter.groups = append(g.SliceRouter.groups, g)
+	}
+	return g
+}
+
+// 从最先加入中间件开始回调
+func (c *SliceRouterContext) Next() {
+	c.index++
+	for c.index < int8(len(c.handlers)) {
+		//fmt.Println("c.index")
+		//fmt.Println(c.index)
+		c.handlers[c.index](c)
+		c.index++
+	}
+}
+
+// 跳出中间件方法
+func (c *SliceRouterContext) Abort() {
+	c.index = abortIndex
+}
+
+// 是否跳过了回调
+func (c *SliceRouterContext) IsAborted() bool {
+	return c.index >= abortIndex
+}
+
+// 重置回调
+func (c *SliceRouterContext) Reset() {
+	c.index = -1
+}
+
+```
+
+```go
+// proxy/proxy.go
+
+package proxy
+
+import (
+	"bytes"
+	"compress/gzip"
+	"fmt"
+	"middleware"
+	"io/ioutil"
+	"math/rand"
+	"net"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
+	"strconv"
+	"strings"
+	"time"
+)
+
+var transport = &http.Transport{
+	DialContext: (&net.Dialer{
+		Timeout:   30 * time.Second, //连接超时
+		KeepAlive: 30 * time.Second, //长连接超时时间
+	}).DialContext,
+	MaxIdleConns:          100,              //最大空闲连接
+	IdleConnTimeout:       90 * time.Second, //空闲超时时间
+	TLSHandshakeTimeout:   10 * time.Second, //tls握手超时时间
+	ExpectContinueTimeout: 1 * time.Second,  //100-continue超时时间
+}
+
+func NewMultipleHostsReverseProxy(c *middleware.SliceRouterContext, targets []*url.URL) *httputil.ReverseProxy {
+	//请求协调者
+	director := func(req *http.Request) {
+		targetIndex := rand.Intn(len(targets))
+		target := targets[targetIndex]
+		targetQuery := target.RawQuery
+
+		req.URL.Scheme = target.Scheme
+		req.URL.Host = target.Host
+		req.URL.Path = singleJoiningSlash(target.Path, req.URL.Path)
+		//todo 当对域名(非内网)反向代理时需要设置此项, 当作后端反向代理时不需要
+		req.Host = target.Host
+		if targetQuery == "" || req.URL.RawQuery == "" {
+			req.URL.RawQuery = targetQuery + req.URL.RawQuery
+		} else {
+			req.URL.RawQuery = targetQuery + "&" + req.URL.RawQuery
+		}
+		if _, ok := req.Header["User-Agent"]; !ok {
+			req.Header.Set("User-Agent", "user-agent")
+		}
+	}
+
+	//更改内容
+	modifyFunc := func(resp *http.Response) error {
+		//todo 部分章节功能补充2
+		//todo 兼容websocket
+		if strings.Contains(resp.Header.Get("Connection"), "Upgrade") {
+			return nil
+		}
+		var payload []byte
+		var readErr error
+
+		//todo 部分章节功能补充3
+		//todo 兼容gzip压缩
+		if strings.Contains(resp.Header.Get("Content-Encoding"), "gzip") {
+			gr, err := gzip.NewReader(resp.Body)
+			if err != nil {
+				return err
+			}
+			payload, readErr = ioutil.ReadAll(gr)
+			resp.Header.Del("Content-Encoding")
+		} else {
+			payload, readErr = ioutil.ReadAll(resp.Body)
+		}
+		if readErr != nil {
+			return readErr
+		}
+
+		//异常请求时设置StatusCode
+		if resp.StatusCode != 200 {
+			payload = []byte("StatusCode error:" + string(payload))
+		}
+
+		//todo 部分章节功能补充4
+		//todo 因为预读了数据所以内容重新回写
+		c.Set("status_code", resp.StatusCode)
+		c.Set("payload", payload)
+		resp.Body = ioutil.NopCloser(bytes.NewBuffer(payload))
+		resp.ContentLength = int64(len(payload))
+		resp.Header.Set("Content-Length", strconv.FormatInt(int64(len(payload)), 10))
+		return nil
+	}
+
+	//错误回调 ：关闭real_server时测试，错误回调
+	//范围：transport.RoundTrip发生的错误、以及ModifyResponse发生的错误
+	errFunc := func(w http.ResponseWriter, r *http.Request, err error) {
+		//todo record error log
+		fmt.Println(err)
+	}
+
+	return &httputil.ReverseProxy{Director: director, Transport: transport, ModifyResponse: modifyFunc, ErrorHandler: errFunc}
+}
+
+func singleJoiningSlash(a, b string) string {
+	aslash := strings.HasSuffix(a, "/")
+	bslash := strings.HasPrefix(b, "/")
+	switch {
+	case aslash && bslash:
+		return a + b[1:]
+	case !aslash && !bslash:
+		return a + "/" + b
+	}
+	return a + b
+}
+```
+
+```go
+// main.go
+
+package main
+
+import (
+	"fmt"
+	"proxy"
+	"middlerware"
+	"log"
+	"net/http"
+	"net/url"
+)
+
+var addr = "127.0.0.1:2002"
+
+func main() {
+	reverseProxy := func(c *middleware.SliceRouterContext) http.Handler {
+		rs1 := "http://127.0.0.1:2003/base"
+		url1, err1 := url.Parse(rs1)
+		if err1 != nil {
+			log.Println(err1)
+		}
+
+		rs2 := "http://127.0.0.1:2004/base"
+		url2, err2 := url.Parse(rs2)
+		if err2 != nil {
+			log.Println(err2)
+		}
+
+		urls := []*url.URL{url1, url2}
+		return proxy.NewMultipleHostsReverseProxy(c, urls)
+	}
+	log.Println("Starting httpserver at " + addr)
+
+	//初始化方法数组路由器
+	sliceRouter := middleware.NewSliceRouter()
+
+	//中间件可充当业务逻辑代码
+	sliceRouter.Group("/base").Use(middleware.TraceLogSliceMW(), func(c *middleware.SliceRouterContext) {
+		c.Rw.Write([]byte("test func"))
+	})
+
+	//请求到反向代理
+	sliceRouter.Group("/").Use(middleware.TraceLogSliceMW(), func(c *middleware.SliceRouterContext) {
+		fmt.Println("reverseProxy")
+		reverseProxy(c).ServeHTTP(c.Rw, c.Req)
+	})
+	routerHandler := middleware.NewSliceRouterHandler(nil, sliceRouter)
+	log.Fatal(http.ListenAndServe(addr, routerHandler))
+}
+```
+
+:::
+
 ### 限流、熔断、降级
+
+- 高并发系统的三大利器：缓存、降级、限流
+    - 缓存：提升系统访问速度和增大处理容量，为相应业务增加缓存
+    - 降级：当服务器压力剧增时，根据业务策略降级，以释放服务资源保证业务正常
+    - 限流：通过对并发限速，以达到拒绝服务、排队或等待、降级等处理
 
 #### 限流器 time/rate
 
@@ -1421,6 +1773,83 @@ ok      github.com/e421083458/gateway_demo/demo/proxy/rate_limiter      15.357s
 ```
 
 - 初始化限流器的时候，桶中有5个token，所以前5次取的时候就直接通过，当桶中的token取完以后，每秒只产生一个token，所以每间隔一秒只有一个能成功取到token
+
+:::
+
+#### 熔断器 hystrix-go
+
+##### 介绍
+
+- **hystrix-go** 是熔断、降级、限流集成类库
+
+- 熔断的意义：熔断器是当依赖的服务已经出现故障时，为了保证自身服务的正常运行不在访问依赖的服务，防止雪崩效应
+- 降级的意义：当服务器压力剧增时，根据业务策略降级，以此释放服务资源保证业务正常
+
+- 熔断器的三种状态
+
+    - **关闭状态**
+        - 服务正常，维护失败率统计，达到失败率阈值时，转到开启状态
+
+    - **开启状态**
+        - 服务异常，调用fallback函数，一段时间后，进入半开启状态
+
+    - **半开启状态**
+        - 尝试恢复服务，失败率高于阈值，进入开启状态。低于阈值，进入关闭状态
+
+![](/images/ronduan.png)
+
+##### 代码实现
+
+- **[hystrix-go dashboard](https://github.com/mlabouardy/hystrix-dashboard-docker)**
+
+:::details 点击查看代码
+
+```go
+package main
+
+import (
+	"errors"
+	"github.com/afex/hystrix-go/hystrix"
+	"log"
+	"net/http"
+	"testing"
+	"time"
+)
+
+func Test_main(t *testing.T) {
+	hystrixStreamHandler := hystrix.NewStreamHandler()
+	hystrixStreamHandler.Start()
+	go http.ListenAndServe(":8074", hystrixStreamHandler)
+
+	hystrix.ConfigureCommand("aaa", hystrix.CommandConfig{
+		Timeout:                1000, // 单次请求 超时时间
+		MaxConcurrentRequests:  1,    // 最大并发量
+		SleepWindow:            5000, // 熔断后多久去尝试服务是否可用
+		RequestVolumeThreshold: 1,    // 验证熔断的 请求数量, 10秒内采样
+		ErrorPercentThreshold:  1,    // 验证熔断的 错误百分比
+	})
+
+	for i := 0; i < 10000; i++ {
+		//异步调用使用 hystrix.Go
+		err := hystrix.Do("aaa", func() error {
+			//test case 1 并发测试
+			if i == 0 {
+				return errors.New("service error")
+			}
+			//test case 2 超时测试
+			//time.Sleep(2 * time.Second)
+			log.Println("do services")
+			return nil
+		}, nil)
+		if err != nil {
+			log.Println("hystrix err:" + err.Error())
+			time.Sleep(1 * time.Second)
+			log.Println("sleep 1 second")
+		}
+	}
+	time.Sleep(100 * time.Second)
+}
+```
 
 :::
 
