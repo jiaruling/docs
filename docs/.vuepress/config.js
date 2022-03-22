@@ -144,6 +144,7 @@ module.exports = {
             children: [
               { text: "fish-shell", link: 'https://github.com/fish-shell/fish-shell' },
               { text: "Yearning", link: 'http://yearning.io/' },
+              { text: "KUBESPHERE", link: 'https://kubesphere.io/zh/' },
             ]
           },
           {
