@@ -1424,6 +1424,84 @@ ok      github.com/e421083458/gateway_demo/demo/proxy/rate_limiter      15.357s
 
 :::
 
+#### 熔断器 hystrix-go
+
+##### 介绍
+
+- **hystrix-go** 是熔断、降级、限流集成类库
+
+- 熔断的意义：熔断器是当依赖的服务已经出现故障时，为了保证自身服务的正常运行不在访问依赖的服务，防止雪崩效应
+- 降级的意义：当服务器压力剧增时，根据业务策略降级，以此释放服务资源保证业务正常
+
+- 熔断器的三种状态
+
+    - **关闭状态**
+        - 服务正常，维护失败率统计，达到失败率阈值时，转到开启状态
+
+    - **开启状态**
+        - 服务异常，调用fallback函数，一段时间后，进入半开启状态
+
+    - **半开启状态**
+        - 尝试恢复服务，失败率高于阈值，进入开启状态。低于阈值，进入关闭状态
+
+![](/images/ronduan.png)
+
+##### 代码实现
+
+- **[hystrix-go dashboard](https://github.com/mlabouardy/hystrix-dashboard-docker)**
+
+:::details 点击查看代码
+
+```go
+package main
+
+import (
+	"errors"
+	"github.com/afex/hystrix-go/hystrix"
+	"log"
+	"net/http"
+	"testing"
+	"time"
+)
+
+func Test_main(t *testing.T) {
+	hystrixStreamHandler := hystrix.NewStreamHandler()
+	hystrixStreamHandler.Start()
+	go http.ListenAndServe(":8074", hystrixStreamHandler)
+
+	hystrix.ConfigureCommand("aaa", hystrix.CommandConfig{
+		Timeout:                1000, // 单次请求 超时时间
+		MaxConcurrentRequests:  1,    // 最大并发量
+		SleepWindow:            5000, // 熔断后多久去尝试服务是否可用
+		RequestVolumeThreshold: 1,    // 验证熔断的 请求数量, 10秒内采样
+		ErrorPercentThreshold:  1,    // 验证熔断的 错误百分比
+	})
+
+	for i := 0; i < 10000; i++ {
+		//异步调用使用 hystrix.Go
+		err := hystrix.Do("aaa", func() error {
+			//test case 1 并发测试
+			if i == 0 {
+				return errors.New("service error")
+			}
+			//test case 2 超时测试
+			//time.Sleep(2 * time.Second)
+			log.Println("do services")
+			return nil
+		}, nil)
+		if err != nil {
+			log.Println("hystrix err:" + err.Error())
+			time.Sleep(1 * time.Second)
+			log.Println("sleep 1 second")
+		}
+	}
+	time.Sleep(100 * time.Second)
+}
+
+```
+
+:::
+
 ## websocket代理
 
 ## tcp代理
