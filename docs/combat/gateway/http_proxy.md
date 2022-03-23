@@ -1504,6 +1504,38 @@ func Test_main(t *testing.T) {
 
 ## websocket代理
 
+### http1.x、https、http2.x协议
+
+#### 1. http与https的区别
+
+- https 协议需要 CA 申请证书(换句换说,是要钱的)
+- http 协议运行在 TCP 协议之上，传输的内容都是明文传送,安全性较差。而 https 则是运行在 SSL/TLS 层之上，而 SSL/TLS 层是运行在 TCP 层之上 ， https 传输的内容都是经过加密的，安全性较高
+- http 与 https 使用不同的连接方式，其中 http 默认用的是 80 端口，而 https 默认用的是 443 端口
+
+![](/images/http-https.jpg)
+
+#### 2. http2.0和http1.x的区别:
+
+- http1.x 是基于文本协议的格式解析， 而 http2.0 是基于二进制协议的格式解析，更加的强大
+
+- 多路复用(Mutiplexing) ：一个连接上可以有多个 request， 且可以随机的混在一起,。每个不同的 request 都有对应的 id，服务端可以通过 request_id 来辨别，大大加快了传输速率
+
+- header 压缩：http1.x 中的 header 需要携带大量信息，而且每次都要重复发送。http2.0 使用 encode 来减少传输的 header 大小，而且客户端和服务端可以各自缓存 (cache) 一份 header filed 表，避免了 header 的重复传输，还可以减少传输的大小。
+
+- 服务端推送 (server push):  可以通过解析 html 中的依赖，本能的返回所需的其他文件( css 或者 js 等)，而不用再发起一次请求。
+
+##### 2.1 多路复用示意图
+
+![](/images/duolufuyong.jpg)
+
+##### 2.2 普通请求示意图
+
+![](/images/putongrequest.jpg)
+
+##### 2.3 消息推送示意图
+
+![](/images/msgpush.jpg)
+
 ## tcp代理
 
 ## grpc代理

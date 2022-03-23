@@ -176,7 +176,10 @@ module.exports = {
             '/ops/linux shell.md',
             '/ops/nginx常用部署.md',
             '/ops/alpine镜像设置时区.md',
-            '/ops/cicd.md'
+            '/ops/cicd.md',
+            '/ops/kubernetesManagement.md',
+            '/ops/privateDockerRegistry.md',
+            '/ops/privateGitRegistry.md',
           ],
         },
       ],
