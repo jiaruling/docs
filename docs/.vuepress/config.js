@@ -103,6 +103,14 @@ module.exports = {
         ],
       },
       {
+        text: 'Web',
+        children: [
+          {text: "imooc", link: 'https://www.imooc.com/'},
+          {text: "牛客网", link: 'https://www.nowcoder.com/'},
+          {text: '力扣', link: 'https://leetcode-cn.com/'},
+        ]
+      },
+      {
         text: '资源',
         children: [
           {
