@@ -10,5 +10,7 @@ title: 私有镜像仓库
 
 ## Harbor
 
+## Summary
 
+![](/images/dockerregistry.jpg)
 
