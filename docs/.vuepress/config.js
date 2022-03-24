@@ -10,7 +10,7 @@ module.exports = {
   theme: '@vuepress/theme-default',
   sidebar: 'auto',
   head: [
-    ['link', { rel: 'icon', href: '/images/hero.png' }]
+    ['link', { rel: 'icon', href: '/images/hero.png' }],
   ],
   plugins: [
     [
@@ -26,11 +26,11 @@ module.exports = {
         },
         searchMaxSuggestions: 10
       },
-    ],
+    ]
   ],
   themeConfig: {
     logo: '/images/logo.png',
-
+    
     // 导航栏
     navbar: [
       {
@@ -79,7 +79,8 @@ module.exports = {
           {
             text: 'Github',
             children: [
-              { text: "niuyufu", link: "https://github.com/e421083458" }
+              { text: "niuyufu", link: "https://github.com/e421083458" },
+              { text: "goFrame", link: "https://github.com/gogf/gf" },
             ]
           },
           {
@@ -97,6 +98,7 @@ module.exports = {
       {
         text: '书籍',
         children: [
+          { text: "《Go 专家编程》", link: "https://www.bookstack.cn/read/GoExpertProgramming/README.md" },
           { text: "《Go 语言设计与实现》", link: "https://draveness.me/golang/" },
           { text: "《Docker - 从入门到实践》", link: "https://yeasy.gitbook.io/docker_practice/" },
           { text: "《Mastering Go》", link: "https://www.kancloud.cn/cloud001/golang/1601804" },
@@ -108,6 +110,7 @@ module.exports = {
           {text: "imooc", link: 'https://www.imooc.com/'},
           {text: "牛客网", link: 'https://www.nowcoder.com/'},
           {text: '力扣', link: 'https://leetcode-cn.com/'},
+          {text: '书栈网', link: 'https://www.bookstack.cn/'},
         ]
       },
       {
@@ -145,6 +148,8 @@ module.exports = {
               { text: 'VuePress', link: "https://v2.vuepress.vuejs.org/zh/" },
               { text: 'GoTests-Sublime', link: "https://github.com/cweill/GoTests-Sublime" },
               { text: 'Casbin', link: 'https://casbin.org/docs/zh-CN/overview' },
+              { text: 'EtcdManager', link: 'http://etcdmanager.io/' },
+              { text: 'RedisManager', link: 'https://github.com/qishibo/AnotherRedisDesktopManager' },
             ]
           },
           {
@@ -185,6 +190,7 @@ module.exports = {
             '/ops/nginx常用部署.md',
             '/ops/alpine镜像设置时区.md',
             '/ops/cicd.md',
+            '/ops/dockerManagement.md',
             '/ops/kubernetesManagement.md',
             '/ops/privateDockerRegistry.md',
             '/ops/privateGitRegistry.md',
@@ -217,6 +223,7 @@ module.exports = {
           children: [
             '/golang/README.md',
             '/golang/history.md',
+            '/golang/springhead.md',
             '/golang/base.md',
             'PerformanceTuning.md',
           ]
