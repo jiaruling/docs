@@ -150,6 +150,7 @@ module.exports = {
               { text: 'Casbin', link: 'https://casbin.org/docs/zh-CN/overview' },
               { text: 'EtcdManager', link: 'http://etcdmanager.io/' },
               { text: 'RedisManager', link: 'https://github.com/qishibo/AnotherRedisDesktopManager' },
+              { text: "Kite", link: 'https://www.kite.com/' },
             ]
           },
           {
