@@ -151,6 +151,9 @@ module.exports = {
               { text: 'EtcdManager', link: 'http://etcdmanager.io/' },
               { text: 'RedisManager', link: 'https://github.com/qishibo/AnotherRedisDesktopManager' },
               { text: "Kite", link: 'https://www.kite.com/' },
+              { text: "code-server", link: 'https://github.com/coder/code-server' },
+              { text: "vagrant", link: 'https://www.vagrantup.com/' },
+              { text: "Ansible", link: '' },
             ]
           },
           {
