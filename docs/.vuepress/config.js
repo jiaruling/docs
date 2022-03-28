@@ -154,12 +154,15 @@ module.exports = {
               { text: "code-server", link: 'https://github.com/coder/code-server' },
               { text: "vagrant", link: 'https://www.vagrantup.com/' },
               { text: "Ansible", link: '' },
+              { text: "PowerShell", link: 'https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell?view=powershell-7.2' },
+              { text: "Oh My Posh", link: 'https://ohmyposh.dev/' },
             ]
           },
           {
             text: "ops",
             children: [
               { text: "fish-shell", link: 'https://github.com/fish-shell/fish-shell' },
+              { text: "ohmyzsh", link: 'https://github.com/ohmyzsh/ohmyzsh' },
               { text: "Yearning", link: 'http://yearning.io/' },
               { text: "KUBESPHERE", link: 'https://kubesphere.io/zh/' },
             ]
