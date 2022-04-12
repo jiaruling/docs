@@ -1,0 +1,88 @@
+---
+title: 资源汇总
+---
+
+## Book
+
+- [**《Go 专家编程》**](https://www.bookstack.cn/read/GoExpertProgramming/README.md)
+
+- [**《Go 语言设计与实现》**](https://draveness.me/golang/)
+- [**《Docker - 从入门到实践》**](https://yeasy.gitbook.io/docker_practice/)
+
+- [**《Mastering Go》**](https://www.kancloud.cn/cloud001/golang/1601804)
+
+## WebSite
+
+- [**imooc**](https://www.imooc.com/)
+- [**牛客网**](https://www.nowcoder.com/)
+- [**力扣**](https://leetcode-cn.com/)
+- [**书栈网**]( https://www.bookstack.cn/)
+
+## Docs
+
+### Golang
+
+- **[Topgoer](https://www.topgoer.com/)**
+- **[GoCN](https://gocn.vip/)**
+
+### Redis
+
+- **[Redisdoc](http://redisdoc.com/)**
+- **[RedisFans](http://doc.redisfans.com/)**
+
+## Video
+
+- **[麦兜搞IT](https://www.youtube.com/c/%E9%BA%A6%E5%85%9C%E6%90%9EIT/featured)**
+- **[零度解说](https://www.youtube.com/c/%E9%9B%B6%E5%BA%A6%E8%A7%A3%E8%AF%B4/featured)**
+- **[Topbook](https://topbook.cc/overview)**
+- **[极客湾](https://www.youtube.com/c/geekerwan%E6%9E%81%E5%AE%A2%E6%B9%BE%E6%A5%B5%E5%AE%A2%E7%81%A3/featured)**
+
+## Blog
+
+- **[Draven](https://draveness.me/)**
+- **[大俊](https://darjun.github.io/)**
+- **[刘江](https://www.liujiangblog.com/)**
+- **[写代码的明哥](https://www.cnblogs.com/wongbingming/)**
+- **[来临](https://lailin.xyz/)**
+
+## Github
+
+- **[niuyufu](https://github.com/e421083458)**
+- **[goFrame](https://github.com/gogf/gf)**
+- **[Qmgo](https://github.com/qiniu/qmgo)**
+- **[Learning Lab](https://lab.github.com/)**
+
+## Tools
+
+-  **[VuePress](https://v2.vuepress.vuejs.org/zh/)**
+
+- **[GoTests-Sublime](https://github.com/cweill/GoTests-Sublime)**
+
+- **[Casbin](https://casbin.org/docs/zh-CN/overview)**
+
+- **[EtcdManager](http://etcdmanager.io/)**
+
+- **[RedisManager](https://github.com/qishibo/AnotherRedisDesktopManager)**
+
+- **[Kite](https://www.kite.com/)**
+
+* **[code-server](https://github.com/coder/code-server)**
+
+- **[vagrant](https://www.vagrantup.com/)**
+
+- **[Ansible]()**
+
+- **[PowerShell](https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell?view=powershell-7.2)**
+
+- **[Oh My Posh](https://ohmyposh.dev/)**
+
+- **[fish-shell](https://github.com/fish-shell/fish-shell)**
+
+- **[ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)**
+
+- **[Yearning](http://yearning.io/)**
+
+- **[KUBESPHERE](https://kubesphere.io/zh/)**
+
+- **[wrk](https://github.com/wg/wrk)**
+
