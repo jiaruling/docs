@@ -35,16 +35,16 @@ module.exports = {
       {
         text: '导航',
         children: [
-          { text: "Tools", link: "/tools/linux/"},
-          { text: "Golang", link: "/golang/" },
-          { text: "Python", link: "/python/" },
-          { text: "JavaScript", link: "/JavaScript/" },
-          { text: "Shell", link: "/shell/" },
-          { text: "DataBase", link: "/database/" },
-          { text: "Ops", link: "/ops/" },
-          { text: "Cmd", link: "/cmd/" },
-          { text: 'Interview', link: '/interview/' },
-          { text: 'Design pattern', link: '/DesignPattern/' }
+          { text: "工具", link: "/tools/linux/"},
+          { text: "语言", link: "/language/"},
+          // { text: "Golang", link: "/golang/" },
+          // { text: "Python", link: "/python/" },
+          // { text: "JavaScript", link: "/JavaScript/" },
+          // { text: "Shell", link: "/shell/" },
+          // { text: "数据库", link: "/database/" },
+          { text: "运维", link: "/ops/" },
+          { text: '面试', link: '/interview/' },
+          { text: '设计模式', link: '/DesignPattern/' }
         ],
       },
       {
