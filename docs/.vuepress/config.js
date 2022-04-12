@@ -201,6 +201,7 @@ module.exports = {
             '/ops/kubernetesManagement.md',
             '/ops/privateDockerRegistry.md',
             '/ops/privateGitRegistry.md',
+            '/ops/powershell.md',
           ],
         },
       ],
