@@ -267,6 +267,45 @@ module.exports = {
           ]
         }
       ],
+      '/tools/': [
+        {
+          text: 'Linux',
+          collapsible: true,
+          children: [
+            '/tools/linux/README.md',
+          ]
+        },
+        {
+          text: 'Git',
+          collapsible: true,
+          children: [
+            '/tools/git/README.md',
+            '/tools/git/1.BestPractice.md',
+            '/tools/git/2.BasePrinciple.md',
+          ]
+        },
+        {
+          text: 'Docker',
+          collapsible: true,
+          children: [
+            '/tools/docker/README.md',
+          ]
+        },
+        {
+          text: 'Vagrant',
+          collapsible: true,
+          children: [
+            '/tools/vagrant/README.md',
+          ]
+        },
+        {
+          text: 'Ansible',
+          collapsible: true,
+          children: [
+            '/tools/ansible/README.md',
+          ]
+        }
+      ]
     },
   },
 }
