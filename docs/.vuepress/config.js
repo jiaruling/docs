@@ -37,11 +37,6 @@ module.exports = {
         children: [
           { text: "工具", link: "/tools/linux/"},
           { text: "语言", link: "/language/"},
-          // { text: "Golang", link: "/golang/" },
-          // { text: "Python", link: "/python/" },
-          // { text: "JavaScript", link: "/JavaScript/" },
-          // { text: "Shell", link: "/shell/" },
-          // { text: "数据库", link: "/database/" },
           { text: "运维", link: "/ops/" },
           { text: '面试', link: '/interview/' },
           { text: '设计模式', link: '/DesignPattern/' }
@@ -119,6 +114,9 @@ module.exports = {
         {
           text: "面试题",
           collapsible: true,
+          children: [
+            "/interview/README.md",
+          ]
         }
       ],
       '/combat/gateway/': [
