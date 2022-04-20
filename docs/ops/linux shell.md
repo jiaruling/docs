@@ -80,6 +80,7 @@ $ echo $SHELL
 
 - https://www.ruanyifeng.com/blog/2017/05/fish_shell.html
 - https://zhuanlan.zhihu.com/p/59439573
+- https://blog.csdn.net/weixin_30439031/article/details/97624328
 
 **官网:** https://fishshell.com/#platform_tabs
 
@@ -100,6 +101,10 @@ $ yum install fish
 
 # 使用 fish
 $ fish
+
+# ubuntu 安装卸载 fish
+$ sudo apt-get install fish 
+$ sudo apt-get remove fish
 ```
 
 ### 将 Fish 设置为默认 shell
@@ -152,5 +157,30 @@ $ bash
 
 ```shell
 $ chsh -s /bin/bash
+```
+
+## zsh - Ubuntu
+
+::: tip 参考
+[Windows10开发环境搭建(4) | 给WSL配置漂亮且强大的zsh_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1sv41147FS?spm_id_from=333.999.0.0)
+
+[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
+
+[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+
+:::
+
+```shell
+# 安装 zsh
+$ sudo apt install zsh
+# 安装 oh-my-zsh
+$ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# 安装 zsh-autosuggestions
+$ cd ~
+$ cd .oh-my-zsh/plugins
+$ git clone https://github.com/zsh-users/zsh-autosuggestions.git
+$ cd ~
+$ vim ~/.zshrc // 将下载的zsh-autosuggestions插件加入plugins
+# 重写启动一个shell窗口即可
 ```
 
