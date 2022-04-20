@@ -43,7 +43,7 @@ module.exports = {
         ],
       },
       {
-        text: '项目',
+        text: '实战',
         children: [
           { text: "微服务网关", link: "/combat/gateway/" },
         ],
@@ -54,7 +54,6 @@ module.exports = {
         children: [
           { text: 'Github', link: 'https://github.com/jiaruling' },
           { text: 'Docker Hub', link: 'https://hub.docker.com/' },
-
         ]
       },
     ],
