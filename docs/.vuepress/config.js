@@ -39,7 +39,7 @@ module.exports = {
           { text: "工具", link: "/tools/linux/"},
           { text: "运维", link: "/ops/" },
           { text: '面试', link: '/interview/' },
-          { text: '设计模式', link: '/DesignPattern/' }
+          { text: '设计模式', link: '/design_pattern/' }
         ],
       },
       {
@@ -49,6 +49,7 @@ module.exports = {
         ],
       },
       { text: "资源", link: "/resource/"},
+      { text: "命令速查", link: "/command/"},
       {
         text: '关于',
         children: [
@@ -70,25 +71,6 @@ module.exports = {
             '/ops/cicd.md',
             '/ops/kubernetesManagement.md',
           ],
-        },
-      ],
-      '/cmd/': [
-        {
-          text: '常用命令',
-          collapsible: true,
-          children: [
-            '/cmd/README.md',
-            '/cmd/python.md',
-            '/cmd/anaconda.md',
-            '/cmd/golang.md',
-            '/cmd/docker.md',
-            '/cmd/docker-compose.md',
-            '/cmd/git.md',
-            '/cmd/git常用命令.md',
-            '/cmd/JetBrains 快捷键.md',
-            '/cmd/linux.md',
-            '/cmd/linux常用.md',
-          ]
         },
       ],
       '/golang/': [
@@ -124,17 +106,17 @@ module.exports = {
           ]
         }
       ],
-      '/DesignPattern/': [
+      '/design_pattern/': [
         {
           text: '设计模式',
           collapsible: true,
           children: [
-            "/DesignPattern/README.md",
-            "/DesignPattern/createPattern.md",
-            "/DesignPattern/structPattern.md",
-            "/DesignPattern/actionPattern.md",
-            "/DesignPattern/J2EEPattern.md",
-            "/DesignPattern/summary.md",
+            "/design_pattern/README.md",
+            "/design_pattern/createPattern.md",
+            "/design_pattern/structPattern.md",
+            "/design_pattern/actionPattern.md",
+            "/design_pattern/J2EEPattern.md",
+            "/design_pattern/summary.md",
           ]
         }
       ],
