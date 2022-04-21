@@ -10,6 +10,8 @@ title: 插件推荐
 
 ### 3. git-commit-plugin
 
+### 4. Material Theme
+
 ### n. Open in External App
 
 - 插件配置
