@@ -65,15 +65,10 @@ module.exports = {
           collapsible: true,
           children: [
             '/ops/README.md',
-            '/ops/linux shell.md',
             '/ops/nginx常用部署.md',
             '/ops/alpine镜像设置时区.md',
             '/ops/cicd.md',
-            '/ops/dockerManagement.md',
             '/ops/kubernetesManagement.md',
-            '/ops/privateDockerRegistry.md',
-            '/ops/privateGitRegistry.md',
-            '/ops/powershell.md',
           ],
         },
       ],
@@ -149,6 +144,8 @@ module.exports = {
           collapsible: true,
           children: [
             '/tools/linux/README.md',
+            '/tools/linux/1.linux shell.md',
+            '/tools/linux/2.powershell.md',
           ]
         },
         {
@@ -156,6 +153,7 @@ module.exports = {
           collapsible: true,
           children: [
             '/tools/git/README.md',
+            "/tools/git/0.privateGitRegistry.md",
             '/tools/git/1.BestPractice.md',
             '/tools/git/2.BasePrinciple.md',
           ]
@@ -165,6 +163,8 @@ module.exports = {
           collapsible: true,
           children: [
             '/tools/docker/README.md',
+            '/tools/docker/1.dockerManagement.md',
+            '/tools/docker/2.privateDockerRegistry.md',
           ]
         },
         {
