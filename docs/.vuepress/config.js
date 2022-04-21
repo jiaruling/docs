@@ -35,8 +35,8 @@ module.exports = {
       {
         text: '导航',
         children: [
-          { text: "工具", link: "/tools/linux/"},
           { text: "语言", link: "/language/"},
+          { text: "工具", link: "/tools/linux/"},
           { text: "运维", link: "/ops/" },
           { text: '面试', link: '/interview/' },
           { text: '设计模式', link: '/DesignPattern/' }
@@ -179,6 +179,13 @@ module.exports = {
           collapsible: true,
           children: [
             '/tools/ansible/README.md',
+          ]
+        },
+        {
+          text: 'vscode',
+          collapsible: true,
+          children: [
+            "/tools/vscode/README.md",
           ]
         }
       ]
