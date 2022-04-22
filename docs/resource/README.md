@@ -48,9 +48,9 @@ title: 资源汇总
 ## Github
 
 - **[niuyufu](https://github.com/e421083458)**
-- **[goFrame](https://github.com/gogf/gf)**
 - **[Qmgo](https://github.com/qiniu/qmgo)**
 - **[Learning Lab](https://lab.github.com/)**
+- **[golang-standards](https://github.com/golang-standards/project-layout)**  [**golang 编程规范 - 项目目录结构**](https://makeoptim.com/golang/standards/project-layout)
 
 ## Tools
 
@@ -85,4 +85,18 @@ title: 资源汇总
 - **[KUBESPHERE](https://kubesphere.io/zh/)**
 
 - **[wrk](https://github.com/wg/wrk)**
+
+## GoProject
+
+- **[go-gin-api](https://github.com/xinliangnote/go-gin-api)**
+
+- **[goFrame](https://github.com/gogf/gf)**
+
+- **[go-admin](https://github.com/GoAdminGroup/go-admin)**
+
+- **[go-admin](https://github.com/go-admin-team/go-admin)**
+
+- **[gin-vue-admin](https://github.com/flipped-aurora/gin-vue-admin)**
+
+- **[gin_scaffold](https://github.com/e421083458/gin_scaffold)**
 
