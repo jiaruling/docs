@@ -1,0 +1,1 @@
+const e={key:"v-146de0c2",path:"/interview/language.md/golang/coding.html",title:"\u7F16\u7A0B\u9898",lang:"zh-CN",frontmatter:{title:"\u7F16\u7A0B\u9898"},excerpt:"",headers:[],git:{updatedTime:1650727386e3,contributors:[{name:"\xE2\x80jiaruling",email:"rulingjia@163.com",commits:1}]},filePathRelative:"interview/language.md/golang/coding.md"};export{e as data};

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.36">
+    <style>
+      :root {
+        --c-bg: #fff;
+      }
+      html.dark {
+        --c-bg: #22272e;
+      }
+      html, body {
+        background-color: var(--c-bg);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem('vuepress-color-scheme');
+			const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+			if (userMode === 'dark' || (userMode !== 'light' && systemDarkMode)) {
+				document.documentElement.classList.toggle('dark', true);
+			}
+    </script>
+    <link rel="icon" href="/images/hero.png"><title>Git 最佳实战 | gopherDevOps</title><meta name="description" content="这是我的第一个 VuePress 站点">
+    <link rel="modulepreload" href="/docs/assets/app.9a368eb2.js"><link rel="modulepreload" href="/docs/assets/1.BestPractice.html.d258a8f6.js"><link rel="modulepreload" href="/docs/assets/1.BestPractice.html.363399aa.js"><link rel="modulepreload" href="/docs/assets/plugin-vue_export-helper.21dcd24c.js">
+    <link rel="stylesheet" href="/docs/assets/style.c7b2679d.css">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><!--[--><header ref_key="navbar" class="navbar"><div class="toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0"><div class="icon" aria-hidden="true"><span></span><span></span><span></span></div></div><span><a href="/docs/" class=""><img class="logo" src="/docs/images/logo.png" alt="gopherDevOps"><span class="site-name can-hide">gopherDevOps</span></a></span><div class="navbar-items-wrapper" style=""><!--[--><!--]--><nav class="navbar-items can-hide"><!--[--><div class="navbar-item"><div class="navbar-dropdown-wrapper"><button class="navbar-dropdown-title" type="button" aria-label="导航"><span class="title">导航</span><span class="arrow down"></span></button><button class="navbar-dropdown-title-mobile" type="button" aria-label="导航"><span class="title">导航</span><span class="right arrow"></span></button><!--[--><ul style="display:none;" class="navbar-dropdown"><!--[--><li class="navbar-dropdown-item"><a href="/docs/language/" class="" aria-label="语言"><!--[--><!--]--> 语言 <!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a href="/docs/tools/linux/" class="" aria-label="工具"><!--[--><!--]--> 工具 <!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a href="/docs/ops/" class="" aria-label="运维"><!--[--><!--]--> 运维 <!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a href="/docs/interview/" class="" aria-label="面试"><!--[--><!--]--> 面试 <!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a href="/docs/design_pattern/" class="" aria-label="设计模式"><!--[--><!--]--> 设计模式 <!--[--><!--]--></a></li><!--]--></ul><!--]--></div></div><div class="navbar-item"><div class="navbar-dropdown-wrapper"><button class="navbar-dropdown-title" type="button" aria-label="实战"><span class="title">实战</span><span class="arrow down"></span></button><button class="navbar-dropdown-title-mobile" type="button" aria-label="实战"><span class="title">实战</span><span class="right arrow"></span></button><!--[--><ul style="display:none;" class="navbar-dropdown"><!--[--><li class="navbar-dropdown-item"><a href="/docs/combat/gateway/" class="" aria-label="微服务网关"><!--[--><!--]--> 微服务网关 <!--[--><!--]--></a></li><!--]--></ul><!--]--></div></div><div class="navbar-item"><a href="/docs/resource/" class="" aria-label="资源"><!--[--><!--]--> 资源 <!--[--><!--]--></a></div><div class="navbar-item"><a href="/docs/command/" class="" aria-label="命令速查"><!--[--><!--]--> 命令速查 <!--[--><!--]--></a></div><div class="navbar-item"><div class="navbar-dropdown-wrapper"><button class="navbar-dropdown-title" type="button" aria-label="关于"><span class="title">关于</span><span class="arrow down"></span></button><button class="navbar-dropdown-title-mobile" type="button" aria-label="关于"><span class="title">关于</span><span class="right arrow"></span></button><!--[--><ul style="display:none;" class="navbar-dropdown"><!--[--><li class="navbar-dropdown-item"><a class="external-link" href="https://github.com/jiaruling" rel="noopener noreferrer" target="_blank" aria-label="Github"><!--[--><!--]--> Github <span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a class="external-link" href="https://hub.docker.com/" rel="noopener noreferrer" target="_blank" aria-label="Docker Hub"><!--[--><!--]--> Docker Hub <span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!--[--><!--]--></a></li><!--]--></ul><!--]--></div></div><!--]--></nav><!--[--><!--]--><button class="toggle-dark-button" title="toggle dark mode"><svg style="" class="icon" focusable="false" viewBox="0 0 32 32"><path d="M16 12.005a4 4 0 1 1-4 4a4.005 4.005 0 0 1 4-4m0-2a6 6 0 1 0 6 6a6 6 0 0 0-6-6z" fill="currentColor"></path><path d="M5.394 6.813l1.414-1.415l3.506 3.506L8.9 10.318z" fill="currentColor"></path><path d="M2 15.005h5v2H2z" fill="currentColor"></path><path d="M5.394 25.197L8.9 21.691l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 25.005h2v5h-2z" fill="currentColor"></path><path d="M21.687 23.106l1.414-1.415l3.506 3.506l-1.414 1.414z" fill="currentColor"></path><path d="M25 15.005h5v2h-5z" fill="currentColor"></path><path d="M21.687 8.904l3.506-3.506l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 2.005h2v5h-2z" fill="currentColor"></path></svg><svg style="display:none;" class="icon" focusable="false" viewBox="0 0 32 32"><path d="M13.502 5.414a15.075 15.075 0 0 0 11.594 18.194a11.113 11.113 0 0 1-7.975 3.39c-.138 0-.278.005-.418 0a11.094 11.094 0 0 1-3.2-21.584M14.98 3a1.002 1.002 0 0 0-.175.016a13.096 13.096 0 0 0 1.825 25.981c.164.006.328 0 .49 0a13.072 13.072 0 0 0 10.703-5.555a1.01 1.01 0 0 0-.783-1.565A13.08 13.08 0 0 1 15.89 4.38A1.015 1.015 0 0 0 14.98 3z" fill="currentColor"></path></svg></button><form class="search-box" role="search"><input type="search" placeholder="Search" autocomplete="off" spellcheck="false" value><!----></form></div></header><!--]--><div class="sidebar-mask"></div><!--[--><aside class="sidebar"><nav class="navbar-items"><!--[--><div class="navbar-item"><div class="navbar-dropdown-wrapper"><button class="navbar-dropdown-title" type="button" aria-label="导航"><span class="title">导航</span><span class="arrow down"></span></button><button class="navbar-dropdown-title-mobile" type="button" aria-label="导航"><span class="title">导航</span><span class="right arrow"></span></button><!--[--><ul style="display:none;" class="navbar-dropdown"><!--[--><li class="navbar-dropdown-item"><a href="/docs/language/" class="" aria-label="语言"><!--[--><!--]--> 语言 <!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a href="/docs/tools/linux/" class="" aria-label="工具"><!--[--><!--]--> 工具 <!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a href="/docs/ops/" class="" aria-label="运维"><!--[--><!--]--> 运维 <!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a href="/docs/interview/" class="" aria-label="面试"><!--[--><!--]--> 面试 <!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a href="/docs/design_pattern/" class="" aria-label="设计模式"><!--[--><!--]--> 设计模式 <!--[--><!--]--></a></li><!--]--></ul><!--]--></div></div><div class="navbar-item"><div class="navbar-dropdown-wrapper"><button class="navbar-dropdown-title" type="button" aria-label="实战"><span class="title">实战</span><span class="arrow down"></span></button><button class="navbar-dropdown-title-mobile" type="button" aria-label="实战"><span class="title">实战</span><span class="right arrow"></span></button><!--[--><ul style="display:none;" class="navbar-dropdown"><!--[--><li class="navbar-dropdown-item"><a href="/docs/combat/gateway/" class="" aria-label="微服务网关"><!--[--><!--]--> 微服务网关 <!--[--><!--]--></a></li><!--]--></ul><!--]--></div></div><div class="navbar-item"><a href="/docs/resource/" class="" aria-label="资源"><!--[--><!--]--> 资源 <!--[--><!--]--></a></div><div class="navbar-item"><a href="/docs/command/" class="" aria-label="命令速查"><!--[--><!--]--> 命令速查 <!--[--><!--]--></a></div><div class="navbar-item"><div class="navbar-dropdown-wrapper"><button class="navbar-dropdown-title" type="button" aria-label="关于"><span class="title">关于</span><span class="arrow down"></span></button><button class="navbar-dropdown-title-mobile" type="button" aria-label="关于"><span class="title">关于</span><span class="right arrow"></span></button><!--[--><ul style="display:none;" class="navbar-dropdown"><!--[--><li class="navbar-dropdown-item"><a class="external-link" href="https://github.com/jiaruling" rel="noopener noreferrer" target="_blank" aria-label="Github"><!--[--><!--]--> Github <span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!--[--><!--]--></a></li><li class="navbar-dropdown-item"><a class="external-link" href="https://hub.docker.com/" rel="noopener noreferrer" target="_blank" aria-label="Docker Hub"><!--[--><!--]--> Docker Hub <span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!--[--><!--]--></a></li><!--]--></ul><!--]--></div></div><!--]--></nav><!--[--><!--]--><ul class="sidebar-items"><!--[--><li><p tabindex="0" class="sidebar-item sidebar-heading collapsible">Linux <span class="right arrow"></span></p><!--[--><ul style="display:none;" class="sidebar-item-children"><!--[--><li><a href="/docs/tools/linux/" class="sidebar-item" aria-label="Linux系列"><!--[--><!--]--> Linux系列 <!--[--><!--]--></a><!----></li><li><a href="/docs/tools/linux/1.linux%20shell.html" class="sidebar-item" aria-label="Linux Shell"><!--[--><!--]--> Linux Shell <!--[--><!--]--></a><!----></li><li><a href="/docs/tools/linux/2.powershell.html" class="sidebar-item" aria-label="PowerShell"><!--[--><!--]--> PowerShell <!--[--><!--]--></a><!----></li><!--]--></ul><!--]--></li><li><p tabindex="0" class="sidebar-item sidebar-heading active collapsible">Git <span class="down arrow"></span></p><!--[--><ul style="" class="sidebar-item-children"><!--[--><li><a href="/docs/tools/git/" class="router-link-active sidebar-item" aria-label="Git系列"><!--[--><!--]--> Git系列 <!--[--><!--]--></a><!----></li><li><a href="/docs/tools/git/0.privateGitRegistry.html" class="sidebar-item" aria-label="私有Git仓库"><!--[--><!--]--> 私有Git仓库 <!--[--><!--]--></a><!----></li><li><a aria-current="page" href="/docs/tools/git/1.BestPractice.html" class="router-link-active router-link-exact-active router-link-active sidebar-item active" aria-label="Git 最佳实战"><!--[--><!--]--> Git 最佳实战 <!--[--><!--]--></a><!--[--><ul style="" class="sidebar-item-children"><!--[--><li><a aria-current="page" href="/docs/tools/git/1.BestPractice.html#_1-git-commit-message规范" class="router-link-active router-link-exact-active sidebar-item" aria-label="1. git commit message规范"><!--[--><!--]--> 1. git commit message规范 <!--[--><!--]--></a><!--[--><ul style="" class="sidebar-item-children"><!--[--><li><a aria-current="page" href="/docs/tools/git/1.BestPractice.html#实战" class="router-link-active router-link-exact-active sidebar-item" aria-label="实战"><!--[--><!--]--> 实战 <!--[--><!--]--></a><!----></li><!--]--></ul><!--]--></li><li><a aria-current="page" href="/docs/tools/git/1.BestPractice.html#_2-gitignore文件" class="router-link-active router-link-exact-active sidebar-item" aria-label="2. gitignore文件"><!--[--><!--]--> 2. gitignore文件 <!--[--><!--]--></a><!----></li><!--]--></ul><!--]--></li><li><a href="/docs/tools/git/2.BasePrinciple.html" class="sidebar-item" aria-label="Git基本原理"><!--[--><!--]--> Git基本原理 <!--[--><!--]--></a><!----></li><!--]--></ul><!--]--></li><li><p tabindex="0" class="sidebar-item sidebar-heading collapsible">Docker <span class="right arrow"></span></p><!--[--><ul style="display:none;" class="sidebar-item-children"><!--[--><li><a href="/docs/tools/docker/" class="sidebar-item" aria-label="Docker系列"><!--[--><!--]--> Docker系列 <!--[--><!--]--></a><!----></li><li><a href="/docs/tools/docker/1.dockerManagement.html" class="sidebar-item" aria-label="Docker 图形化管理工具"><!--[--><!--]--> Docker 图形化管理工具 <!--[--><!--]--></a><!----></li><li><a href="/docs/tools/docker/2.privateDockerRegistry.html" class="sidebar-item" aria-label="私有镜像仓库"><!--[--><!--]--> 私有镜像仓库 <!--[--><!--]--></a><!----></li><!--]--></ul><!--]--></li><li><p tabindex="0" class="sidebar-item sidebar-heading collapsible">Vagrant <span class="right arrow"></span></p><!--[--><ul style="display:none;" class="sidebar-item-children"><!--[--><li><a href="/docs/tools/vagrant/" class="sidebar-item" aria-label="vagrant系列"><!--[--><!--]--> vagrant系列 <!--[--><!--]--></a><!----></li><!--]--></ul><!--]--></li><li><p tabindex="0" class="sidebar-item sidebar-heading collapsible">Ansible <span class="right arrow"></span></p><!--[--><ul style="display:none;" class="sidebar-item-children"><!--[--><li><a href="/docs/tools/ansible/" class="sidebar-item" aria-label="Ansible 系列"><!--[--><!--]--> Ansible 系列 <!--[--><!--]--></a><!----></li><!--]--></ul><!--]--></li><li><p tabindex="0" class="sidebar-item sidebar-heading collapsible">vscode <span class="right arrow"></span></p><!--[--><ul style="display:none;" class="sidebar-item-children"><!--[--><li><a href="/docs/tools/vscode/" class="sidebar-item" aria-label="插件推荐"><!--[--><!--]--> 插件推荐 <!--[--><!--]--></a><!----></li><!--]--></ul><!--]--></li><!--]--></ul><!--[--><!--]--></aside><!--]--><!--[--><main class="page"><!--[--><!--]--><div class="theme-default-content"><!--[--><div class="custom-container tip"><p class="custom-container-title">倡导</p><p><strong>拥抱命令行，远离图形化工具</strong></p></div><h2 id="_1-git-commit-message规范" tabindex="-1"><a class="header-anchor" href="#_1-git-commit-message规范" aria-hidden="true">#</a> 1. git commit message规范</h2><div class="custom-container tip"><p class="custom-container-title">参考</p><p><strong><a href="https://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html" target="_blank" rel="noopener noreferrer">Commit message 和 Change log 编写指南<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></strong></p></div><h3 id="实战" tabindex="-1"><a class="header-anchor" href="#实战" aria-hidden="true">#</a> 实战</h3><h4 id="_1-ubuntu-安装-nodejs-npm" tabindex="-1"><a class="header-anchor" href="#_1-ubuntu-安装-nodejs-npm" aria-hidden="true">#</a> 1. ubuntu 安装 nodejs &amp;&amp; npm</h4><div class="language-bash ext-sh line-numbers-mode"><pre class="language-bash"><code><span class="token comment"># 更新包管理器</span>
+$ <span class="token function">sudo</span> <span class="token function">apt</span> update
+
+<span class="token comment"># 安装指定版本的nodejs(nodejs 12.x 版本)</span>
+$ <span class="token builtin class-name">cd</span> ~
+$ <span class="token function">curl</span> -sL https://deb.nodesource.com/setup_12.x <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span> -
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nodejs
+
+<span class="token comment"># 安装新版本的nodejs</span>
+$ <span class="token builtin class-name">cd</span> ~
+$ <span class="token function">curl</span> -sL https://deb.nodesource.com/setup <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span> -
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nodejs
+
+<span class="token comment"># 安装 yarn 包管理器</span>
+$ <span class="token function">curl</span> -sS https://dl.yarnpkg.com/debian/pubkey.gpg <span class="token operator">|</span> <span class="token function">sudo</span> apt-key <span class="token function">add</span> -
+$ <span class="token builtin class-name">echo</span> <span class="token string">&quot;deb https://dl.yarnpkg.com/debian/ stable main&quot;</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/apt/sources.list.d/yarn.lis
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">yarn</span>
+
+<span class="token comment"># 查看是否安装成功</span>
+$ <span class="token function">node</span> --version
+$ <span class="token function">npm</span> --version
+$ <span class="token function">yarn</span> --version
+
+<span class="token comment"># 卸载nodejs</span>
+$ <span class="token function">sudo</span> <span class="token function">apt</span> remove --purge nodejs <span class="token comment"># 卸载nodejs并清除配置文件</span>
+$ <span class="token function">sudo</span> <span class="token function">apt</span> autoremove <span class="token comment"># 移除和 nodejs 一起安装但是现在没有被使用的包</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><h4 id="_2-安装-commitizen-并使用" tabindex="-1"><a class="header-anchor" href="#_2-安装-commitizen-并使用" aria-hidden="true">#</a> 2. 安装 Commitizen 并使用</h4><div class="custom-container warning"><p class="custom-container-title">在项目中使用（不推荐)</p><p>在项目中会产生与项目无关的文件【<strong>node_modules</strong> <strong>package-lock.json</strong> <strong>package.json</strong>】</p></div><div class="language-bash ext-sh line-numbers-mode"><pre class="language-bash"><code><span class="token comment"># 1.通过 npm 安装 cz 工具</span>
+$ <span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> -g commitizen
+
+<span class="token comment"># 2.创建代码仓库</span>
+$ <span class="token function">mkdir</span> git-demo
+$ <span class="token builtin class-name">cd</span> git-demo
+$ <span class="token function">ls</span>
+
+<span class="token comment"># 3.安装适配器</span>
+$ commitizen init cz-conventional-changelog --save --save-exact
+$ <span class="token function">ls</span>
+node_modules  package-lock.json  package.json
+$ <span class="token function">cat</span> package.json
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;devDependencies&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;cz-conventional-changelog&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;^3.3.0&quot;</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;config&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;commitizen&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;path&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;./node_modules/cz-conventional-changelog&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># 4.初始化仓库并添加文件</span>
+$ <span class="token function">git</span> init
+$ <span class="token function">vim</span> test.py  <span class="token comment"># 文件中写入 print(&quot;hello world&quot;)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> test.py
+$ <span class="token function">git</span> status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  <span class="token punctuation">(</span>use <span class="token string">&quot;git rm --cached &lt;file&gt;...&quot;</span> to unstage<span class="token punctuation">)</span>
+        new file:   test3.py
+
+Untracked files:
+  <span class="token punctuation">(</span>use <span class="token string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="token keyword">in</span> what will be committed<span class="token punctuation">)</span>
+        node_modules/
+        package-lock.json
+        package.json
+$ <span class="token function">git</span> cz  <span class="token comment"># 在项目中 使用 git cz 来 代替 git commit</span>
+cz-cli@4.2.4, cz-conventional-changelog@3.3.0
+
+? Select the <span class="token builtin class-name">type</span> of change that you&#39;re committing: <span class="token punctuation">(</span>Use arrow keys<span class="token punctuation">)</span>
+❯ feat:     A new feature
+  fix:      A bug fix
+  docs:     Documentation only changes
+  style:    Changes that <span class="token keyword">do</span> not affect the meaning of the code <span class="token punctuation">(</span>white-space, formatting, missing semi-colons, etc<span class="token punctuation">)</span>
+  refactor: A code change that neither fixes a bug nor adds a feature
+  perf:     A code change that improves performance
+  test:     Adding missing tests or correcting existing tests
+<span class="token punctuation">(</span>Move up and down to reveal <span class="token function">more</span> choices<span class="token punctuation">)</span>
+$ <span class="token function">git</span> log
+commit a4d1d9f3611e943f2f4042a00e1539144786804c <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span>
+Author: Your Name <span class="token operator">&lt;</span>you@example.com<span class="token operator">&gt;</span>
+Date:   Tue Apr <span class="token number">12</span> <span class="token number">15</span>:01:30 <span class="token number">2022</span> +0800
+
+    feat<span class="token punctuation">(</span>add line<span class="token punctuation">)</span>: <span class="token function">add</span> a line code
+
+    添加了一行代码
+
+commit 115f7003a831af0bce19f24726a70ae5e3553523
+Author: Your Name <span class="token operator">&lt;</span>you@example.com<span class="token operator">&gt;</span>
+Date:   Tue Apr <span class="token number">12</span> <span class="token number">14</span>:49:03 <span class="token number">2022</span> +0800
+
+    feat<span class="token punctuation">(</span>add test3.py<span class="token punctuation">)</span>: <span class="token function">add</span> a new python <span class="token function">file</span>
+
+    <span class="token function">add</span> a new python <span class="token function">file</span>
+    <span class="token function">import</span> package
+</code></pre><div class="line-numbers" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br></div></div><div class="custom-container tip"><p class="custom-container-title">全局使用（推荐）</p><p>不会产生和项目无关的文件</p></div><div class="language-bash ext-sh line-numbers-mode"><pre class="language-bash"><code><span class="token comment"># 1.通过 npm 安装 cz 工具</span>
+$ <span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> -g commitizen
+
+<span class="token comment"># 2.切换到~目录</span>
+$ <span class="token builtin class-name">cd</span> ~ 
+<span class="token comment"># 3.在~目录安装适配器</span>
+$ commitizen init cz-conventional-changelog --save --save-exact
+$ <span class="token function">ls</span>
+git-demo  node_modules  package-lock.json  package.json
+<span class="token comment"># 4.编辑package.json文件</span>
+$ <span class="token function">vim</span> package.json <span class="token comment"># 打开 package.json, 去除 ./node_modules/</span>
+$ <span class="token function">cat</span> package.json
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;devDependencies&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;cz-conventional-changelog&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;^3.3.0&quot;</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;config&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;commitizen&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;path&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;cz-conventional-changelog&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment"># 5.创建代码仓库并完成初始化</span>
+$ <span class="token function">mkdir</span> git-demo2
+$ <span class="token builtin class-name">cd</span> git-demo2/
+$ <span class="token function">git</span> init
+$ <span class="token function">vim</span> test2.py <span class="token comment"># 文件中写入 print(&quot;hello demo2&quot;)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> test2.py
+$ <span class="token function">git</span> status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  <span class="token punctuation">(</span>use <span class="token string">&quot;git rm --cached &lt;file&gt;...&quot;</span> to unstage<span class="token punctuation">)</span>
+        new file:   test2.py
+$ <span class="token function">git</span> cz  <span class="token comment"># 使用 git cz 来 代替 git commit</span>
+cz-cli@4.2.4, cz-conventional-changelog@3.2.0
+
+? Select the <span class="token builtin class-name">type</span> of change that you&#39;re committing: <span class="token punctuation">(</span>Use arrow keys<span class="token punctuation">)</span>
+❯ feat:     A new feature
+  fix:      A bug fix
+  docs:     Documentation only changes
+  style:    Changes that <span class="token keyword">do</span> not affect the meaning of the code <span class="token punctuation">(</span>white-space, formatting, missing semi-colons
+, etc<span class="token punctuation">)</span>
+  refactor: A code change that neither fixes a bug nor adds a feature
+  perf:     A code change that improves performance
+<span class="token punctuation">(</span>Move up and down to reveal <span class="token function">more</span> choices<span class="token punctuation">)</span>
+$ <span class="token function">git</span> log
+commit 455510bd0d723ed8a9046cbcbb23c4060e79c717 <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span>
+Author: Your Name <span class="token operator">&lt;</span>you@example.com<span class="token operator">&gt;</span>
+Date:   Tue Apr <span class="token number">12</span> <span class="token number">15</span>:26:16 <span class="token number">2022</span> +0800
+
+    feat<span class="token punctuation">(</span>add test2.py<span class="token punctuation">)</span>: <span class="token function">add</span> a new python <span class="token function">file</span>
+
+    - <span class="token function">add</span> a new python <span class="token function">file</span>
+    - print<span class="token punctuation">(</span><span class="token string">&quot;hello demo2&quot;</span><span class="token punctuation">)</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br></div></div><div class="custom-container danger"><p class="custom-container-title">DANGER</p><p>在 ~ 目录下安装了适配器 <code>commitizen init cz-conventional-changelog --save --save-exact</code>，再在项目目录中安装适配器就会报错。</p><div class="language-bash ext-sh line-numbers-mode"><pre class="language-bash"><code>$ commitizen init cz-conventional-changelog --save --save-exact
+Attempting to initialize using the <span class="token function">npm</span> package cz-conventional-changelog
+Error: Error: A previous adapter is already configured. Use --force to override
+    adapterConfig.path: cz-conventional-changelog
+    repoPath: /home/jiaruling/git-demo3
+    CLI_PATH: /usr/local/lib/node_modules/commitizen/
+    installAdapterCommand: <span class="token function">npm</span> <span class="token function">install</span> cz-conventional-changelog --save-dev
+    adapterNpmName: cz-conventional-changelog
+</code></pre><div class="line-numbers" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></div><h2 id="_2-gitignore文件" tabindex="-1"><a class="header-anchor" href="#_2-gitignore文件" aria-hidden="true">#</a> 2. gitignore文件</h2><div class="custom-container tip"><p class="custom-container-title">gitignore大全</p><p><strong>https://github.com/github/gitignore</strong></p></div><!--]--></div><footer class="page-meta"><!----><div class="meta-item last-updated"><span class="meta-item-label">Last Updated: </span><!----></div><div class="meta-item contributors"><span class="meta-item-label">Contributors: </span><span class="meta-item-info"><!--[--><!--[--><span class="contributor" title="email: rulingjia@163.com">jiaruling</span><!----><!--]--><!--]--></span></div></footer><nav class="page-nav"><p class="inner"><span class="prev"><a href="/docs/tools/git/0.privateGitRegistry.html" class="" aria-label="私有Git仓库"><!--[--><!--]--> 私有Git仓库 <!--[--><!--]--></a></span><span class="next"><a href="/docs/tools/git/2.BasePrinciple.html" class="" aria-label="Git基本原理"><!--[--><!--]--> Git基本原理 <!--[--><!--]--></a></span></p></nav><!--[--><!--]--></main><!--]--></div><!----><!--]--></div>
+    <script type="module" src="/docs/assets/app.9a368eb2.js" defer></script>
+  </body>
+</html>

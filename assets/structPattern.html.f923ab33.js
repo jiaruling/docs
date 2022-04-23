@@ -1,0 +1,1 @@
+const t={key:"v-6f82f3e5",path:"/design_pattern/structPattern.html",title:"\u7ED3\u6784\u578B\u6A21\u5F0F",lang:"zh-CN",frontmatter:{title:"\u7ED3\u6784\u578B\u6A21\u5F0F"},excerpt:"",headers:[],git:{updatedTime:1650524999e3,contributors:[{name:"jiaruling",email:"rulingjia@163.com",commits:1}]},filePathRelative:"design_pattern/structPattern.md"};export{t as data};

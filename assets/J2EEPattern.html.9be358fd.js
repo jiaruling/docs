@@ -1,0 +1,1 @@
+const t={key:"v-e4554dd0",path:"/design_pattern/J2EEPattern.html",title:"J2EE\u6A21\u5F0F",lang:"zh-CN",frontmatter:{title:"J2EE\u6A21\u5F0F"},excerpt:"",headers:[],git:{updatedTime:1650524999e3,contributors:[{name:"jiaruling",email:"rulingjia@163.com",commits:1}]},filePathRelative:"design_pattern/J2EEPattern.md"};export{t as data};
