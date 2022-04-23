@@ -93,6 +93,14 @@ module.exports = {
           children: [
             "/interview/README.md",
           ]
+        },
+        {
+          text: "MySQL",
+          collapsible: true,
+          children: [
+            "/interview/module/mysql/README.md",
+            "/interview/module/mysql/1.mysql版本问题.md"
+          ]
         }
       ],
       '/combat/gateway/': [
