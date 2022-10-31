@@ -51,12 +51,13 @@ title: 资源汇总
 - **[Qmgo](https://github.com/qiniu/qmgo)**
 - **[Learning Lab](https://lab.github.com/)**
 - **[golang-standards](https://github.com/golang-standards/project-layout)**  [**golang 编程规范 - 项目目录结构**](https://makeoptim.com/golang/standards/project-layout)
+- **[Linux 命令查询工具](https://github.com/jaywcjlove/linux-command)**
 
 ## Tools
 
--  **[VuePress](https://v2.vuepress.vuejs.org/zh/)**
+- **[VuePress](https://v2.vuepress.vuejs.org/zh/)**
 
-- **[GoTests-Sublime](https://github.com/cweill/GoTests-Sublime)**
+- **[gotests](https://github.com/cweill/gotests)**
 
 - **[Casbin](https://casbin.org/docs/zh-CN/overview)**
 
@@ -64,7 +65,10 @@ title: 资源汇总
 
 - **[RedisManager](https://github.com/qishibo/AnotherRedisDesktopManager)**
 
-- **[Kite](https://www.kite.com/)**
+- **[代码补全](https://zhuanlan.zhihu.com/p/456957593)**
+    - **[Kite(python)](https://www.kite.com/)**
+    - **[Github Copilot]()**
+    - **[TabNine]()**
 
 * **[code-server](https://github.com/coder/code-server)**
 
@@ -85,6 +89,8 @@ title: 资源汇总
 - **[KUBESPHERE](https://kubesphere.io/zh/)**
 
 - **[wrk](https://github.com/wg/wrk)**
+
+- **[西游VPN](https://xiyou.cloud)** [登录](https://xiyou.cloud/i/)
 
 ## GoProject
 
