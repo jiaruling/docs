@@ -8,11 +8,11 @@ title: 配置 VSCode
 
 - **字体和大小**
 
-![](./images/1.jpg)
+![](/images/vscode1.jpg)
 
-![](./images/2.jpg)
+![](/images/vscode2.jpg)
 
-![](./images/3.jpg)
+![](/images/vscode3.jpg)
 
 - **关键字斜体**
 
@@ -70,14 +70,13 @@ title: 配置 VSCode
 ### 2. theme
 
 - **安装插件**
-
   - One Dark Pro
-
+  
   - Material Icon Theme
-
+  
 - **配置主题和图标**
 
- ![](./images/4.jpg)
+ ![](/images/vscode4.jpg)
 
 ## 通用插件
 
