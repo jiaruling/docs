@@ -1,6 +1,6 @@
 module.exports = {
   // 站点配置
-  base: "/docs/",
+  base: "/", // "/" -> 部署  "/docs/" -> 开发
   lang: 'zh-CN',
   title: 'gopherDevOps',
   description: '这是我的第一个 VuePress 站点',
