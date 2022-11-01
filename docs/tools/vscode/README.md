@@ -20,48 +20,51 @@ title: 配置 VSCode
   - 在 `settings.json` 文件中添加如下内容, 并保存
 
   ```json
-  "editor.tokenColorCustomizations": {
-          "textMateRules": [
-            {
-              "name": "italic font",
-              "scope": [
-                "comment",
-                "keyword",
-                "storage",
-                "keyword.control.import",
-                "keyword.control.default",
-                "keyword.control.from",
-                "keyword.operator.new",
-                "keyword.control.export",
-                "keyword.control.flow",
-                "storage.type.class",
-                "storage.type.function",
-                "storage.type",
-                "storage.type.class",
-                "variable.language",
-                "variable.language.super",
-                "variable.language.this",
-                "meta.class",
-                "meta.var.expr",
-                "constant.language.null",
-                "support.type.primitive",
-                "entity.name.method.js",
-                "entity.other.attribute-name",
-                "punctuation.definition.comment",
-                "text.html.basic entity.other.attribute-name.html",
-                "text.html.basic entity.other.attribute-name",
-                "tag.decorator.js entity.name.tag.js",
-                "tag.decorator.js punctuation.definition.tag.js",
-                "source.js constant.other.object.key.js string.unquoted.label.js",
-              ],
-              "settings": {
-                "fontStyle": "italic",
-              }
+  {
+      "editor.fontLigatures": true,
+      "editor.tokenColorCustomizations": {
+              "textMateRules": [
+                {
+                  "name": "italic font",
+                  "scope": [
+                    "comment",
+                    "keyword",
+                    "storage",
+                    "keyword.control.import",
+                    "keyword.control.default",
+                    "keyword.control.from",
+                    "keyword.operator.new",
+                    "keyword.control.export",
+                    "keyword.control.flow",
+                    "storage.type.class",
+                    "storage.type.function",
+                    "storage.type",
+                    "storage.type.class",
+                    "variable.language",
+                    "variable.language.super",
+                    "variable.language.this",
+                    "meta.class",
+                    "meta.var.expr",
+                    "constant.language.null",
+                    "support.type.primitive",
+                    "entity.name.method.js",
+                    "entity.other.attribute-name",
+                    "punctuation.definition.comment",
+                    "text.html.basic entity.other.attribute-name.html",
+                    "text.html.basic entity.other.attribute-name",
+                    "tag.decorator.js entity.name.tag.js",
+                    "tag.decorator.js punctuation.definition.tag.js",
+                    "source.js constant.other.object.key.js string.unquoted.label.js",
+                  ],
+                  "settings": {
+                    "fontStyle": "italic",
+                  }
+                },
+              ]
             },
-          ]
-        },
+  }
   ```
-
+  
   
 
 ### 2. theme
@@ -84,7 +87,9 @@ title: 配置 VSCode
 
 ### 3. git-commit-plugin (git commit 模板)
 
-### 4. Open in External App (打开外部应用)
+### 4. GitLens — Git supercharged (Git 日志查看工具)
+
+### 5. Open in External App (打开外部应用)
 
 - 插件配置
 
@@ -124,9 +129,9 @@ title: 配置 VSCode
      }
      ```
 
-### 5. 日志插件
+### 6. 日志插件
 
-#### 5.1 Log File Highlighter （日志高亮）
+#### 6.1 Log File Highlighter （日志高亮）
 
 插件配置
 
@@ -149,15 +154,23 @@ title: 配置 VSCode
     ],
 ```
 
-### 6. Markdown Preview Enhanced （markdown查看器）
+### 7. Markdown Preview Enhanced （markdown查看器）
 
-### 7. 代码补全
+### 8. 代码补全插件
 
-#### 7.1 Tabnine AI Autocomplete
+#### 8.1 Tabnine AI Autocomplete
 
-#### 7.2 Kite
+#### 8.2 Kite
 
-#### 7.3 GitHub Copilot
+#### 8.3 GitHub Copilot
+
+### 9. 配置文件插件
+
+#### 9.1 YAML [YMAL入门教程](https://www.runoob.com/w3cnote/yaml-intro.html)
+
+#### 9.2 Better TOML [TOML学习](https://github.com/LongTengDao/TOML)
+
+
 
 ## 编程语言
 
