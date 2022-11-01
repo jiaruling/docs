@@ -1,9 +1,11 @@
 ---
 home: true
 heroImage: /images/hero.png
+heroText: null
+tagline: 学而不思则罔，思而不学则殆
 actions:
-  - text: Golang
-    link: /zh/guide/getting-started.html
+  - text: VuePress
+    link: https://v2.vuepress.vuejs.org/zh/guide/
     type: primary
   - text: Python
     link: /guide/
@@ -21,3 +23,18 @@ features:
 footer: MIT Licensed | VuePress v2.0.0-beta.35
 ---
 
+### 开发&部署
+```shell
+# run project
+$ npm run docs:dev # or yarn run docs:dev
+
+# build project
+$ yarn run docs:build # or npm run docs:build
+# cd 目录
+$ cd docs/
+# docker build
+$ docker build -t vuepress .
+# run docker
+$ docker run -d --name=vuepress -p 8090:80 vuepress
+# 访问 http://127.0.0.1:8090
+```

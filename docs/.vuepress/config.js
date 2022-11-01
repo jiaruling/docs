@@ -2,9 +2,9 @@ module.exports = {
   // 站点配置
   base: "/", // "/" -> 部署  "/docs/" -> 开发
   lang: 'zh-CN',
-  title: 'gopherDevOps',
-  description: '这是我的第一个 VuePress 站点',
-  port: 8089, // 端口
+  title: 'DevOps',
+  description: '学而不思则罔，思而不学则殆',
+  port: 8089, // 本地开发运行端口
 
   // 主题和它的配置
   theme: '@vuepress/theme-default',
