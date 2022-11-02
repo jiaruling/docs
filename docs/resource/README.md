@@ -11,6 +11,8 @@ title: 资源汇总
 
 - [**《Mastering Go》**](https://www.kancloud.cn/cloud001/golang/1601804)
 
+- [**《Go 语言高性能编程》**](https://github.com/geektutu/high-performance-go)
+
 ## WebSite
 
 - [**imooc**](https://www.imooc.com/)
