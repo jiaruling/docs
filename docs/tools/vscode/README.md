@@ -171,6 +171,70 @@ title: 配置 VSCode
 
 ### 10. Docker
 
+### 11. IntelliJ IDEA Keybindings（JetBrains 快捷键）
+
+### 12. Todo Tree
+
+插件配置
+
+1. 按下 `Ctrl + Shift + P`，在输入框中输入 `Open User settings(JSON)`
+2. 在 `settings.json` 文件中添加如下内容, 并保存
+
+```json
+ {	
+	//todo-tree settings
+    "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS):|^\\s*- \\[ \\])",
+    "todo-tree.general.tags": [
+        "TODO", // 待完成
+        "FIXME", // 已知的无法运行的代码
+        "tag", // 标签
+        "done", // 已完成
+        "note" // 笔记
+    ],
+    "todo-tree.regex.regexCaseSensitive": false,
+    "todo-tree.highlights.defaultHighlight": {
+        "foreground": "#FFFFFF",
+        "background": "#FFD700",
+        "icon": "check",
+        "rulerColour": "#FFD700",
+        "type": "tag",
+        "iconColour": "#FFD700"
+    },
+    "todo-tree.highlights.customHighlight": {
+        "todo": {
+            "background": "#FFD700",
+            "rulerColour": "#FFD700",
+            "iconColour": "#FFD700"
+        },
+        "FIXME": {
+            "background": "#FF3030",
+            "icon": "beaker",
+            "rulerColour": "#FF3030",
+            "iconColour": "#FF3030",
+        },
+        "tag": {
+            "background": "#1E90FF",
+            "icon": "tag",
+            "rulerColour": "#1E90FF",
+            "iconColour": "#1E90FF",
+            "rulerLane": "full"
+        },
+        "done": {
+            "background": "#00FF00",
+            "icon": "issue-closed",
+            "rulerColour": "#00FF00",
+            "iconColour": "#00FF00",
+        },
+        "note": {
+            "background": "#FF9900",
+            "icon": "note",
+            "rulerColour": "#FF9900",
+            "iconColour": "#FF9900",
+        }
+    },
+ }
+```
+
 
 
 ## 编程语言
