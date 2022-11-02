@@ -4,15 +4,12 @@ heroImage: /images/hero.png
 heroText: null
 tagline: 学而不思则罔，思而不学则殆
 actions:
-  - text: VuePress
+  - text: VuePress2.x
     link: https://v2.vuepress.vuejs.org/zh/guide/
     type: primary
-  - text: Python
-    link: /guide/
+  - text: Linux 速查
+    link: http://192.168.8.88:9665/
     type: secondary
-  - text: Docker
-    link: /zh/guide/getting-started.html
-    type: primary
 features:
 - title: 简洁至上
   details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
