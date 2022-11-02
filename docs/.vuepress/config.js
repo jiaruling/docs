@@ -35,10 +35,10 @@ module.exports = {
       {
         text: '导航',
         children: [
-          { text: "语言", link: "/language/"},
-          { text: "工具", link: "/tools/linux/"},
+          { text: "工具", link: "/tools/linux/" },
           { text: "运维", link: "/ops/" },
           { text: '面试', link: '/interview/' },
+          { text: "编程语言", link: "/language/" },
           { text: '设计模式', link: '/design_pattern/' }
         ],
       },
@@ -48,8 +48,8 @@ module.exports = {
           { text: "微服务网关", link: "/combat/gateway/" },
         ],
       },
-      { text: "资源", link: "/resource/"},
-      { text: "命令速查", link: "/command/"},
+      { text: "资源", link: "/resource/" },
+      { text: "命令速查", link: "/command/" },
       {
         text: '关于',
         children: [
@@ -73,16 +73,23 @@ module.exports = {
           ],
         },
       ],
-      '/golang/': [
+      '/language/': [
+        {
+          text: '概览',
+          collapsible: true,
+          children: [
+            '/language/README.md',
+          ]
+        },
         {
           text: "Golang",
           collapsible: true,
           children: [
-            '/golang/README.md',
-            '/golang/history.md',
-            '/golang/springhead.md',
-            '/golang/base.md',
-            'PerformanceTuning.md',
+            '/language/golang/README.md',
+            '/language/golang/history.md',
+            '/language/golang/springhead.md',
+            '/language/golang/base.md',
+            '/language/golang/PerformanceTuning.md',
           ]
         },
       ],
