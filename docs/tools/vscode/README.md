@@ -80,57 +80,27 @@ title: 配置 VSCode
 
 ## 通用插件
 
-### 1. Chinese (Simplified) (简体中文)
+### 1. Git
 
-### 2. Rainbow Brackets (彩虹括号)
+#### 1.1 git-commit-plugin (git commit 模板)
 
-### 3. git-commit-plugin (git commit 模板)
+#### 1.2 GitLens — Git supercharged (Git 日志查看工具)
 
-### 4. GitLens — Git supercharged (Git 日志查看工具)
+#### 1.3 Git History
 
-### 5. Open in External App (打开外部应用)
+#### 1.4 Git Graph
 
-- 插件配置
+### 2. Code Runner (代码运行)
 
-  1. 按下 `Ctrl + Shift + P`，在输入框中输入 `Open User settings(JSON)`
+### 3. 代码补全插件
 
-  2. 在 `settings.json` 文件中添加如下内容, 并保存
+#### 3.1 Tabnine AI Autocomplete
 
-     ```json
-     {
-         "openInExternalApp.openMapper": [
-             {
-                 // 用浏览器打开html文件
-                 "extensionName": "html",
-                 "apps": [
-                     {
-                         "title": "chrome",
-                         "openCommand": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-                     },
-                     {
-                         "title": "edge",
-                         "openCommand": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
-                     }
-                 ]
-             },
-             {   
-                 // 使用typora打开md文件
-                 "extensionName": "md",
-                 "apps": [
-                     {
-                         "title": "typora",
-                         "isElectronApp": true,
-                         // "openCommand": "E:\\Program Files\\Typora\\Typora.exe"
-                     }
-                 ]
-             }
-         ]
-     }
-     ```
+#### 3.2 GitHub Copilot
 
-### 6. 日志插件
+### 4. 日志插件
 
-#### 6.1 Log File Highlighter （日志高亮）
+#### 4.1 Log File Highlighter (日志高亮)
 
 插件配置
 
@@ -153,27 +123,7 @@ title: 配置 VSCode
     ],
 ```
 
-### 7. Markdown Preview Enhanced （markdown查看器）
-
-### 8. 代码补全插件
-
-#### 8.1 Tabnine AI Autocomplete
-
-#### 8.2 Kite
-
-#### 8.3 GitHub Copilot
-
-### 9. 配置文件插件
-
-#### 9.1 YAML [YMAL入门教程](https://www.runoob.com/w3cnote/yaml-intro.html)
-
-#### 9.2 Better TOML [TOML学习](https://github.com/LongTengDao/TOML)
-
-### 10. Docker
-
-### 11. IntelliJ IDEA Keybindings（JetBrains 快捷键）
-
-### 12. Todo Tree
+### 5. Todo Tree
 
 插件配置
 
@@ -235,22 +185,92 @@ title: 配置 VSCode
  }
 ```
 
+### 
 
+## 编程语言插件
 
-## 编程语言
+### 1. 配置文件插件
 
-### 1. Golang
+#### 1.1 YAML [YMAL入门教程](https://www.runoob.com/w3cnote/yaml-intro.html)
 
-#### 1.1 Create tests （golang自动生成测试代码）
+#### 1.2 Better TOML [TOML学习](https://github.com/LongTengDao/TOML)
+
+### 2. Golang插件
+
+#### 2.1 Go (带自动补全功能)
+
+#### 2.2 Create tests (golang自动生成测试代码)
 
 ```shell
 # 安装生成工具  https://github.com/cweill/gotests
 $ go get -u github.com/cweill/gotests/...
 ```
 
+### 3. python插件
 
+#### 3.1 Python  (带自动补全功能)
 
-## 其他
+## 其他插件
 
+### 1. Chinese (Simplified) (简体中文)
 
+### 2. Rainbow Brackets (彩虹括号)
+
+### 3. Docker
+
+### 4. IntelliJ IDEA Keybindings (JetBrains 快捷键)
+
+### 5.filesize (查看当前文件大小)
+
+### 6. File Utils (文件增删改查)
+
+### 7. WakaTime (IDE使用统计)
+
+### 8. Markdown Preview Enhanced (markdown查看器)
+
+### 9. Trailing Spaces (多余空格显示)
+
+### 10. REST Client (http客户端发送请求) [参考](https://www.pkslow.com/archives/vscode-rest-client)
+
+### 11. Open in External App (打开外部应用)
+
+- 插件配置
+
+  1. 按下 `Ctrl + Shift + P`，在输入框中输入 `Open User settings(JSON)`
+
+  2. 在 `settings.json` 文件中添加如下内容, 并保存
+
+```json
+{
+    "openInExternalApp.openMapper": [
+        {
+            // 用浏览器打开html文件
+            "extensionName": "html",
+            "apps": [
+                {
+                    "title": "chrome",
+                    "openCommand": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+                },
+                {
+                    "title": "edge",
+                    "openCommand": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+                }
+            ]
+        },
+        {   
+            // 使用typora打开md文件
+            "extensionName": "md",
+            "apps": [
+                {
+                    "title": "typora",
+                    "isElectronApp": true,
+                    // "openCommand": "E:\\Program Files\\Typora\\Typora.exe"
+                }
+            ]
+        }
+    ]
+}
+```
+
+### 
 
