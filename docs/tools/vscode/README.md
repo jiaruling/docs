@@ -131,8 +131,9 @@ title: 配置 VSCode
 2. 在 `settings.json` 文件中添加如下内容, 并保存
 
 ```json
- {	
+ {
 	 //todo-tree settings
+     // https://primer.style/octicons/
     "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS):|^\\s*- \\[ \\])",
     "todo-tree.general.tags": [
         "todo", // 待完成
