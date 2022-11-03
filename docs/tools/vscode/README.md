@@ -132,11 +132,12 @@ title: 配置 VSCode
 
 ```json
  {	
-	//todo-tree settings
+	 //todo-tree settings
     "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^)\\s*($TAGS):|^\\s*- \\[ \\])",
     "todo-tree.general.tags": [
-        "TODO", // 待完成
-        "FIXME", // 已知的无法运行的代码
+        "todo", // 待完成
+        "bug", // bug
+        "fixme", // 已知的无法运行的代码
         "tag", // 标签
         "done", // 已完成
         "note" // 笔记
@@ -145,10 +146,11 @@ title: 配置 VSCode
     "todo-tree.highlights.defaultHighlight": {
         "foreground": "#FFFFFF",
         "background": "#FFD700",
-        "icon": "check",
+        "icon": "check-circle",
         "rulerColour": "#FFD700",
         "type": "tag",
-        "iconColour": "#FFD700"
+        "iconColour": "#FFD700",
+        "gutterIcon": true
     },
     "todo-tree.highlights.customHighlight": {
         "todo": {
@@ -156,9 +158,15 @@ title: 配置 VSCode
             "rulerColour": "#FFD700",
             "iconColour": "#FFD700"
         },
-        "FIXME": {
+        "bug":{
+            "background": "#A31EAD",
+            "icon": "alert",
+            "rulerColour": "#A31EAD",
+            "iconColour": "#A31EAD",
+        },
+        "fixme": {
             "background": "#FF3030",
-            "icon": "beaker",
+            "icon": "flame",
             "rulerColour": "#FF3030",
             "iconColour": "#FF3030",
         },
@@ -171,7 +179,7 @@ title: 配置 VSCode
         },
         "done": {
             "background": "#00FF00",
-            "icon": "issue-closed",
+            "icon": "check-circle-fill",
             "rulerColour": "#00FF00",
             "iconColour": "#00FF00",
         },
@@ -184,8 +192,6 @@ title: 配置 VSCode
     },
  }
 ```
-
-### 
 
 ## 编程语言插件
 
@@ -210,6 +216,10 @@ $ go get -u github.com/cweill/gotests/...
 
 #### 3.1 Python  (带自动补全功能)
 
+#### 3.2 Pylance
+
+#### 3.3 isort
+
 ## 其他插件
 
 ### 1. Chinese (Simplified) (简体中文)
@@ -232,7 +242,17 @@ $ go get -u github.com/cweill/gotests/...
 
 ### 10. REST Client (http客户端发送请求) [参考](https://www.pkslow.com/archives/vscode-rest-client)
 
-### 11. Open in External App (打开外部应用)
+### 11. Remote Development
+
+#### 11.1WSL
+
+#### 11.2 Dev Containers
+
+#### 11.3 Remote - SSH
+
+#### 11.4 Remote - SSH: Editing Configuration File
+
+### 12. Open in External App (打开外部应用)
 
 - 插件配置
 
@@ -271,6 +291,4 @@ $ go get -u github.com/cweill/gotests/...
     ]
 }
 ```
-
-### 
 
