@@ -255,7 +255,8 @@ $ go get -u github.com/cweill/gotests/...
 
 #### 11.4 Remote - SSH: Editing Configuration File
 
-### 12. Open in External App (打开外部应用)
+### 12. Inline SQL (SQL语句高亮)
+### 13. Open in External App (打开外部应用)
 
 - 插件配置
 
@@ -280,7 +281,7 @@ $ go get -u github.com/cweill/gotests/...
                 }
             ]
         },
-        {   
+        {
             // 使用typora打开md文件
             "extensionName": "md",
             "apps": [
