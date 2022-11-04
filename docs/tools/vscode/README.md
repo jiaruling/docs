@@ -202,6 +202,8 @@ title: 配置 VSCode
 
 #### 1.2 Better TOML [TOML学习](https://github.com/LongTengDao/TOML)
 
+#### 1.3 vscode-proto3 [Protocol Buffers](https://developers.google.com/protocol-buffers)
+
 ### 2. Golang插件
 
 #### 2.1 Go (带自动补全功能)
