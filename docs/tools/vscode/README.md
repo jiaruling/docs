@@ -141,7 +141,8 @@ title: 配置 VSCode
         "fixme", // 已知的无法运行的代码
         "tag", // 标签
         "done", // 已完成
-        "note" // 笔记
+        "note", // 笔记
+        "wait for test" // 等待测试: wait for test
     ],
     "todo-tree.regex.regexCaseSensitive": false,
     "todo-tree.highlights.defaultHighlight": {
@@ -189,7 +190,13 @@ title: 配置 VSCode
             "icon": "note",
             "rulerColour": "#FF9900",
             "iconColour": "#FF9900",
-        }
+        },
+        "wait for test": {
+            "background": "#ec1a24",
+            "icon": "info",
+            "rulerColour": "#ec1a24",
+            "iconColour": "#ec1a24",
+        },
     },
  }
 ```
