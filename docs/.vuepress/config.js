@@ -66,6 +66,7 @@ module.exports = {
           collapsible: true,
           children: [
             '/ops/README.md',
+            '/ops/cpu架构.md',
             '/ops/nginx常用部署.md',
             '/ops/alpine镜像设置时区.md',
             '/ops/cicd.md',
