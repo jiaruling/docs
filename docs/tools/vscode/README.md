@@ -21,12 +21,12 @@ title: 配置 VSCode
 
   ```json
   {
-      "editor.fontLigatures": true,
-      "editor.tokenColorCustomizations": {
-              "textMateRules": [
-                {
-                  "name": "italic font",
-                  "scope": [
+    "editor.fontLigatures": true,
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "name": "italic font",
+                "scope": [
                     "comment",
                     "keyword",
                     "storage",
@@ -55,28 +55,88 @@ title: 配置 VSCode
                     "tag.decorator.js entity.name.tag.js",
                     "tag.decorator.js punctuation.definition.tag.js",
                     "source.js constant.other.object.key.js string.unquoted.label.js",
-                  ],
-                  "settings": {
+                ],
+                "settings": {
                     "fontStyle": "italic",
-                  }
-                },
-              ]
+                }
             },
+        ]
+    },
   }
   ```
-  
-  
+
 
 ### 2. theme
 
 - **安装插件**
   - One Dark Pro
-  
+
   - Material Icon Theme
-  
+
 - **配置主题和图标**
 
  ![](/images/vscode4.jpg)
+
+- 修改样式颜色
+  - 按下 `Ctrl + Shift + P`，在输入框中输入 `Open User settings(JSON)`
+  - 在 `settings.json` 文件中添加如下内容, 并保存
+  ```json
+  {
+    "workbench.colorCustomizations": {
+        "editor.foreground": "#d19a66",
+    },
+    "editor.tokenColorCustomizations": {
+        "[One Dark Pro]": {
+            "textMateRules": [
+                {
+                    "name": "Variables",
+                    "scope": "variable",
+                    "settings": {
+                        "foreground": "#d19a66"
+                    }
+                },
+                {
+                    "name": "Functions",
+                    "scope": [
+                        "entity.name.function",
+                        "meta.require",
+                        "support.function.any-method",
+                        "variable.function"
+                    ],
+                    "settings": {
+                        "foreground": "#61aeef"
+                    }
+                },
+                {
+                    "name": "Support",
+                    "scope": "support.function",
+                    "settings": {
+                        "foreground": "#61aeef"
+                    }
+                },
+                {
+                    "name": "go operator",
+                    "scope": [
+                        "keyword.operator.assignment.go"
+                    ],
+                    "settings": {
+                        "foreground": "#61afef"
+                    }
+                },
+                {
+                    "name": "keyword.operator",
+                    "scope": "keyword.operator.arithmetic,keyword.operator.comparison,keyword.operator.decrement,keyword.operator.increment,keyword.operator.relational",
+                    "settings": {
+                        "foreground": "#61afef"
+                    }
+                },
+            ]
+        }
+    },
+  }
+  ```
+
+
 
 ## 通用插件
 
