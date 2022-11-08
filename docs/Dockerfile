@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:alpine
 
 COPY .vuepress/dist/ /usr/share/nginx/html/
 
