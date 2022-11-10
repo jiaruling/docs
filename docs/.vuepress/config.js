@@ -93,6 +93,34 @@ module.exports = {
             '/language/golang/PerformanceTuning.md',
           ]
         },
+        {
+          text: "C",
+          collapsible: true,
+          children: [
+            '/language/c/README.md',
+          ]
+        },
+        {
+          text: "JavaScript",
+          collapsible: true,
+          children: [
+            '/language/javaScript/README.md',
+          ]
+        },
+        {
+          text: "Python",
+          collapsible: true,
+          children: [
+            '/language/python/README.md',
+          ]
+        },
+        {
+          text: "Rust",
+          collapsible: true,
+          children: [
+            '/language/rust/README.md',
+          ]
+        },
       ],
       '/interview/': [
         {

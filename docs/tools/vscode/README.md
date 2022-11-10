@@ -318,6 +318,12 @@ $ go get -u github.com/cweill/gotests/...
 
 #### 11.2 Dev Containers
 
+- vscode 连接容器配置
+  1. setings 中输入 `docker host`
+  2. 配置`tcp://localhost:2375`
+
+  ![](/images/vscode5.jpg)
+
 #### 11.3 Remote - SSH
 
 #### 11.4 Remote - SSH: Editing Configuration File

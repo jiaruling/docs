@@ -68,7 +68,6 @@ title: 资源汇总
 - **[RedisManager](https://github.com/qishibo/AnotherRedisDesktopManager)**
 
 - **[代码补全](https://zhuanlan.zhihu.com/p/456957593)**
-    - **[Kite(python)](https://www.kite.com/)**
     - **[Github Copilot]()**
     - **[TabNine]()**
 
@@ -108,3 +107,6 @@ title: 资源汇总
 
 - **[gin_scaffold](https://github.com/e421083458/gin_scaffold)**
 
+## Others
+
+ - **[作为计算机专业学生，最应该学习的课程前五位是什么？](https://www.zhihu.com/question/19628851)**
