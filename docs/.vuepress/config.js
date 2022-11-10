@@ -198,6 +198,10 @@ module.exports = {
           collapsible: true,
           children: [
             '/tools/vagrant/README.md',
+            '/tools/vagrant/firstVM.md',
+            '/tools/vagrant/downloadImages.md',
+            '/tools/vagrant/cmd.md',
+            '/tools/vagrant/VagrantFile.md',
           ]
         },
         {
