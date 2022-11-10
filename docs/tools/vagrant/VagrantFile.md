@@ -448,15 +448,14 @@ C:.
       },
       {
         :name => "host2",
-        :box => "generic/alpine37",
+        :box => "generic/alpine38",
         :ssh => false
       },
       {
         :name => "host3",
-        :box => "generic/alpine36",
+        :box => "generic/alpine38",
         :ssh => true
       }
-    
     ]
     
     Vagrant.configure("2") do |config|
@@ -464,7 +463,7 @@ C:.
         config.vm.define item[:name] do |host|
             host.vm.hostname = item[:name] # 设置名称
             host.vm.box = item[:box] # 设置镜像
-            host.ssh.insert_key = item[:ssh] # 是否使用安全key
+            host.ssh.insert_key = item[:ssh] # 是否使用安全的key
           end
       end
     end
@@ -475,7 +474,167 @@ C:.
     ```shell
     # 创建虚拟机
     $ vagrant up --provider virtualbox
+    Bringing machine 'host1' up with 'virtualbox' provider...
+    Bringing machine 'host2' up with 'virtualbox' provider...
+    Bringing machine 'host3' up with 'virtualbox' provider...
+    ==> host1: Importing base box 'generic/alpine38'...
+    ==> host1: Matching MAC address for NAT networking...
+    ==> host1: Checking if box 'generic/alpine38' version '4.2.0' is up to date...
+    ==> host1: Setting the name of the VM: vagrantdemo_host1_1668092952921_92511
+    ==> host1: Clearing any previously set network interfaces...
+    ==> host1: Preparing network interfaces based on configuration...
+        host1: Adapter 1: nat
+    ==> host1: Forwarding ports...
+        host1: 22 (guest) => 2222 (host) (adapter 1)
+    ==> host1: Running 'pre-boot' VM customizations...
+    ==> host1: Booting VM...
+    ==> host1: Waiting for machine to boot. This may take a few minutes...
+        host1: SSH address: 127.0.0.1:2222
+        host1: SSH username: vagrant
+        host1: SSH auth method: private key
+        host1:
+        host1: Vagrant insecure key detected. Vagrant will automatically replace
+        host1: this with a newly generated keypair for better security.
+        host1:
+        host1: Inserting generated public key within guest...
+        host1: Removing insecure key from the guest if it's present...
+        host1: Key inserted! Disconnecting and reconnecting using new SSH key...
+    ==> host1: Machine booted and ready!
+    ==> host1: Checking for guest additions in VM...
+        host1: The guest additions on this VM do not match the installed version of
+        host1: VirtualBox! In most cases this is fine, but in rare cases it can
+        host1: prevent things such as shared folders from working properly. If you see
+        host1: shared folder errors, please make sure the guest additions within the
+        host1: virtual machine match the version of VirtualBox you have installed on
+        host1: your host and reload your VM.
+        host1:
+        host1: Guest Additions Version: 5.2.2 r119230
+        host1: VirtualBox Version: 6.1
+    ==> host1: Setting hostname...
+    ==> host2: Importing base box 'generic/alpine38'...
+    ==> host2: Matching MAC address for NAT networking...
+    ==> host2: Checking if box 'generic/alpine38' version '4.2.0' is up to date...
+    ==> host2: Setting the name of the VM: vagrantdemo_host2_1668092981883_32630
+    ==> host2: Fixed port collision for 22 => 2222. Now on port 2203.
+    ==> host2: Clearing any previously set network interfaces...
+    ==> host2: Preparing network interfaces based on configuration...
+        host2: Adapter 1: nat
+    ==> host2: Forwarding ports...
+        host2: 22 (guest) => 2203 (host) (adapter 1)
+    ==> host2: Running 'pre-boot' VM customizations...
+    ==> host2: Booting VM...
+    ==> host2: Waiting for machine to boot. This may take a few minutes...
+        host2: SSH address: 127.0.0.1:2203
+        host2: SSH username: vagrant
+        host2: SSH auth method: private key
+    ==> host2: Machine booted and ready!
+    ==> host2: Checking for guest additions in VM...
+        host2: The guest additions on this VM do not match the installed version of
+        host2: VirtualBox! In most cases this is fine, but in rare cases it can
+        host2: prevent things such as shared folders from working properly. If you see
+        host2: shared folder errors, please make sure the guest additions within the
+        host2: virtual machine match the version of VirtualBox you have installed on
+        host2: your host and reload your VM.
+        host2:
+        host2: Guest Additions Version: 5.2.2 r119230
+        host2: VirtualBox Version: 6.1
+    ==> host2: Setting hostname...
+    ==> host3: Importing base box 'generic/alpine38'...
+    ==> host3: Matching MAC address for NAT networking...
+    ==> host3: Checking if box 'generic/alpine38' version '4.2.0' is up to date...
+    ==> host3: Setting the name of the VM: vagrantdemo_host3_1668093009461_87937
+    ==> host3: Fixed port collision for 22 => 2222. Now on port 2204.
+    ==> host3: Clearing any previously set network interfaces...
+    ==> host3: Preparing network interfaces based on configuration...
+        host3: Adapter 1: nat
+    ==> host3: Forwarding ports...
+        host3: 22 (guest) => 2204 (host) (adapter 1)
+    ==> host3: Running 'pre-boot' VM customizations...
+    ==> host3: Booting VM...
+    ==> host3: Waiting for machine to boot. This may take a few minutes...
+        host3: SSH address: 127.0.0.1:2204
+        host3: SSH username: vagrant
+        host3: SSH auth method: private key
+        host3:
+        host3: Vagrant insecure key detected. Vagrant will automatically replace
+        host3: this with a newly generated keypair for better security.
+        host3:
+        host3: Inserting generated public key within guest...
+        host3: Removing insecure key from the guest if it's present...
+        host3: Key inserted! Disconnecting and reconnecting using new SSH key...
+    ==> host3: Machine booted and ready!
+    ==> host3: Checking for guest additions in VM...
+        host3: The guest additions on this VM do not match the installed version of
+        host3: VirtualBox! In most cases this is fine, but in rare cases it can
+        host3: prevent things such as shared folders from working properly. If you see
+        host3: shared folder errors, please make sure the guest additions within the
+        host3: virtual machine match the version of VirtualBox you have installed on
+        host3: your host and reload your VM.
+        host3:
+        host3: Guest Additions Version: 5.2.2 r119230
+        host3: VirtualBox Version: 6.1
+    ==> host3: Setting hostname...
     
+    # 查看虚拟机状态
+    vagrant status
+    Current machine states:
+    
+    host1                     running (virtualbox)
+    host2                     running (virtualbox)
+    host3                     running (virtualbox)
+    
+    This environment represents multiple VMs. The VMs are all listed
+    above with their current state. For more information about a specific
+    VM, run `vagrant status NAME`.
+    
+    # 查看虚拟机ssh配置
+    $ vagrant ssh-config
+    Host host1
+      HostName 127.0.0.1
+      User vagrant
+      Port 2222
+      UserKnownHostsFile /dev/null
+      StrictHostKeyChecking no
+      PasswordAuthentication no
+      IdentityFile E:/vagrantdemo/.vagrant/machines/host1/virtualbox/private_key
+      IdentitiesOnly yes
+      LogLevel FATAL
+    
+    Host host2
+      HostName 127.0.0.1
+      User vagrant
+      Port 2203
+      UserKnownHostsFile /dev/null
+      StrictHostKeyChecking no
+      PasswordAuthentication no
+      IdentityFile C:/Users/JRL/.vagrant.d/insecure_private_key
+      IdentitiesOnly yes
+      LogLevel FATAL
+    
+    Host host3
+      HostName 127.0.0.1
+      User vagrant
+      Port 2204
+      UserKnownHostsFile /dev/null
+      StrictHostKeyChecking no
+      PasswordAuthentication no
+      IdentityFile E:/vagrantdemo/.vagrant/machines/host3/virtualbox/private_key
+      IdentitiesOnly yes
+      LogLevel FATAL
+    
+    # 进入虚拟机
+    $ vagrant ssh host1
+    host1:~$ exit
+    logout
+    Connection to 127.0.0.1 closed.
+    $ vagrant ssh host2
+    host2:~$ exit
+    logout
+    Connection to 127.0.0.1 closed.
+    $ vagrant ssh host3
+    host3:~$ exit
+    logout
+    Connection to 127.0.0.1 closed.
     ```
 
     
