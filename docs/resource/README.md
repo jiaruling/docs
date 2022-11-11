@@ -110,3 +110,4 @@ title: 资源汇总
 ## Others
 
  - **[作为计算机专业学生，最应该学习的课程前五位是什么？](https://www.zhihu.com/question/19628851)**
+ - **[Linux 镜像](https://www.osboxes.org/)**
