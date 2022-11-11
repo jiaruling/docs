@@ -202,6 +202,9 @@ module.exports = {
             '/tools/vagrant/downloadImages.md',
             '/tools/vagrant/cmd.md',
             '/tools/vagrant/VagrantFile.md',
+            '/tools/vagrant/box.md',
+            '/tools/vagrant/networking.md',
+            '/tools/vagrant/provisioning.md',
           ]
         },
         {
