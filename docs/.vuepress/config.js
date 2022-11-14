@@ -212,6 +212,7 @@ module.exports = {
           collapsible: true,
           children: [
             '/tools/ansible/README.md',
+            '/tools/ansible/install.md',
           ]
         },
         {
