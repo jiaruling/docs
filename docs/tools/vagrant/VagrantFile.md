@@ -1853,7 +1853,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provider "virtualbox" do |_, override|
-    config.vm.synced_folder '.', '/vagrant', type: "virtualbox"
+    config.vm.synced_folder '.', '/vagrant', type: "smb"
   end
 
   host_list.each do |item|
