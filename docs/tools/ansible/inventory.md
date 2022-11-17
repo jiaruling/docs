@@ -6,7 +6,7 @@ title: Inventory
 
 ### 查看每个虚拟机的配置信息
 
-```shell
+```shell{1}
 $ vagrant ssh-config
 Host ansible-controller
   HostName 172.27.119.219
@@ -44,7 +44,7 @@ Host ansible-node2
 
 ### node1 和 node2 也要开启密码登录【node1 和 node2 操作一致】
 
-```shell
+```shell{3,14,16,19,26,28,32}
 # node1 的示范如下
 # 本地主机查看虚拟机状态
 $ vagrant status
@@ -58,7 +58,7 @@ This environment represents multiple VMs. The VMs are all listed
 above with their current state. For more information about a specific
 VM, run `vagrant status NAME`.
 # 通过ssh免密进入ansible-node1
-➜ VagrantDemo1  vagrant ssh ansible-node1
+$ vagrant ssh ansible-node1
 # 修改ssh配置文件
 [vagrant@ansible-controller ~]$ sudo vi /etc/ssh/sshd_config
 ...
@@ -112,7 +112,7 @@ F:.
 
 - 虚拟机中执行以下命令
 
-  ```shell
+  ```shell{10,20,32,44}
   # 进入ansible-controller 节点
   $ ssh vagrant@172.27.119.219
   vagrant@172.27.119.219\'s password:
@@ -180,7 +180,7 @@ F:.
 
 - 编写 **inventory.ini** 文件
 
-  ```ini
+  ```ini{3}
   # 密码版本
   [web1] # 分组
   ansible-node[1:3] ansible_connection=ssh ansible_user=vagrant ansible_ssh_pass=vagrant  # 匹配
@@ -191,7 +191,7 @@ F:.
 
 - 虚拟机中执行以下命令
 
-  ```shell
+  ```shell{10}
   # 进入ansible-controller 节点
   $ ssh vagrant@172.27.119.219
   vagrant@172.27.119.219\'s password:
@@ -231,7 +231,7 @@ F:.
 
   - ansible-controller
 
-    ```shell
+    ```shell{9,12,36,47}
     # ansible-controller 虚拟机
     ## 进入.ssh 目录并查看
     [vagrant@ansible-controller ~]$ ls -a
@@ -292,7 +292,7 @@ F:.
 
   - ansible-node1
 
-    ```shell
+    ```shell{11-14}
     # 登录 ansible-node1
     $ ssh vagrant@172.27.123.226
     vagrant@172.27.123.226's password:
@@ -315,7 +315,7 @@ F:.
 
   - ansible-node2
 
-    ```shell
+    ```shell{11-14}
     # 登录 ansible-node1
     $ ssh vagrant@172.27.116.221
     vagrant@172.27.116.221's password:
@@ -338,7 +338,7 @@ F:.
 
   - 证书登录验证
 
-    ```shell
+    ```shell{2,8}
     # ansible-controller 通过证书登录 ansible-node1
     [vagrant@ansible-controller ~]$ ssh -i .ssh/ansible ansible-node1
     Last login: Thu Nov 17 08:24:18 2022 from 172.27.112.1
@@ -366,7 +366,7 @@ F:.
 
 - 虚拟机中执行以下命令
 
-  ```shell
+  ```shell{4}
   [vagrant@ansible-controller ~]$ cd ansible-code/inventory/
   [vagrant@ansible-controller inventory]$ ls
   inventory.ini
