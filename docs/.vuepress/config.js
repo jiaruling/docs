@@ -213,6 +213,7 @@ module.exports = {
           children: [
             '/tools/ansible/README.md',
             '/tools/ansible/install.md',
+            '/tools/ansible/inventory.md',
           ]
         },
         {

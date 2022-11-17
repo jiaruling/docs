@@ -334,9 +334,9 @@ PING ansible-node2 (172.24.17.197) 56(84) bytes of data.
 4 packets transmitted, 4 received, 0% packet loss, time 3000ms
 ```
 
-## 安装VSCODE并同步文件
+## 安装 VSCode 并实现本地和虚拟机文件同步
 
-::: tip 虚拟机
+::: tip Step1: 虚拟机
 
 - ansible-controller 允许 **密码登录** 和 **root登录** 
 
@@ -376,11 +376,61 @@ PING ansible-node2 (172.24.17.197) 56(84) bytes of data.
 
 :::
 
-:::tip 本地主机
+:::tip Step2: 本地主机
 
 - 安装 **VSCode** 软件
+
 - 安装 **SFTP** 插件
-- 
+
+- 本地新建 **ansible** 文件夹，并在该文件夹下新建 **inventory.txt** 文件
+
+- 按下 **Ctrl + Shift + P**, 在输入框中输入 `SFTP: Config` ，并按下回车
+
+  - 在 **ansible** 文件夹下会多出一个 **.vscode** 文件夹，文件夹下有一个 **sftp.json** 文件。目录结构如下所示
+
+    ```tex
+    F:.
+    │   inventory.txt
+    │
+    └───.vscode
+            sftp.json
+    ```
+
+  - **sftp.json** 文件内容修改如下所示
+
+    ```json
+    {
+        "name": "ansible-controller",
+        "host": "172.24.19.67",
+        "protocol": "sftp",
+        "port": 22,
+        "username": "vagrant",
+        "remotePath": "/home/vagrant/ansible-code",
+        "uploadOnSave": true,
+        "useTempFile": false,
+        "openSsh": true
+    }
+    ```
+
+  - 按下 **Ctrl + Shift + P**, 在输入框中输入 `SFTP: Sync Local -> Remote` ，并按下回车, 输入密码进行文件同步
+
 
 :::
 
+::: tip Step3: 虚拟机
+
+- 进入虚拟机查看是否已经完成同步
+
+  ```shell
+  $ ssh vagrant@172.24.19.67
+  vagrant@172.27.119.219's password:
+  Last login: Thu Nov 17 06:18:50 2022 from 172.27.112.1
+  [vagrant@ansible-controller ~]$ cd ansible-code/
+  [vagrant@ansible-controller ansible-code]$ ls
+  inventory.txt
+  [vagrant@ansible-controller ansible-code]$ exit
+  logout
+  Connection to 172.27.119.219 closed.
+  ```
+
+:::
