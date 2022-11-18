@@ -517,18 +517,59 @@ title: Playbook 最佳实践
   localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
 
-## Group
+## Group 变量和 Host 变量
+
+### Host 变量基本使用
 
 - 目录结构
 
-  ```tex
-  
+  ```tex{9-12}
+  .
+  ├── inventory
+  │   └── inventory.ini
+  └── playbook
+      ├── condition
+      │   └── when.yml
+      ├── debug
+      │   └── helloworld.yml
+      ├── group-host-vars
+      │   ├── inventory
+      │   │   └── hosts
+      │   └── main.yml
+      ├── loop
+      │   ├── helloworld.yml
+      │   └── test_loop.yml
+      ├── playbook1.yml
+      ├── playbook2.yml
+      └── vars
+          ├── simple
+          │   └── helloworld.yml
+          └── vars_file
+              ├── helloworld.yml
+              └── vars
+                  ├── demo.yml
+                  └── test.yml
   ```
 
-- **helloworld.yml** 文件内容
+- **group-host-vars/main.yml** 文件内容
 
   ```yaml
+  - name: Hello World
+    hosts: all
+    gather_facts: no
   
+    tasks:
+      - name: test vars
+        ansible.builtin.debug:
+          msg: "ansible_user = {{ ansible_user }}, ansible_password = {{ ansible_password }}"
+  ```
+
+- **group-host-vars/inventory/hosts** 文件内容
+
+  ```tex
+  [all]
+  host1 ansible_user=vagrant ansible_password=vagrant ansible_connection=ssh
+  host2 ansible_user=vagrant ansible_password=vagrant ansible_connection=ssh
   ```
 
 - 使用 **SFTP** 同步文件至虚拟机
@@ -536,21 +577,80 @@ title: Playbook 最佳实践
 - **ansible-controller** 中执行
 
   ```shell
+  [vagrant@ansible-controller ansible-code]$ ansible-playbook -i playbook/group-host-vars/inventory/hosts playbook/group-host-vars/main.yml
   
+  PLAY [Hello World] *****************************************************************************************************
+  
+  TASK [test vars] *******************************************************************************************************
+  ok: [host1] => {
+      "msg": "ansible_user = vagrant, ansible_password = vagrant"
+  }
+  ok: [host2] => {
+      "msg": "ansible_user = vagrant, ansible_password = vagrant"
+  }
+  
+  PLAY RECAP *************************************************************************************************************
+  host1                      : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+  host2                      : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
 
-## Host
+### 结合 Group 使用
 
-- 目录结构
+- 目录结构【不变】
 
-  ```tex
-  
+  ```tex{9-12}
+  .
+  ├── inventory
+  │   └── inventory.ini
+  └── playbook
+      ├── condition
+      │   └── when.yml
+      ├── debug
+      │   └── helloworld.yml
+      ├── group-host-vars
+      │   ├── inventory
+      │   │   └── hosts
+      │   └── main.yml
+      ├── loop
+      │   ├── helloworld.yml
+      │   └── test_loop.yml
+      ├── playbook1.yml
+      ├── playbook2.yml
+      └── vars
+          ├── simple
+          │   └── helloworld.yml
+          └── vars_file
+              ├── helloworld.yml
+              └── vars
+                  ├── demo.yml
+                  └── test.yml
   ```
 
-- **helloworld.yml** 文件内容
+- **group-host-vars/main.yml** 文件内容
 
   ```yaml
+  - name: Hello World
+    hosts: all
+    gather_facts: no
   
+    tasks:
+      - name: test vars
+        ansible.builtin.debug:
+          msg: "ansible_user = {{ ansible_user }}, ansible_password = {{ ansible_password }}, http_port = {{ http_port }}"
+  ```
+
+- **group-host-vars/inventory/hosts** 文件内容
+
+  ```tex
+  [all]
+  host1
+  host2 http_port=443
+  
+  [all:vars]
+  ansible_user=vagrant
+  ansible_password=vagrant
+  ansible_connection=ssh
+  http_port=80
   ```
 
 - 使用 **SFTP** 同步文件至虚拟机
@@ -558,27 +658,230 @@ title: Playbook 最佳实践
 - **ansible-controller** 中执行
 
   ```shell
+  [vagrant@ansible-controller ansible-code]$ ansible-playbook -i playbook/group-host-vars/inventory/hosts playbook/group-host-vars/main.yml
   
+  PLAY [Hello World] *****************************************************************************************************
+  
+  TASK [test vars] *******************************************************************************************************
+  ok: [host2] => {
+      "msg": "ansible_user = vagrant, ansible_password = vagrant, http_port = 443"
+  }
+  ok: [host1] => {
+      "msg": "ansible_user = vagrant, ansible_password = vagrant, http_port = 80"
+  }
+  
+  PLAY RECAP *************************************************************************************************************
+  host1                      : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+  host2                      : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
 
-## Ansible.cfg
+### Host和Group优化方案
 
 - 目录结构
 
-  ```tex
-  
+  ```tex{9-17}
+  .
+  ├── inventory
+  │   └── inventory.ini
+  └── playbook
+      ├── condition
+      │   └── when.yml
+      ├── debug
+      │   └── helloworld.yml
+      ├── group-host-vars
+      │   ├── inventory
+      │   │   ├── group_vars  # 组变量目录【一个组共有的变量】
+      │   │   │   └── all.yml
+      │   │   ├── hosts        # 主机文件
+      │   │   └── hosts_vars   # 主机变量目录 【每个主机特有的变量】
+      │   │       ├── host1.yml
+      │   │       └── host2.yml
+      │   └── main.yml        # playbook
+      ├── loop
+      │   ├── helloworld.yml
+      │   └── test_loop.yml
+      ├── playbook1.yml
+      ├── playbook2.yml
+      └── vars
+          ├── simple
+          │   └── helloworld.yml
+          └── vars_file
+              ├── helloworld.yml
+              └── vars
+                  ├── demo.yml
+                  └── test.yml
   ```
 
-- **helloworld.yml** 文件内容
+- 文件内容
 
-  ```yaml
-  
-  ```
+  - **group-host-vars/main.yml** 
+
+    ```yaml
+    - name: Hello World
+      hosts: all
+      gather_facts: no
+    
+      tasks:
+        - name: test vars
+          ansible.builtin.debug:
+            msg: "ansible_user = {{ ansible_user }}, ansible_password = {{ ansible_password }}, http_port = {{ http_port }}, ip_address = {{ ip_addr }}"
+    ```
+
+  - **group-host-vars/inventory/hosts**
+
+    ```tex
+    [all]
+    host1
+    host2
+    ```
+
+  - **group-host-vars/inventory/group_vars/all.yml** 
+
+    ```yaml
+    # Group变量
+    ansible_user: vagrant
+    ansible_password: vagrant
+    ansible_connection: ssh
+    http_port: 80
+    ```
+
+  - **group-host-vars/inventory/hosts_vars/host1.yml** 
+
+    ```yaml
+    # Host变量
+    ip_addr: "1.1.1.1"
+    ```
+
+  - **group-host-vars/inventory/hosts_vars/host2.yml** 
+
+    ```yaml
+    # Host变量
+    http_port: 443
+    ip_addr: "2.2.2.2"
+    ```
 
 - 使用 **SFTP** 同步文件至虚拟机
 
 - **ansible-controller** 中执行
 
   ```shell
+  [vagrant@ansible-controller ansible-code]$ ansible-playbook -i playbook/group-host-vars/inventory/hosts playbook/group-host-vars/main.yml
   
+  PLAY [Hello World] *****************************************************************************************************
+  
+  TASK [test vars] *******************************************************************************************************
+  ok: [host1] => {
+      "msg": "ansible_user = vagrant, ansible_password = vagrant, http_port = 80, ip_address = 1.1.1.1"
+  }
+  ok: [host2] => {
+      "msg": "ansible_user = vagrant, ansible_password = vagrant, http_port = 443, ip_address = 2.2.2.2"
+  }
+  
+  PLAY RECAP *************************************************************************************************************
+  host1                      : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+  host2                      : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
   ```
+
+## Ansible 配置文件
+
+- 目录结构
+
+  ```tex{10}
+  .
+  ├── inventory
+  │   └── inventory.ini
+  └── playbook
+      ├── condition
+      │   └── when.yml
+      ├── debug
+      │   └── helloworld.yml
+      ├── group-host-vars
+      │   ├── ansible.cfg
+      │   ├── inventory
+      │   │   ├── group_vars
+      │   │   │   └── all.yml
+      │   │   ├── hosts
+      │   │   └── hosts_vars
+      │   │       ├── host1.yml
+      │   │       └── host2.yml
+      │   └── main.yml
+      ├── loop
+      │   ├── helloworld.yml
+      │   └── test_loop.yml
+      ├── playbook1.yml
+      ├── playbook2.yml
+      └── vars
+          ├── simple
+          │   └── helloworld.yml
+          └── vars_file
+              ├── helloworld.yml
+              └── vars
+                  ├── demo.yml
+                  └── test.yml
+  ```
+
+- 其它文件内容没有发生变化
+
+- **group-host-vars/ansible.cfg** 文件内容
+
+  ```yaml
+  [defaults]
+  inventory = inventory/hosts
+  
+  # ansible.cfg 优先级
+  # 当前目录的 ansible.cfg 最高
+  # 环境变量 ASIBLE_CONFIG 其次
+  # /home/user/ansible.cfg 再次
+  # /etc/ansible/ansible.cfg 最低
+  ```
+
+- 使用 **SFTP** 同步文件至虚拟机
+
+- **ansible-controller** 中执行
+
+  ```shell{4}
+  [vagrant@ansible-controller ansible-code]$ cd playbook/group-host-vars/
+  [vagrant@ansible-controller group-host-vars]$ ls
+  ansible.cfg  inventory  main.yml
+  [vagrant@ansible-controller group-host-vars]$ ansible-playbook main.yml
+  
+  PLAY [Hello World] *****************************************************************************************************
+  
+  TASK [test vars] *******************************************************************************************************
+  ok: [host1] => {
+      "msg": "ansible_user = vagrant, ansible_password = vagrant, http_port = 80, ip_address = 1.1.1.1"
+  }
+  ok: [host2] => {
+      "msg": "ansible_user = vagrant, ansible_password = vagrant, http_port = 443, ip_address = 2.2.2.2"
+  }
+  
+  PLAY RECAP *************************************************************************************************************
+  host1                      : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+  host2                      : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+  
+  [vagrant@ansible-controller group-host-vars]$
+  ```
+
+
+
+## Ansible 项目目录结构总结
+
+```tex
+ansible_demo/
+├── ansible.cfg                # ansible 配置文件
+├── inventory                  # 资产清单
+│   ├── production             # 生产环境
+│   │   ├── group_vars         # 组变量
+│   │   │   └── db.yml
+│   │   ├── hosts              # 主机文件
+│   │   └── hosts_vars         # 主机变量
+│   │       └── host1.yml
+│   └── test                   # 测试环境
+│       ├── group_vars
+│       │   └── db.yml
+│       ├── hosts
+│       └── hosts_vars
+│           └── host1.yml
+└── site.yml                    # playbook
+```
+
