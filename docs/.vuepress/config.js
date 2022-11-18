@@ -215,6 +215,8 @@ module.exports = {
             '/tools/ansible/install.md',
             '/tools/ansible/inventory.md',
             '/tools/ansible/playbook.md',
+            '/tools/ansible/playbookUse.md',
+            '/tools/ansible/setup.md',
           ]
         },
         {

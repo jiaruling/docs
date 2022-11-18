@@ -47,9 +47,9 @@ title: Playbook
 ```tex
 F:.
 ├───.vscode
-│       sftp.json    
+│       sftp.json
 │
-├───inventory        
+├───inventory
 │       inventory.ini
 │
 └───playbook
@@ -72,7 +72,7 @@ F:.
   - hosts: web1
     name: play-test
     remote_user: vagrant
-  
+
     tasks:
     - name: check host connection
       ping:
@@ -132,18 +132,18 @@ ansible-node2              : ok=2    changed=0    unreachable=0    failed=0    s
 
 :::tip Inventory
 
-
+所管理设备的清单
 
 :::
 
 :::tip Playbook
 
-
+Ansible中最核心的概念，对分组的设备执行特定的任务
 
 :::
 
 :::tip Module
 
-
+任务的具体实现 **[Modules](https://docs.ansible.com/ansible/latest/collections/index_module.html)**
 
 :::

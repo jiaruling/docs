@@ -60,7 +60,7 @@ VM, run `vagrant status NAME`.
 # 通过ssh免密进入ansible-node1
 $ vagrant ssh ansible-node1
 # 修改ssh配置文件
-[vagrant@ansible-controller ~]$ sudo vi /etc/ssh/sshd_config
+[vagrant@ansible-node1 ~]$ sudo vi /etc/ssh/sshd_config
 ...
 #LoginGraceTime 2m
 PermitRootLogin yes  # 打开注释
@@ -76,7 +76,7 @@ PasswordAuthentication yes # 打开注释
 ...
 
 # 重启sshd
-[vagrant@ansible-controller ~]$ sudo systemctl restart sshd
+[vagrant@ansible-node1 ~]$ sudo systemctl restart sshd
 # 退出
 [vagrant@ansible-node1 ~]$ exit
 logout
@@ -112,7 +112,7 @@ F:.
 
 - 虚拟机中执行以下命令
 
-  ```shell{10,20,32,44}
+  ```shell{
   # 进入ansible-controller 节点
   $ ssh vagrant@172.27.119.219
   vagrant@172.27.119.219\'s password:
@@ -131,30 +131,10 @@ F:.
       "msg": "Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host's fingerprint to your known_hosts file to manage this host."
   }
   # ansible-controller 通过密码登录的方式，先登录 ansible-node1 和 ansbible-node2
-  ## 登录 ansible-node1
   [vagrant@ansible-controller inventory]$ ssh vagrant@ansible-node1
-  The authenticity of host 'ansible-node1 (172.27.123.226)' can\'t be established.
-  ECDSA key fingerprint is SHA256:3103jaP5o6vgukdMZ8O3EHjMeA+hpoTSteyStUfjinA.
-  ECDSA key fingerprint is MD5:5d:0a:cd:aa:fd:a0:cd:4d:d3:f9:64:9b:33:f6:47:ea.
-  Are you sure you want to continue connecting (yes/no)? yes
-  Warning: Permanently added 'ansible-node1,172.27.123.226' (ECDSA) to the list of known hosts.
-  vagrant@ansible-node1\'s password:
-  Last login: Thu Nov 17 07:33:16 2022 from 172.27.112.1
-  [vagrant@ansible-node1 ~]$ exit
-  logout
-  Connection to ansible-node1 closed.
-  ## 登录 ansible-node1
+  
   [vagrant@ansible-controller inventory]$ ssh vagrant@ansible-node2
-  The authenticity of host 'ansible-node2 (172.27.116.221)' can\'t be established.
-  ECDSA key fingerprint is SHA256:gHukUvvvNV0XqH96YAJ0lIpyBsexCIsVCeRs6oaRRC4.
-  ECDSA key fingerprint is MD5:ef:88:5a:96:42:9f:eb:af:43:d1:a7:1e:d8:56:a9:b4.
-  Are you sure you want to continue connecting (yes/no)? yes
-  Warning: Permanently added 'ansible-node2,172.27.116.221' (ECDSA) to the list of known hosts.
-  vagrant@ansible-node2\'s password:
-  Last login: Thu Nov 17 07:40:10 2022 from 172.27.112.1
-  [vagrant@ansible-node2 ~]$ exit
-  logout
-  Connection to ansible-node2 closed.
+  
   # 再次执行 ansible ping 操作
   [vagrant@ansible-controller inventory]$ ansible all -m ping -i inventory.ini # ping 所有的节点
   ## 执行成功
@@ -266,32 +246,14 @@ F:.
     ## 查看生成的文件
     [vagrant@ansible-controller .ssh]$ ls
     ansible  ansible.pub  authorized_keys  known_hosts
-    ## 将生成的公钥传输至 ansible-node1
+    ## 将生成的公钥传输至 ansible-node1 ansible-node2
     [vagrant@ansible-controller .ssh]$ ssh-copy-id -i ./ansible.pub ansible-node1
-    /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "./ansible.pub"
-    /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-    /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-    vagrant@ansible-node1\'s password:
     
-    Number of key(s) added: 1
-    
-    Now try logging into the machine, with:   "ssh 'ansible-node1'"
-    and check to make sure that only the key(s) you wanted were added.
-    ## 将生成的公钥传输至 ansible-node2
     [vagrant@ansible-controller .ssh]$ ssh-copy-id -i ./ansible.pub ansible-node2
-    /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "./ansible.pub"
-    /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-    /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-    vagrant@ansible-node2\'s password:
-    
-    Number of key(s) added: 1
-    
-    Now try logging into the machine, with:   "ssh 'ansible-node2'"
-    and check to make sure that only the key(s) you wanted were added.
     ```
-
+    
   - ansible-node1
-
+  
     ```shell{11-14}
     # 登录 ansible-node1
     $ ssh vagrant@172.27.123.226
@@ -312,9 +274,9 @@ F:.
     341WBeb+rIaj9dixnPd4FX4AeKRtL4Ib5/kEd59vkVcLbNypXXou+kWOo7iMlJRoQ4OmMTejQIQHE07Qd8iastLwyp6vaKMSK7XiivLzPY0wjnQbzD4eEg6c
     N+levYN6q1e99Rst0dAz vagrant@ansible-controller
     ```
-
+  
   - ansible-node2
-
+  
     ```shell{11-14}
     # 登录 ansible-node1
     $ ssh vagrant@172.27.116.221
@@ -335,24 +297,16 @@ F:.
     341WBeb+rIaj9dixnPd4FX4AeKRtL4Ib5/kEd59vkVcLbNypXXou+kWOo7iMlJRoQ4OmMTejQIQHE07Qd8iastLwyp6vaKMSK7XiivLzPY0wjnQbzD4eEg6c
     N+levYN6q1e99Rst0dAz vagrant@ansible-controller
     ```
-
+  
   - 证书登录验证
-
+  
     ```shell{2,8}
-    # ansible-controller 通过证书登录 ansible-node1
+    # ansible-controller 通过证书登录 ansible-node1 ansible-node2
     [vagrant@ansible-controller ~]$ ssh -i .ssh/ansible ansible-node1
-    Last login: Thu Nov 17 08:24:18 2022 from 172.27.112.1
-    [vagrant@ansible-node1 ~]$ exit
-    logout
-    Connection to ansible-node1 closed.
-    # ansible-controller 通过证书登录 ansible-node1
+    
     [vagrant@ansible-controller ~]$ ssh -i .ssh/ansible ansible-node2
-    Last login: Thu Nov 17 08:39:45 2022 from 172.27.112.1
-    [vagrant@ansible-node2 ~]$ exit
-    logout
-    Connection to ansible-node2 closed.
     ```
-
+  
 - 编写 **inventory.ini** 文件
 
   ```ini
