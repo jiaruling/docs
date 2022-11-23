@@ -6,11 +6,7 @@ title: 常用 Modules
 
 ::: tip Module
 
-**[Copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html#ansible-collections-ansible-builtin-copy-module)**
-
-**[File](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html#ansible-collections-ansible-builtin-file-module)**
-
-**[Template](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html#ansible-collections-ansible-builtin-template-module)**
+**[Copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html#ansible-collections-ansible-builtin-copy-module)** **[File](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html#ansible-collections-ansible-builtin-file-module)** **[Template](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html#ansible-collections-ansible-builtin-template-module)**
 
 :::
 
@@ -362,13 +358,7 @@ title: 常用 Modules
 
 ::: tip Module
 
-**[Ping](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/ping_module.html#ansible-collections-ansible-builtin-ping-module)**
-
-**[Gathers Facts](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/gather_facts_module.html#ansible-collections-ansible-builtin-gather-facts-module)**
-
-**[Groups](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html#ansible-collections-ansible-builtin-group-module)**
-
-**[User](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html#ansible-collections-ansible-builtin-user-module)**
+**[Ping](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/ping_module.html#ansible-collections-ansible-builtin-ping-module)** **[Gathers Facts](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/gather_facts_module.html#ansible-collections-ansible-builtin-gather-facts-module)** **[Groups](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html#ansible-collections-ansible-builtin-group-module)** **[User](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html#ansible-collections-ansible-builtin-user-module)** [**Service**](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/service_module.html#ansible-collections-ansible-builtin-service-module) [**Systemd**](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html#ansible-collections-ansible-builtin-systemd-module)
 
 :::
 
@@ -377,31 +367,13 @@ title: 常用 Modules
 - 目录结构
 
   ```tex{19-28}
-  module_demo
-  ├── file_module
-  │   ├── ansible.cfg
-  │   ├── files
-  │   │   └── test.txt
-  │   ├── inventory
-  │   │   ├── group_vars
-  │   │   │   └── all.yml
-  │   │   ├── hosts
-  │   │   ├── hosts_vars
-  │   │   │   ├── ansible-node1.yml
-  │   │   │   └── ansible-node2.yml
-  │   │   └── host_vars
-  │   │       ├── ansible-node1.yml
-  │   │       └── ansible-node2.yml
-  │   ├── site.yml
-  │   └── templates
-  │       └── test.j2
-  └── system_module
-      ├── ansible.cfg
-      ├── inventory
-      │   ├── group_vars
-      │   │   └── all.yml
-      │   └── hosts
-      └── site.yml
+  system_module
+  ├── ansible.cfg
+  ├── inventory
+  │   ├── group_vars
+  │   │   └── all.yml
+  │   └── hosts
+  └── site.yml
   ```
 
 - 文件内容
@@ -585,8 +557,6 @@ title: 常用 Modules
     ansible-node2              : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
     ```
 
-    
-
 ### 实战3
 
 ::: warning
@@ -651,7 +621,550 @@ title: 常用 Modules
 
 ::: warning
 
+**实战4** 是对 **实战3** 的拓展，旨在完成**user**的**创建**和**删除**，相同部分直接省略
+
 :::
 
+- 目录结构
+
+  ```tex
+  system_module
+  ├── ansible.cfg
+  ├── facts
+  │   ├── ansible-node1
+  │   └── ansible-node2
+  ├── inventory
+  │   ├── group_vars
+  │   │   └── all.yml
+  │   └── hosts
+  └── site.yml
+  ```
+
+- **system_module/site.yml** 文件内容
+
+  ```yaml{20-28}
+  - name: system module
+    hosts: all
+    gather_facts: no  # 不获取节点主机信息
+    become: yes         # 使用root权限
+  
+    tasks:
+    # - name: test ping
+    #   ansible.builtin.ping:
+    # - name: get times
+    #   ansible.builtin.debug:
+    #     msg: "{{ ansible_date_time }}"
+    # - name: create group
+    #   ansible.builtin.group:
+    #     name: ansible_demo
+    #     state: present
+    # - name: delete group
+    #   ansible.builtin.group:
+    #     name: ansible_demo
+    #     state: absent
+    - name: Create user
+      ansible.builtin.user:
+        name: demo
+        password: "{{ 'demo' | password_hash('sha512') }}"
+    # - name: delete user
+    #   ansible.builtin.user:
+    #     name: demo
+    #     state: absent  # 删除用户
+    #     remove: yes    # 删除home目录下的文件夹
+  ```
+
+- 使用 **SFTP** 同步文件至虚拟机
+
+- **ansible-controller** 中执行
+
+  ```shell
+  # 安装密码加密工具
+  [vagrant@ansible-controller ~]$ pip install passlib
+  # 切换项目目录
+  [vagrant@ansible-controller ~]$ cd ansible-code/playbook/module_demo/system_module/
+  # 查看文件和文件夹
+  [vagrant@ansible-controller system_module]$ ls
+  # 执行ansible-playbook
+  [vagrant@ansible-controller system_module]$ ansible-playbook site.yml
+  # 查看新创建的用户
+  [vagrant@ansible-controller system_module]$ ansible all -m shell -a "more /etc/passwd"
+  # 查看目标节点的/home/目录
+  [vagrant@ansible-controller system_module]$ ansible all -m shell -a "ls /home/"
+  # 通过ssh 密码的方式登录
+  [vagrant@ansible-controller system_module]$ ssh demo@ansible-node1
+  demo@ansible-node1's password:
+  [demo@ansible-node1 ~]$ exit
+  logout
+  Connection to ansible-node1 closed.
+  
+  # 删除用户，将site.yml文件中20-23行注释掉，将24-28行取消注释
+  ## 执行ansible-playbook
+  [vagrant@ansible-controller system_module]$ ansible-playbook site.yml
+  ## 查看用户是否删除
+  [vagrant@ansible-controller system_module]$ ansible all -m shell -a "more /etc/passwd"
+  ## 查看目标节点的/home/demo/目录是否删除
+  [vagrant@ansible-controller system_module]$ ansible all -m shell -a "ls /home/"
+  ```
+
+### 实战5
+
+::: warning 
+
+nginx 服务的部署和启动, **实战5** 是对 **实战4** 的拓展, 相同部分省了
+
+:::
+
+- 项目要结构
+
+  ```tex{10,12,13}
+  system_module
+  ├── ansible.cfg
+  ├── facts
+  │   ├── ansible-node1
+  │   ├── ansible-node2
+  ├── inventory
+  │   ├── group_vars
+  │   │   └── all.yml
+  │   └── hosts
+  ├── nginx.yml
+  ├── site.yml
+  └── templates
+      └── index.html.j2
+  ```
+
+- 文件内容
+
+  - **system_module/nginx.yml** 文件内容
+
+    ```yaml
+    - name: install and start nginx
+      hosts: all
+      become: yes
+    
+      tasks:
+        - name: install nginx on ubuntu
+          ansible.builtin.apt:
+            name:
+              - nginx
+            state: present
+            force_apt_get: yes
+          when: ansible_facts['distribution'] == "Ubuntu"
+    
+        - name: change index.html on ubuntu
+          ansible.builtin.template:
+            src: templates/index.html.j2
+            dest: /var/www/html/index.html
+          when: ansible_facts['distribution'] == "Ubuntu"
+    
+        - name: install nginx on centos
+          ansible.builtin.yum:
+            name:
+              - epel-release
+              - nginx
+            state: present
+          when: ansible_facts['distribution'] == "CentOS"
+    
+        - name: change index.html on Centos
+          ansible.builtin.template:
+            src: templates/index.html.j2
+            dest: /usr/share/nginx/html/index.html
+          when: ansible_facts['distribution'] == "CentOS"
+    
+        - name: Start service nginx
+          ansible.builtin.service:
+            name: nginx
+            state: started
+    ```
+
+  - **system_module/templates/index.html.j2**  文件内容
+
+    ```yaml
+    <h1>Hello Ansible!</h1>
+    <h2>{{ ansible_facts['distribution'] }}</h2>
+    ```
+
+- 使用 **SFTP** 同步文件至虚拟机
+
+- **ansible-controller** 中执行
+
+  ```shell
+  # 切换至项目目录
+  [vagrant@ansible-controller system_module]$ cd ~/ansible-code/playbook/module_demo/system_module
+  # 
+  ```
+
+  
+
 ## Module - 包管理
+
+::: tip Module
+
+**[Yum](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_module.html#ansible-collections-ansible-builtin-yum-module)** **[Apt](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html#ansible-collections-ansible-builtin-apt-module)** **[Package](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html#ansible-collections-ansible-builtin-package-module)** **[Pip](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html#ansible-collections-ansible-builtin-pip-module)**
+
+:::
+
+### 实战1
+
+- 目录结构
+
+  ```tex
+  package_module
+  ├── ansible.cfg
+  ├── inventory
+  │   ├── group_vars
+  │   │   └── all.yml
+  │   └── hosts
+  └── site.yml
+  ```
+
+- 文件内容
+
+  - **package_module/ansible.cfg** 文件内容
+
+    ```tex
+    [defaults]
+    inventory = inventory/hosts
+    private_key_file = /home/vagrant/.ssh/ansible
+    interpreter_python = auto_legacy_silent
+
+  - **package_module/site.yml** 文件内容
+
+    ```yaml
+    - name: package module
+      hosts: all
+      # gather_facts: no  # 不获取节点主机信息
+      become: yes         # 使用root权限
+    
+      tasks:
+        - name: test yum module
+          ansible.builtin.yum:
+            name: git
+            state: present
+          when: ansible_facts['distribution'] == "CentOS"
+        - name: test apt module
+          ansible.builtin.apt:
+            name: git
+            state: present
+          when: ansible_facts['distribution'] == "Ubuntu"
+        - name: test package module
+          ansible.builtin.package:
+            name: vim
+            state: present
+    ```
+
+  - **package_module/inventory/hosts** 文件内容
+
+    ```tex
+    [all]
+    ansible-node1
+    ansible-node2
+    ansible-node3
+    ```
+
+  - **package_module/inventory/group_vars/all.yml** 文件内容
+
+    ```yaml
+    ansible_user: vagrant
+    ansible_connection: ssh
+    ```
+
+- 使用 **SFTP** 同步文件至虚拟机
+
+- **ansible-controller** 中执行
+
+  ```shell
+  # 切换至项目目录
+  [vagrant@ansible-controller package_module]$ cd ~/ansible-code/playbook/module_demo/package_module/
+  # 执行ansible-playbook
+  [vagrant@ansible-controller package_module]$ ansible-playbook site.yml
+  # 查看安装的git版本
+  [vagrant@ansible-controller package_module]$ ansible all -m shell -a "git --version"
+  # 查看安装的vim版本
+  [vagrant@ansible-controller package_module]$ ansible all -m shell -a "vim --version"
+  ```
+
+### 实战2
+
+::: warning
+
+**实战2** 是对 **实战1** 的拓展，旨在完成**pip**的使用，相同部分直接省略
+
+在CentOS中测试没问题，在Ubuntu中测试失败（怀疑Ubuntu版本问题）
+
+:::
+
+- 目录结构
+
+  ```tex
+  package_module
+  ├── ansible.cfg
+  ├── inventory
+  │   ├── group_vars
+  │   │   └── all.yml
+  │   └── hosts
+  ├── python.yml
+  └── site.yml
+  ```
+
+- **package_module/site.yml** 文件内容
+
+  ```yaml
+  - name: package module
+    hosts: all
+    # gather_facts: no  # 不获取节点主机信息
+    become: yes         # 使用root权限
+  
+    tasks:
+      # - name: test yum module
+      #   ansible.builtin.yum:
+      #     name: git
+      #     state: present
+      #   when: ansible_facts['distribution'] == "CentOS"
+      # - name: test apt module
+      #   ansible.builtin.apt:
+      #     name: git
+      #     state: present
+      #     force_apt_get: yes
+      #   when: ansible_facts['distribution'] == "Ubuntu"
+      # - name: test package module
+      #   ansible.builtin.package:
+      #     name: vim
+      #     state: present
+      - name: pip install flask
+        ansible.builtin.pip3:
+          name: flask
+          state: present
+          virtualenv: /home/vagrant/vir/
+          virtualenv_command: /usr/bin/python3 -m venv
+  ```
+
+- **package_module/python.yml** 文件内容
+
+  ```yaml
+  - name: install python 3
+    hosts: all
+  
+    tasks:
+      - name: install Python on centos
+        become: yes
+        yum:
+          name:
+            - python3
+            - python3-devel
+            - python3-pip
+            - python-setuptools
+          state: present
+        when: ansible_facts['distribution'] == "CentOS"
+  
+      - name: install repositories
+        become: true
+        apt_repository:
+          repo: "{{ item }}"
+          update_cache: true
+        with_items:
+          - ppa:deadsnakes/ppa
+        when: ansible_facts['distribution'] == "Ubuntu"
+  
+      - name: install Python system packages
+        become: true
+        apt:
+          name:
+            - python3.6
+            - python3.6-dev
+            - python-setuptools
+            - python3-pip
+          state: present
+          force_apt_get: yes
+        when: ansible_facts['distribution'] == "Ubuntu"
+  ```
+
+- 使用 **SFTP** 同步文件至虚拟机
+
+- **ansible-controller** 中执行
+
+  ```shell
+  # 切换至项目目录
+  [vagrant@ansible-controller package_module]$ cd ~/ansible-code/playbook/module_demo/package_module/
+  # 执行ansible-playbook
+  [vagrant@ansible-controller package_module]$ ansible-playbook python.yml
+  [vagrant@ansible-controller package_module]$ ansible-playbook site.yml
+  # 进入node1
+  [vagrant@ansible-controller package_module]$ ssh -i ~/.ssh/ansible ansible-node1
+  Last login: Wed Nov 23 07:46:07 2022 from 172.27.119.219
+  ## 激活python虚拟环境
+  [vagrant@ansible-node1 ~]$ source vir/bin/activate
+  (vir) [vagrant@ansible-node1 ~]$ python
+  Python 3.6.8 (default, Nov 16 2020, 16:55:22)
+  [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)] on linux
+  Type "help", "copyright", "credits" or "license" for more information.
+  ### 检查flask是否安装成功
+  >>> import flask
+  >>> exit()
+  ## 退出
+  (vir) [vagrant@ansible-node1 ~]$ exit
+  logout
+  Connection to ansible-node1 closed.
+  ```
+
+## Module - Tools模块
+
+::: tip Module
+
+**[Get_url](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html#ansible-collections-ansible-builtin-get-url-module)**  [**unarchive**](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/unarchive_module.html#ansible-collections-ansible-builtin-unarchive-module)
+
+:::
+
+### 实战1
+
+- 项目要目录
+
+  ```tex
+  tools_module
+  ├── ansible.cfg
+  ├── inventory
+  │   ├── group_vars
+  │   │   └── all.yml
+  │   └── hosts
+  ├── Python-3.9.15.tgz
+  └── site.yml
+  ```
+
+- 文件内容
+
+  - **tools_module/site.yml** 文件内容
+
+    ```yml
+    - name: net-tools module
+      hosts: all
+      become: yes
+    
+      tasks:
+        - name: test get_url
+          ansible.builtin.get_url:
+            url: https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tgz
+            dest: /home/vagrant/
+        - name: test unarchive
+          ansible.builtin.unarchive:
+            src: /home/vagrant/Python-3.8.0.tgz
+            dest: /home/vagrant/
+            remote_src: yes
+        - name: test unarchive local file
+          ansible.builtin.unarchive:
+            src: Python-3.9.15.tgz
+            dest: /home/vagrant/
+    ```
+
+  - **tools_module/ansible.cfg** 文件内容
+
+    ```tex
+    [defaults]
+    inventory = inventory/hosts
+    private_key_file = /home/vagrant/.ssh/ansible
+    interpreter_python = auto_legacy_silent
+    ```
+
+  - **tools_module/inventory/hosts** 文件内容
+
+    ```tex
+    [all]
+    ansible-node1
+    ansible-node2
+    ansible-node3
+    ```
+
+  - **tools_module/inventory/group_vars/all.yml** 文件内容
+
+    ```yaml
+    ansible_user: vagrant
+    ansible_connection: ssh
+    ```
+
+- 使用 **SFTP** 同步文件至虚拟机
+
+- **ansible-controller** 中执行
+
+  ```shell
+  # 切换至项目目录
+  [vagrant@ansible-controller package_module]$ cd ~/ansible-code/playbook/module_demo/package_module/
+  # 执行ansible-playbook
+  [vagrant@ansible-controller package_module]$ ansible-playbook site.yml
+  # 查看目标主机目录
+  [vagrant@ansible-controller tools_module]$ ansible all -m shell -a "ls /home/vagrant"
+  ```
+
+## Module - Command模块
+
+::: tip Module
+
+**[command](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html#ansible-collections-ansible-builtin-command-module)** **[shell](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html#ansible-collections-ansible-builtin-shell-module)**
+
+:::
+
+### 实战1
+
+- 项目要目录
+
+  ```tex
+  command_module
+  ├── ansible.cfg
+  ├── inventory
+  │   ├── group_vars
+  │   │   └── all.yml
+  │   └── hosts
+  └── site.yml
+  ```
+
+- 文件内容
+
+  - **command_module/site.yml** 文件内容
+
+    ```yml{8}
+    - name: command module
+      hosts: all
+      become: yes
+    
+      tasks:
+        - name: test command
+          ansible.builtin.command: cat /etc/hosts
+          register: hosts_value # 接收返回值的变量
+    
+        - ansible.builtin.debug:
+            msg: "{{ hosts_value }}"
+    ```
+
+  - **command_module/ansible.cfg** 文件内容
+
+    ```tex
+    [defaults]
+    inventory = inventory/hosts
+    private_key_file = /home/vagrant/.ssh/ansible
+    interpreter_python = auto_legacy_silent
+    ```
+
+  - **command_module/inventory/hosts** 文件内容
+
+    ```tex
+    [all]
+    ansible-node1
+    ansible-node2
+    ansible-node3
+    ```
+
+  - **command_module/inventory/group_vars/all.yml** 文件内容
+
+    ```yaml
+    ansible_user: vagrant
+    ansible_connection: ssh
+    ```
+
+- 使用 **SFTP** 同步文件至虚拟机
+
+- **ansible-controller** 中执行
+
+  ```shell
+  # 切换至项目目录
+  [vagrant@ansible-controller package_module]$ cd ~/ansible-code/playbook/module_demo/package_module/
+  # 执行ansible-playbook
+  [vagrant@ansible-controller package_module]$ ansible-playbook site.yml
+  ```
 
