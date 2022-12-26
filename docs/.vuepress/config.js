@@ -39,7 +39,8 @@ module.exports = {
           { text: "运维", link: "/ops/" },
           { text: '面试', link: '/interview/' },
           { text: "编程语言", link: "/language/" },
-          { text: '设计模式', link: '/design_pattern/' }
+          { text: '设计模式', link: '/design_pattern/' },
+          { text: '加密', link: '/cryptography/' }
         ],
       },
       {
@@ -161,6 +162,15 @@ module.exports = {
             "/design_pattern/actionPattern.md",
             "/design_pattern/J2EEPattern.md",
             "/design_pattern/summary.md",
+          ]
+        }
+      ],
+      '/cryptography/': [
+        {
+          text: '加密',
+          collapsible: true,
+          children: [
+            "/cryptography/README.md"
           ]
         }
       ],
