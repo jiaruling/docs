@@ -12,7 +12,7 @@ title：常用命令速查
 
 ::: tip command
 
-**init、add、commit、status、clone、log、diff、tag**
+**init、add、commit、status、clone、log、diff、tag、stash**
 
 :::
 
@@ -61,6 +61,19 @@ $ git tag                 # 查看所有标签
 $ git tag v0.0.9 85fc7e7  # 给某次提交追加标签
 $ git tag -d v0.0.9       # 删除标签
 $ git show v1.0.0         # 查看此版本所修改的内容
+
+# git栈
+## 使用场景: 当在一个分支的开发工作未完成，却又要切换到另外一个分支进行开发的时候，可以先将自己写好的代码，储存到git栈，进行另外一个分支的代码开发，在需要的时候再恢复。
+$ git stash                # 保存当前的【工作区】与【暂存区】的状态，把当前的修改的保存到git栈，等以后需要的时候再恢复，git stash 这个命令可以多次使用，每次使用都会新加一个stash@{num}，num是编号
+$ git stash save 'comment' # 作⽤等同于【git stash】，区别是可以加⼀些注释， 执⾏存储时，添加注释，⽅便查找
+$ git stash pop            # 默认恢复git栈中最新的一个stash@{num}，建议在git栈中只有一条的时候使用，以免混乱。【注：该命令将堆栈中最新保存的内容删除】
+$ git stash apply          # 将堆栈中的内容恢复到当前分支下。这个命令不同于【git stash pop】。该命令不会将内容从对堆栈中删除，也就是该命令能够将堆栈的内容多次运用到工作目录，适合用与多个分支的场景。
+						   # 使用方法：git stash apply stash@{$num}
+$ git stash drop           # 从堆栈中移除指定的stash
+						   # 使用方法：git stash drop stash@{$num}
+$ git stash clear          # 移除全部的stash
+$ git stash list           # 查看当前stash的所有内容
+$ git stash show           # 查看堆栈中最新保存的stash和当前⽬录的差异，显⽰做了哪些改动，默认show第一个存储
 ```
 
 ### 分支管理&远程操作
