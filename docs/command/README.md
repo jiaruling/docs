@@ -12,13 +12,17 @@ title：常用命令速查
 
 ::: tip command
 
-**init、add、commit、status、clone、log、diff、tag、stash**
+**init、clone、add、commit、status、log、diff、tag、stash**
 
 :::
 
 ```shell
 # 初始化git仓库
 $ git init
+
+# 克隆项目
+$ git clone [url] 
+$ git clone [url] [rename] # 克隆项目并指定文件夹名称
 
 # 工作区 -> 暂存区
 $ git add .     # 添加所有文件到暂存区【只对当前目录下的文件及子目录有效，对上级目录中文件的改动无效】
@@ -37,10 +41,6 @@ $ git commit 1.txt 2.txt -m "commit" # 提交【工作区】的指定文件1.txt
 # 查看状态【上次提交之后是否有对文件进行再次修改】
 $ git status
 $ git status -s  # -s参数 获得简短的输出结果
-
-# 克隆项目
-$ git clone [url] 
-$ git clone [url] [rename] # 克隆项目并指定文件夹名称
 
 # 提交历史
 $ git log
@@ -85,11 +85,30 @@ $ git stash show           # 查看堆栈中最新保存的stash和当前⽬录�
 :::
 
 ```shell
-# 删除远程分支
-$ git push origin --delete [branchName]
+# 分支
+$ git branch                             # 列出所有分支
+$ git branch dev                         # 创建dev分支
+$ git checkout dev                       # 切换到dev分支
+$ git checkout -b dev                    # 创建dev分支并切换到dev分支
+$ git branch -d dev                      # 删除dev分支
+$ git push origin --delete [branchName]  # 删除远程分支
+
+# 合并分支
+## merge 
+### 【无合并冲突】只有一个分支有提交
+### 【无合并冲突】两个分支均有提交
+### 【有合并冲突】
+## rebase
+### 【无合并冲突】只有一个分支有提交
+### 【无合并冲突】个分支均有提交
+### 【有合并冲突】
+
+# 远程
 ```
 
+#### Merge和Rebase的异同点
 
+ https://joyohub.com/2020/04/06/git-rebase/
 
 ### 版本回退&放弃本地修改
 
