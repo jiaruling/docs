@@ -10,5 +10,11 @@ next:
 - python
 - golang
 - javascript
+  - typescript
 - rust
 - c
+  - c++
+  - c#
+- SQL
+- Lua
+- shell

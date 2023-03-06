@@ -94,14 +94,20 @@ $ git branch -d dev                      # 删除dev分支
 $ git push origin --delete [branchName]  # 删除远程分支
 
 # 合并分支
-## merge 
-### 【无合并冲突】只有一个分支有提交
-### 【无合并冲突】两个分支均有提交
+## merge 合并主分支上会产生一次新的提交
+### 【无合并冲突】
+$ git merge dev # 合并dev分支
 ### 【有合并冲突】
+$ git merge dev              # 合并dev分支
+$ git add .                  # 解决冲突后执行
+$ git commit -m "branch dev" # 提交
 ## rebase
-### 【无合并冲突】只有一个分支有提交
-### 【无合并冲突】个分支均有提交
+### 【无合并冲突】
+$ git rebase dev # 合并dev分支
 ### 【有合并冲突】
+$ git rebase dev         # 合并dev分支
+$ git add .              # 解决冲突后执行
+$ git rebase --continue  # 继续执行合并
 
 # 远程
 ```
