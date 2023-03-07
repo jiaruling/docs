@@ -12,7 +12,7 @@ title：常用命令速查
 
 ::: tip command
 
-**init、clone、add、commit、status、log、diff、tag、stash**
+**init、clone、add、commit、status、log、diff、tag、stash、rm、mv**
 
 :::
 
@@ -74,13 +74,28 @@ $ git stash drop           # 从堆栈中移除指定的stash
 $ git stash clear          # 移除全部的stash
 $ git stash list           # 查看当前stash的所有内容
 $ git stash show           # 查看堆栈中最新保存的stash和当前⽬录的差异，显⽰做了哪些改动，默认show第一个存储
+
+# 删除文件&取消跟踪文件【只能操作已经追踪的文件】https://www.cnblogs.com/zhuchenglin/p/7128383.html
+$ git rm 1.txt                 # 删除工作区已commit的文件【commit之后文件没有改动】
+$ git rm --cached readme1.txt  # 删除readme1.txt的跟踪，并保留在本地
+$ git rm --f readme1.txt       # 删除readme1.txt的跟踪，并删除本地文件
+## 对所有文件都取消跟踪
+$ git rm -r --cached . 　　    # 不删除本地文件
+$ git rm -r --f . 　　         # 删除本地文件
+## 对某个文件夹取消跟踪
+$ git rm --cached log/*        # 删除log文件夹下所有文件的跟踪，并保留文件和文件夹
+$ git rm --f log/*             # 删除log文件夹下所有文件的跟踪，并删除文件和文件夹
+
+# 移动和重命名【只能操作已经追踪的文件】
+$ git mv 1.txt 11.txt          # 重命名文件
+$ git mv -f 1.txt 11.txt       # 如果新文件名已经存在，但还是要重命名它，可以使用 -f 参数
 ```
 
 ### 分支管理&远程操作
 
 :::tip command
 
-**branch、checkout、merge 、rebase、remote、pull、push、 fetch**
+**branch、checkout、merge 、rebase、remote、 fetch、pull、push**
 
 :::
 
@@ -91,30 +106,51 @@ $ git branch dev                         # 创建dev分支
 $ git checkout dev                       # 切换到dev分支
 $ git checkout -b dev                    # 创建dev分支并切换到dev分支
 $ git branch -d dev                      # 删除dev分支
-$ git push origin --delete [branchName]  # 删除远程分支
 
 # 合并分支
 ## merge 合并主分支上会产生一次新的提交
 ### 【无合并冲突】
-$ git merge dev # 合并dev分支
+$ git checkout master        # 切换主分支
+$ git merge dev              # 合并dev分支
+$ git merge master dev       # 以上两句缩写为一句命令
 ### 【有合并冲突】
+$ git checkout master        # 切换主分支
 $ git merge dev              # 合并dev分支
 $ git add .                  # 解决冲突后执行
 $ git commit -m "branch dev" # 提交
 ## rebase
 ### 【无合并冲突】
-$ git rebase dev # 合并dev分支
+$ git checkout master    # 切换主分支
+$ git rebase dev         # 合并dev分支
+$ git rebase master dev  # 以上两句缩写为一句命令
 ### 【有合并冲突】
+$ git checkout master    # 切换主分支
 $ git rebase dev         # 合并dev分支
 $ git add .              # 解决冲突后执行
 $ git rebase --continue  # 继续执行合并
 
-# 远程
+# 远程仓库
+$ git remote                           # 查看是否关联远程仓库
+$ git remote -v                        # 查看远程仓库
+$ git remote show [origin]             # 显示某个远程仓库的信息
+$ git remote add [shortname] [url]     # 添加远程版本库
+$ git remote rm [origin]               # 删除远程仓库
+$ git remote rename old_name new_name  # 修改仓库名
+
+# fetch
+$ git fetch origin        # git fetch [alias]  拉取代码
+$ git merge origin/master # git merge [alias]/[branch] 合并代码
+
+# pull == fetch + merge
+$ git pull origin master                # git pull <远程主机名> <远程分支名>
+$ git pull origin master:brantest       # git pull <远程主机名> <远程分支名>:<本地分支名>
+
+# push
+$ git push origin master                 # git push <远程主机名> <本地分支名>
+$ git push origin master:master          # git push <远程主机名> <本地分支名>:<远程分支名>
+$ git push --force origin master         # 本地版本与远程版本有差异，但又要强制推送
+$ git push origin --delete [branchName]  # 删除远程分支
 ```
-
-#### Merge和Rebase的异同点
-
- https://joyohub.com/2020/04/06/git-rebase/
 
 ### 版本回退&放弃本地修改
 
@@ -143,7 +179,6 @@ $ git reset --hard origin/master    # 将本地的状态回退到和远程的一
 ###【HEAD 表示当前版本】【HEAD^ 上一个版本】【HEAD^^ 上上一个版本】【HEAD^^^ 上上上一个版本】
 ###【HEAD~0 表示当前版本】【HEAD~1 上一个版本】【HEAD^2 上上一个版本】【HEAD^3 上上上一个版本】
 
-
 # 放弃本地修改
 ## 情况1:没有执行 git add
 $ git checkout -- 1.txt
@@ -159,6 +194,12 @@ $ git reset --hard HEAD^
 
 ### 用户信息
 
+::: tip
+
+**config**
+
+:::
+
 ```shell
 # 获取
 $ git config user.name   # 获取当前登录的用户
@@ -173,30 +214,17 @@ $ git config --global user.password 'password'  # 修改登陆密码，password�
 $ git clean -df
 ```
 
-### 非重点
+### Merge和Rebase的异同点
 
-:::tip command
+::: warning rebase的黄金原则
 
-**rm、mv**
+- **不能在一个共享的分支上进行Git rebase操作**
+- 融合代码到公共分支的时使用 `git merge`，而不用 `git rebase`
+- 融合代码到个人分支的时候使用`git rebase`，可以不污染分支的提交记录，形成简洁的线性提交历史记录
 
 :::
 
-```shell
-# 删除文件&取消跟踪文件【只能操作已经追踪的文件】https://www.cnblogs.com/zhuchenglin/p/7128383.html
-$ git rm 1.txt # 删除工作区已commit的文件【commit之后文件没有改动】
-$ git rm --cached readme1.txt    # 删除readme1.txt的跟踪，并保留在本地
-$ git rm --f readme1.txt        # 删除readme1.txt的跟踪，并删除本地文件
-## 对所有文件都取消跟踪
-$ git rm -r --cached . 　　# 不删除本地文件
-$ git rm -r --f . 　　     # 删除本地文件
-## 对某个文件夹取消跟踪
-$ git rm --cached log/*    # 删除log文件夹下所有文件的跟踪，并保留文件和文件夹
-$ git rm --f log/*         # 删除log文件夹下所有文件的跟踪，并删除文件和文件夹
-
-# 移动和重命名【只能操作已经追踪的文件】
-$ git mv 1.txt 11.txt    # 重命名文件
-$ git mv -f 1.txt 11.txt # 如果新文件名已经存在，但还是要重命名它，可以使用 -f 参数
-```
+[跳转]( https://joyohub.com/2020/04/06/git-rebase/)
 
 ## Linux
 
