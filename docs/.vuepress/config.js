@@ -32,6 +32,8 @@ module.exports = {
     logo: '/images/logo.png',
     // 导航栏
     navbar: [
+      { text: "大纲", link: "/syllabus/" },
+      { text: "命令速查", link: "/command/" },
       {
         text: '导航',
         children: [
@@ -50,7 +52,6 @@ module.exports = {
         ],
       },
       { text: "资源", link: "/resource/" },
-      { text: "命令速查", link: "/command/" },
       {
         text: '关于',
         children: [
@@ -61,6 +62,16 @@ module.exports = {
     ],
     // 侧边栏
     sidebar: {
+      '/command/': [
+        {
+          text: "命令速查",
+          collapsible: true,
+          children:[
+            '/command/README.md',
+            '/command/git.md',
+          ],
+        },
+      ],
       '/ops/': [
         {
           text: '运维',
