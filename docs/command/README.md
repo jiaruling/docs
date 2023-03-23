@@ -58,17 +58,35 @@ $  docker run -d --name=[container-name] [image-name] /bin/sh -c "while true;do 
 
 ## Golang
 
+### 交叉编译
+
+> golang 打包 【Windows 下编译 Mac 和 Linux 64位可执行程序】
+
 ```shell
-# golang 打包 【Windows 下编译 Mac 和 Linux 64位可执行程序】
+# mac
 $ SET CGO_ENABLED=0
 $ SET GOOS=darwin
 $ SET GOARCH=amd64
 $ go build -o alias main.go  # go build [-o 输出名] [包名]
 
+# linux
 $ SET CGO_ENABLED=0
 $ SET GOOS=linux
 $ SET GOARCH=amd64
 $ go build -o alias main.go  # go build [-o 输出名] [包名]
+```
+
+### 查看标准库
+
+```shell
+# 配置 GOPROXY 环境变量，以下三选一
+$ go env -w GOPROXY=https://goproxy.cn,direct                  # 七牛 CDN
+$ go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct # 阿里云
+$ go env -w GOPROXY=https://goproxy.io,direct                  # 官方
+# 安装godoc
+$ go get golang.org/x/tools/cmd/godoc
+# 执行命令并在浏览器中打开
+$ godoc -http=:6060
 ```
 
 ## Python
