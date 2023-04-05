@@ -14,6 +14,10 @@ title: 配置 VSCode
 
 ![](/images/vscode3.jpg)
 
+- **窗口字体大小**
+
+![](/images/vscode6.jpg)
+
 - **关键字斜体**
 
   - 按下 `Ctrl + Shift + P`，在输入框中输入 `Open User settings(JSON)`
