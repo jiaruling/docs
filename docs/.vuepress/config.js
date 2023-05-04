@@ -49,6 +49,7 @@ module.exports = {
         text: '实战',
         children: [
           { text: "微服务网关", link: "/combat/gateway/" },
+          { text: "Web3.0", link: "/combat/web3.0/" },
         ],
       },
       { text: "资源", link: "/resource/" },
@@ -66,7 +67,7 @@ module.exports = {
         {
           text: "命令速查",
           collapsible: true,
-          children:[
+          children: [
             '/command/README.md',
             '/command/git.md',
           ],
@@ -159,6 +160,15 @@ module.exports = {
             "/combat/gateway/README.md",
             "/combat/gateway/net.md",
             "/combat/gateway/http_proxy.md",
+          ]
+        },
+      ],
+      '/combat/web3.0/': [
+        {
+          text: "Web3.0",
+          collapsible: true,
+          children: [
+            "/combat/web3.0/README.md",
           ]
         }
       ],
